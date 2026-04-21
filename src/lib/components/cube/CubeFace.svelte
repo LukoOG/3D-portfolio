@@ -11,7 +11,7 @@
 		isActive?: boolean;
 	} = $props();
 
-  const config = faceConfig[face];
+const config = $derived(faceConfig[face]);
 
   let material = $derived(
     new MeshStandardMaterial({
@@ -25,5 +25,5 @@
 </script>
 
 <T.Mesh {material}>
-  <T.PlaneGeometry args={[2, 2]}
+  <T.PlaneGeometry args={[2, 2]} />
 </T.Mesh>
