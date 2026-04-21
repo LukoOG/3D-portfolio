@@ -1,43 +1,57 @@
 <script lang="ts">
-  import { T, useTask } from '@threlte/core'
-  import { MeshRefractionMaterial } from '@threlte/extras'
-  import { Quaternion } from 'three'
-  import { cubeState, getTargetQuaternion } from '$lib/states/cubeState.svelte'
-  import * as THREE from 'three'
+	import { T, useTask } from '@threlte/core';
+	import { Quaternion, BoxGeometry, MeshStandardMaterial, Mesh, Group } from 'three';
+	import { cubeState, getTargetQuaternion } from '$lib/index';
+	import CubeFace from './CubeFace.svelte';
+	import CubeFloat from './CubeFloat.svelte';
+	import type { FaceName } from '$lib/index';
 
-  let meshRef = $state<THREE.Mesh | undefined>(undefined)
-  let currentQ = new Quaternion()
-  let floatY = $state(0)
-  let time = 0
+	// The 6 faces in Three.js BoxGeometry order:
+	// +X right, -X left, +Y top, -Y bottom, +Z front, -Z back
+	const faces: {
+		name: FaceName;
+		position: [number, number, number];
+		rotation: [number, number, number];
+	}[] = [
+		{ name: 'hero', position: [0, 0, 1.01], rotation: [0, 0, 0] },
+		{ name: 'contact', position: [0, 0, -1.01], rotation: [0, Math.PI, 0] },
+		{ name: 'about', position: [-1.01, 0, 0], rotation: [0, -Math.PI / 2, 0] },
+		{ name: 'projects', position: [1.01, 0, 0], rotation: [0, Math.PI / 2, 0] },
+		{ name: 'skills', position: [0, 1.01, 0], rotation: [-Math.PI / 2, 0, 0] },
+		{ name: 'back', position: [0, -1.01, 0], rotation: [Math.PI / 2, 0, 0] }
+	];
 
-  useTask((delta) => {
-    if (!meshRef) return
-    const speed = 1 - Math.pow(0.01, delta)
-    const target = getTargetQuaternion()
-    currentQ.slerpQuaternions(currentQ, target, speed)
-    meshRef.quaternion.copy(currentQ)
-  })
+	const boxGeo = new BoxGeometry(2, 2, 2);
+	const boxMat = new MeshStandardMaterial({
+		color: '#0a0a0f',
+		roughness: 0.3,
+		metalness: 0.8
+	});
 
-  useTask((delta) => {
-    time += delta
-    floatY = Math.sin(time * 0.6) * 0.08
-  })
+	let currentQ = new Quaternion();
+	let targetQ = $derived(getTargetQuaternion());
+
+	// Slerp speed — higher = snappier rotation
+	const SLERP_SPEED = 3.5;
+
+	let groupRef: any = $state();
+
+	useTask((delta) => {
+		if (!groupRef) return;
+		currentQ.slerp(targetQ, SLERP_SPEED * delta);
+		groupRef.quaternion.copy(currentQ);
+	});
 </script>
 
-<T.Group position.y={floatY}>
-  <T.Mesh bind:ref={meshRef}>
-    <T.BoxGeometry args={[2.8, 2.8, 2.8]} />
-    <T.MeshStandardMaterial
-      backside
-      samples={8}
-      thickness={0.2}
-      chromaticAberration={0.04}
-      iridescence={0.3}
-      roughness={0.05}
-      toneMapped={false}
-      color="#0a0a12"
-      attenuationColor="#00ffe1"
-      attenuationDistance={0.5}
-    />
-  </T.Mesh>
-</T.Group>
+<CubeFloat>
+	<T.Group bind:ref={groupRef}>
+		<T.Mesh geometry={boxGeo} material={boxMat}>
+			<!-- Face planes sitting 0.01 above each face surface -->
+			{#each faces as face}
+				<T.Group position={face.position} rotation={face.rotation}>
+					<CubeFace face={face.name} isActive={cubeState.activeFace === face.name} />
+				</T.Group>
+			{/each}
+		</T.Mesh>
+	</T.Group>
+</CubeFloat>

@@ -8,7 +8,11 @@
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
-{@render children()}
+
+<Scene />
+<main>
+	{@render children?.()}
+</main>
 
 
 <!-- <div class="scene-wrapper"> -->
