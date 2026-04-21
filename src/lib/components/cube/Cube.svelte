@@ -29,29 +29,33 @@
 	});
 
 	let currentQ = new Quaternion();
-	let targetQ = $derived(getTargetQuaternion());
+	// let targetQ = $derived(getTargetQuaternion());
 
 	// Slerp speed — higher = snappier rotation
 	const SLERP_SPEED = 3.5;
 
-	let groupRef: any = $state();
+	let groupRef: any = $state(null);
 
 	useTask((delta) => {
 		if (!groupRef) return;
+		const targetQ = getTargetQuaternion();
+		//   console.log('active face:', cubeState.activeFace, 'targetQ:', targetQ);
 		currentQ.slerp(targetQ, SLERP_SPEED * delta);
 		groupRef.quaternion.copy(currentQ);
+		// console.log(currentQ)
 	});
+
 </script>
 
 <CubeFloat>
 	<T.Group bind:ref={groupRef}>
-		<T.Mesh geometry={boxGeo} material={boxMat}>
-			<!-- Face planes sitting 0.01 above each face surface -->
-			{#each faces as face}
-				<T.Group position={face.position} rotation={face.rotation}>
-					<CubeFace face={face.name} isActive={cubeState.activeFace === face.name} />
-				</T.Group>
-			{/each}
-		</T.Mesh>
+		<!--Box shell-->
+		<T.Mesh geometry={boxGeo} material={boxMat} />
+		<!-- Face planes sitting 0.01 above each face surface -->
+		{#each faces as face}
+			<T.Group position={face.position} rotation={face.rotation}>
+				<CubeFace face={face.name} isActive={cubeState.activeFace === face.name} />
+			</T.Group>
+		{/each}
 	</T.Group>
 </CubeFloat>

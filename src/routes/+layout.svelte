@@ -3,6 +3,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import { Canvas } from '@threlte/core';
 	import Scene from '$lib/components/scene/Scene.svelte';
+	import { navigateTo } from '$lib';
 
 	let { children } = $props();
 </script>
@@ -12,6 +13,7 @@
 <Scene />
 
 <main>
+	<button onclick={() => navigateTo('skills')}>About</button>
 	{@render children?.()}
 </main>
 
@@ -19,6 +21,6 @@
 	main {
 		position: relative;
 		z-index: 1;
-		pointer-events: none;
+		/* pointer-events: none; */
 	}
 </style>

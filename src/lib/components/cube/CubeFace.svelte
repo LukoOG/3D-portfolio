@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { T } from '@threlte/core';
 	import { faceConfig, type FaceName } from '$lib/index';
-  import { MeshStandardMaterial } from 'three';
+  import { MeshBasicMaterial } from 'three';
 
 	let {
 		face,
@@ -14,12 +14,12 @@
 const config = $derived(faceConfig[face]);
 
   let material = $derived(
-    new MeshStandardMaterial({
+    new MeshBasicMaterial({
       color: config.color,
-      emissive: config.color,
-      emissiveIntensity: isActive ? 0.3 : 0.05,
-      roughness: 0.4,
-      metalness: 0.6,
+      // emissive: config.color,
+      // emissiveIntensity: isActive ? 0.3 : 0.05,
+      // roughness: 0.4,
+      // metalness: 0.6,
     })
   )
 </script>

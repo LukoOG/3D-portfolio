@@ -1,14 +1,12 @@
 <script lang="ts">
 	import { Canvas, T } from '@threlte/core';
-	import Cube from '../cube/CubeMesh.svelte';
-	import { OrbitControls } from '@threlte/extras'
+	import Cube from '../cube/Cube.svelte';
+	import { OrbitControls } from '@threlte/extras';
 </script>
 
 <div class="scene-root">
-	<Canvas>
-		<T.PerspectiveCamera makeDefault position={[0, 0, 5]} fov={60}>
-			<OrbitControls autoRotate />
-		</T.PerspectiveCamera>
+	<Canvas renderMode="always">
+		<T.PerspectiveCamera makeDefault position={[0, 0, 5]} fov={60} />
 		
         <T.AmbientLight intensity={0.3} />
 		<T.PointLight position={[3, 5, 3]} intensity={2} color="#000" />

@@ -13,11 +13,11 @@
 		t += delta;
 
 		bobY = Math.sin(t * 0.8) * 0.12;
-		driftRotX = Math.sin(t * 0.8) * 0.2;
-		driftRotY = Math.sin(t * 0.3) * 0.04;
+		driftRotX = Math.sin(t * 0.8) * 0.9;
+		driftRotY = Math.sin(t * 0.3) * 0.6;
 	});
 </script>
 
-<T.Group position.y={bobY} rotation.y={driftRotY} rotation.x={driftRotX}>
+<T.Group position.y={bobY} rotation.y={driftRotY}>
 	{@render children()}
 </T.Group>
