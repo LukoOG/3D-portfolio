@@ -3,6 +3,7 @@ import { faceRotations, type FaceName } from '$lib/utils/facePositions';
 
 export const cubeState = $state({
   activeFace: 'hero' as FaceName,
+  isNavigating: false, //true during tween, blocks input
 })
 
 export function navigateTo(face: FaceName) {

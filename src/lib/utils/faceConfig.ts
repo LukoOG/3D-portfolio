@@ -1,17 +1,16 @@
 import type { FaceName } from './facePositions'
 
 export interface FaceConfig {
-  name: FaceName
   label: string
-  icon: string          // lucide icon name or emoji fallback
-  shortcut: string      // keyboard key
+  route: string
+  color: string  // used for face material tint
 }
 
-export const faces: FaceConfig[] = [
-  { name: 'hero',     label: 'Home',     icon: '⬡', shortcut: '1' },
-  { name: 'about',    label: 'About',    icon: '◈', shortcut: '2' },
-  { name: 'projects', label: 'Projects', icon: '◻', shortcut: '3' },
-  { name: 'skills',   label: 'Skills',   icon: '◆', shortcut: '4' },
-  { name: 'blog',     label: 'Blog',     icon: '◇', shortcut: '5' },
-  { name: 'contact',  label: 'Contact',  icon: '○', shortcut: '6' },
-]
+export const faceConfig: Record<FaceName, FaceConfig> = {
+  hero:     { label: 'Home',     route: '/',         color: '#1a1a2e' },
+  about:    { label: 'About',    route: '/about',    color: '#16213e' },
+  projects: { label: 'Projects', route: '/projects', color: '#0f3460' },
+  contact:  { label: 'Contact',  route: '/contact',  color: '#533483' },
+  skills:   { label: 'Skills',   route: '/skills',   color: '#e94560' },
+  back:     { label: '',         route: '/',         color: '#0a0a0a' },
+}
