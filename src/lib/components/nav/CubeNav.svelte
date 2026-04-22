@@ -21,9 +21,10 @@
 	<ul>
 		{#each Object.entries(faceConfig) as [name, face]}
 			{@const faceName = name as FaceName}
+			{@const showHighlight = cubeState.activeFace === name && cubeState.mode !== 'idle'}
 			<li>
 				<button
-					class:active={cubeState.activeFace === name}
+					class:active={showHighlight}
 					onclick={(e) => {
 						navigateTo(faceName, face.route);
 						e.currentTarget.blur();
