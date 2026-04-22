@@ -29,8 +29,8 @@
 	useTask((delta) => {
         if(!pointsRef) return;
         t += delta
-        pointsRef.rotation.x += t * 0.01
-        pointsRef.rotation.y += t * 0.007
+        pointsRef.rotation.x = Math.sin(t * 0.5) * 0.5;
+        pointsRef.rotation.y = Math.cos(t * 0.2) * 0.5;
     });
 </script>
 

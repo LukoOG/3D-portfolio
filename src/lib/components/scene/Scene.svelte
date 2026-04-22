@@ -5,11 +5,13 @@
 	import CameraRig from './CameraRig.svelte';
 	import Background from './Background.svelte';
 	import Particles from './Particles.svelte';
+	import Lights from './Lights.svelte';
 </script>
 
 <div class="scene-root">
 	<Canvas renderMode="always">c
 		<CameraRig />
+		<Lights />
 		<Background />
 		<Particles />
 		<Cube />
