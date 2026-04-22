@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { T } from '@threlte/core';
-	import { faceConfig, type FaceName } from '$lib/index';
+	import { cubeState, faceConfig, type FaceName } from '$lib/index';
   import { MeshBasicMaterial, MeshStandardMaterial } from 'three';
+  import { interactivity } from '@threlte/extras';
 
 	let {
 		face,
@@ -22,8 +23,16 @@ const config = $derived(faceConfig[face]);
       metalness: 0.6,
     })
   )
+
+  function handleOnClick (e: MouseEvent){
+    if(cubeState.mode == 'arrived' && cubeState.activeFace == face){
+      cubeState.mode = 'entered'
+    }
+  }
+
+  interactivity()
 </script>
 
-<T.Mesh {material}>
+<T.Mesh {material} onclick={handleOnClick}>
   <T.PlaneGeometry args={[2, 2]} />
 </T.Mesh>

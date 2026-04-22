@@ -5,6 +5,7 @@
 	import Scene from '$lib/components/scene/Scene.svelte';
 	import { navigateTo } from '$lib';
 	import CubeNav from '$lib/components/nav/CubeNav.svelte';
+	import EnterPrompt from '$lib/components/html/EnterPrompt.svelte';
 
 	let { children } = $props();
 </script>
@@ -12,6 +13,7 @@
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
 <Scene />
+<EnterPrompt />
 
 <main>
 	<CubeNav />

@@ -13,10 +13,21 @@
 
 	useTask((delta) => {
 		t += delta;
-		let shouldDrift = cubeState.mode !== 'entered'
-		bobY = Math.sin(t * 0.8) * 0.12;
+		let shouldDrift = cubeState.mode !== 'entered';
+		bobY = shouldDrift ? Math.sin(t * 0.8) * 0.12 : 0;
 		driftRotX = shouldDrift ? Math.sin(t * 0.8) * 0.9 : 0;
 		driftRotY = shouldDrift ? Math.sin(t * 0.3) * 0.6 : 0;
+
+		///uncommet if the cube should slowly go back to neutal
+		// if (shouldDrift) {
+		// 	t += delta;
+		// 	bobY = Math.sin(t * 0.8) * 0.12;
+		// 	driftRotY = Math.sin(t * 0.3) * 0.04;
+		// } else {
+		// 	// smoothly settle back to neutral
+		// 	bobY += (0 - bobY) * delta * 3;
+		// 	driftRotY += (0 - driftRotY) * delta * 3;
+		// }
 	});
 </script>
 
