@@ -17,7 +17,7 @@
 		{ name: 'contact', position: [0, 0, -1.01], rotation: [0, Math.PI, 0] },
 		{ name: 'about', position: [-1.01, 0, 0], rotation: [0, -Math.PI / 2, 0] },
 		{ name: 'projects', position: [1.01, 0, 0], rotation: [0, Math.PI / 2, 0] },
-		{ name: 'skills', position: [0,1.01, 0], rotation: [-Math.PI / 2, 0, 0] },
+		{ name: 'skills', position: [0, 1.01, 0], rotation: [-Math.PI / 2, 0, 0] },
 		{ name: 'back', position: [0, -1.01, 0], rotation: [Math.PI / 2, 0, 0] }
 	];
 
@@ -42,9 +42,14 @@
 		//   console.log('active face:', cubeState.activeFace, 'targetQ:', targetQ);
 		currentQ.slerp(targetQ, SLERP_SPEED * delta);
 		groupRef.quaternion.copy(currentQ);
-		// console.log(currentQ)
-	});
 
+		const angle = currentQ.angleTo(targetQ);
+
+		if (cubeState.mode === 'navigating' && angle < 0.05) {
+			cubeState.mode = 'arrived';
+			// console.log("cube state mode:", cubeState.mode)
+		}
+	});
 </script>
 
 <CubeFloat>

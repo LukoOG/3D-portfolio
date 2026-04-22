@@ -6,15 +6,18 @@ import {
   Folder,
   Mail,
   Wrench,
-  ArrowLeft
+  ArrowLeft,
+  type LucideProps
 } from '@lucide/svelte'
+
+type LucideIcon = Component<LucideProps>;
 
 export interface FaceConfig {
   label: string
   route: string
   shortcut: string | null
   color: string  // used for face material tint
-  icon: Component
+  icon: LucideIcon
 }
 
 export const faceConfig: Record<FaceName, FaceConfig> = {
