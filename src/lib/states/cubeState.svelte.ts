@@ -1,5 +1,6 @@
 import { Quaternion, Euler } from 'three';
 import { faceRotations, type FaceName } from '$lib/utils/facePositions';
+import { faceConfig } from '$lib/utils/faceConfig';
 
 export type cubeMode = 'idle' | 'navigating' | 'arrived' | 'entered';
 
@@ -29,3 +30,5 @@ export const getTargetQuaternion = () => {
 	q.setFromEuler(faceRotations[cubeState.activeFace]);
 	return q;
 };
+
+export const getActiveFaceColor = () => faceConfig[cubeState.activeFace].color

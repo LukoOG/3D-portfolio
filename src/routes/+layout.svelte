@@ -6,6 +6,7 @@
 	import { navigateTo } from '$lib';
 	import CubeNav from '$lib/components/nav/CubeNav.svelte';
 	import EnterPrompt from '$lib/components/html/EnterPrompt.svelte';
+	import FaceOverlay from '$lib/components/html/FaceOverlay.svelte';
 
 	let { children } = $props();
 </script>
@@ -17,7 +18,9 @@
 
 <main>
 	<CubeNav />
-	{@render children?.()}
+	<FaceOverlay>
+		{@render children?.()}
+	</FaceOverlay>
 </main>
 
 <style>

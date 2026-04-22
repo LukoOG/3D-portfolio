@@ -8,17 +8,18 @@
 
 	// The 6 faces in Three.js BoxGeometry order:
 	// +X right, -X left, +Y top, -Y bottom, +Z front, -Z back
+	const offSet = 1.01
 	const faces: {
 		name: FaceName;
 		position: [number, number, number];
 		rotation: [number, number, number];
 	}[] = [
-		{ name: 'hero', position: [0, 0, 1.01], rotation: [0, 0, 0] },
-		{ name: 'contact', position: [0, 0, -1.01], rotation: [0, Math.PI, 0] },
-		{ name: 'about', position: [-1.01, 0, 0], rotation: [0, -Math.PI / 2, 0] },
-		{ name: 'projects', position: [1.01, 0, 0], rotation: [0, Math.PI / 2, 0] },
-		{ name: 'skills', position: [0, 1.01, 0], rotation: [-Math.PI / 2, 0, 0] },
-		{ name: 'back', position: [0, -1.01, 0], rotation: [Math.PI / 2, 0, 0] }
+		{ name: 'hero', position: [0, 0, offSet], rotation: [0, 0, 0] },
+		{ name: 'contact', position: [0, 0, -offSet], rotation: [0, Math.PI, 0] },
+		{ name: 'about', position: [-offSet, 0, 0], rotation: [0, -Math.PI / 2, 0] },
+		{ name: 'projects', position: [offSet, 0, 0], rotation: [0, Math.PI / 2, 0] },
+		{ name: 'skills', position: [0, offSet, 0], rotation: [-Math.PI / 2, 0, 0] },
+		{ name: 'gallery', position: [0, -offSet, 0], rotation: [Math.PI / 2, 0, 0] }
 	];
 
 	const boxGeo = new BoxGeometry(2, 2, 2);

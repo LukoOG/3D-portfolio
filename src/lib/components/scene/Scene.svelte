@@ -2,12 +2,12 @@
 	import { Canvas, T } from '@threlte/core';
 	import Cube from '../cube/Cube.svelte';
 	import { OrbitControls } from '@threlte/extras';
+	import CameraRig from './CameraRig.svelte';
 </script>
 
 <div class="scene-root">
 	<Canvas renderMode="always">
-		<T.PerspectiveCamera makeDefault position={[0, 0, 5]} fov={60} />
-		
+		<CameraRig />
         <T.AmbientLight intensity={0.6} />
 		<T.PointLight position={[0, 0, 5]} intensity={80} color="#fff" />
 		<T.PointLight position={[0, 0, -5]} intensity={80} color="#4ff" />
