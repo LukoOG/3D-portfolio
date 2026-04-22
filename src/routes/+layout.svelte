@@ -4,9 +4,10 @@
 	import { Canvas } from '@threlte/core';
 	import Scene from '$lib/components/scene/Scene.svelte';
 	import { navigateTo } from '$lib';
-	import CubeNav from '$lib/components/nav/CubeNav.svelte';
+	import CubeNav from '$lib/components/layout/Nav.svelte';
 	import EnterPrompt from '$lib/components/html/EnterPrompt.svelte';
 	import FaceOverlay from '$lib/components/html/FaceOverlay.svelte';
+	import Header from '$lib/components/layout/Header.svelte';
 
 	let { children } = $props();
 </script>
@@ -17,6 +18,7 @@
 <EnterPrompt />
 
 <main>
+	<Header />
 	<CubeNav />
 	<FaceOverlay>
 		{@render children?.()}
