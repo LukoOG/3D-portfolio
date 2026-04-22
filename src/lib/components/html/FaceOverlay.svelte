@@ -58,6 +58,8 @@
   .content {
     width: 100%;
     height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
     display: flex;
     align-items: center;
     justify-content: center;
