@@ -6,7 +6,7 @@
 <PageTransition>
   <!-- top-left quadrant -->
   <div class="quadrant tl">
-    <p class="eyebrow">Fullstack Developer with a Backend Focus</p>
+    <p class="eyebrow">About Me</p>
   </div>
 
   <!-- top-right quadrant -->
@@ -21,8 +21,8 @@
 
   <!-- bottom-right quadrant -->
   <div class="quadrant br">
-    <h1>Emmanuel Adesipe a.k.a Sipe</h1>
-    <p>Building things for the web</p>
+    <h1>About Me</h1>
+    <p>The Coolest Web Dev</p>
   </div>
 </PageTransition>
 

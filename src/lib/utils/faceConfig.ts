@@ -1,5 +1,5 @@
 import type { Component } from 'svelte'
-import type { FaceName } from './facePositions'
+import type { FaceName } from './face'
 import {
   House,
   User,

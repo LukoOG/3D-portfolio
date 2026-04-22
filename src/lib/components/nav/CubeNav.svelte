@@ -2,7 +2,7 @@
 	import { faceConfig } from '$lib';
 	import { cubeState, navigateTo } from '$lib/states/cubeState.svelte';
 	import type { FaceConfig } from '$lib/utils/faceConfig';
-	import type { FaceName } from '$lib/utils/facePositions';
+	import type { FaceName } from '$lib/utils/face';
 
 	// Keyboard shortcuts
 	function handleKeydown(e: KeyboardEvent) {
@@ -11,7 +11,7 @@
 		const face = Object.entries(faceConfig).find(([name, face]) => face.shortcut == e.key) as
 			| [FaceName, FaceConfig]
 			| undefined;
-		if (face) navigateTo(face[0]);
+		if (face) navigateTo(face[0], face[1].route);
 	}
 </script>
 
@@ -25,7 +25,7 @@
 				<button
 					class:active={cubeState.activeFace === name}
 					onclick={(e) => {
-						navigateTo(faceName);
+						navigateTo(faceName, face.route);
 						e.currentTarget.blur();
 					}}
 					aria-label={face.label}

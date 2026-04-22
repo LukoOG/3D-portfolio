@@ -13,7 +13,6 @@
 	} = $props();
 
 const config = $derived(faceConfig[face]);
-console.log(config)
 
   let material = $derived(
     new MeshStandardMaterial({

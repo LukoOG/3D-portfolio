@@ -22,4 +22,4 @@ export const facePositions: Record<FaceName, { position: Vector3; target: Vector
 }
 
 // How far in front of the face surface to place HTML content
-export const FACE_OFFSET = 1.52
+export const FACE_OFFSET = 1.009

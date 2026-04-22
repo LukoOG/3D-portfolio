@@ -1,6 +1,7 @@
 import { Quaternion, Euler } from 'three';
-import { faceRotations, type FaceName } from '$lib/utils/facePositions';
+import { faceRotations, type FaceName } from '$lib/utils/face';
 import { faceConfig } from '$lib/utils/faceConfig';
+import { goto } from '$app/navigation';
 
 export type cubeMode = 'idle' | 'navigating' | 'arrived' | 'entered';
 
@@ -10,9 +11,10 @@ export const cubeState = $state({
 	mode: 'idle' as cubeMode
 });
 
-export function navigateTo(face: FaceName) {
+export function navigateTo(face: FaceName, route: string) {
 	cubeState.activeFace = face;
 	cubeState.mode = 'navigating';
+	goto(route)
 }
 
 export function enterFace() {
