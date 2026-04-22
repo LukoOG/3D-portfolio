@@ -7,7 +7,6 @@ export const cubeState = $state({
 })
 
 export function navigateTo(face: FaceName) {
-  console.log(face)
   cubeState.activeFace = face
 }
 

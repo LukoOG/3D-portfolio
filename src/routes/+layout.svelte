@@ -13,8 +13,8 @@
 
 <Scene />
 
-<CubeNav />
 <main>
+	<CubeNav />
 	{@render children?.()}
 </main>
 
