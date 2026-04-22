@@ -8,9 +8,11 @@
 	<Canvas renderMode="always">
 		<T.PerspectiveCamera makeDefault position={[0, 0, 5]} fov={60} />
 		
-        <T.AmbientLight intensity={0.3} />
-		<T.PointLight position={[3, 5, 3]} intensity={2} color="#000" />
-		<T.PointLight position={[-3, -2, -3]} intensity={0.8} color="#4040ff" />
+        <T.AmbientLight intensity={0.6} />
+		<T.PointLight position={[0, 0, 5]} intensity={80} color="#fff" />
+		<T.PointLight position={[0, 0, -5]} intensity={80} color="#4ff" />
+		<T.PointLight position={[5, 0, 0]} intensity={80} color="#4ff" />
+		<T.PointLight position={[-5, 0, 0]} intensity={80} color="#fff" />
 
 		<Cube />
 	</Canvas>

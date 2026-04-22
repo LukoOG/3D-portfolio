@@ -17,7 +17,7 @@
 		{ name: 'contact', position: [0, 0, -1.01], rotation: [0, Math.PI, 0] },
 		{ name: 'about', position: [-1.01, 0, 0], rotation: [0, -Math.PI / 2, 0] },
 		{ name: 'projects', position: [1.01, 0, 0], rotation: [0, Math.PI / 2, 0] },
-		{ name: 'skills', position: [0, 1.01, 0], rotation: [-Math.PI / 2, 0, 0] },
+		{ name: 'skills', position: [0,1.01, 0], rotation: [-Math.PI / 2, 0, 0] },
 		{ name: 'back', position: [0, -1.01, 0], rotation: [Math.PI / 2, 0, 0] }
 	];
 
