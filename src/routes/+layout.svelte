@@ -4,6 +4,7 @@
 	import { Canvas } from '@threlte/core';
 	import Scene from '$lib/components/scene/Scene.svelte';
 	import { navigateTo } from '$lib';
+	import CubeNav from '$lib/components/nav/CubeNav.svelte';
 
 	let { children } = $props();
 </script>
@@ -12,8 +13,8 @@
 
 <Scene />
 
+<CubeNav />
 <main>
-	<button onclick={() => navigateTo('skills')}>About</button>
 	{@render children?.()}
 </main>
 
