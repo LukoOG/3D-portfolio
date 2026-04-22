@@ -17,7 +17,7 @@
 		if (!cam) return;
 
 		const targetZ = cubeState.mode === 'entered' ? ENTERED_Z : IDLE_Z;
-		const speed = cubeState.mode == 'entered' ? TWEEN_SPEED : 2
+		const speed = cubeState.mode == 'entered' ? TWEEN_SPEED : 2;
 		cam.position.z += (targetZ - cam.position.z) * speed * delta;
 
 		const targetFov = getTargetFov();
@@ -27,3 +27,8 @@
 </script>
 
 <T.PerspectiveCamera makeDefault position={[0, 0, 5]} fov={60} />
+<T.AmbientLight intensity={0.6} />
+<T.PointLight position={[0, 0, 5]} intensity={80} color="#fff" />
+<T.PointLight position={[0, 0, -5]} intensity={80} color="#4ff" />
+<T.PointLight position={[5, 0, 0]} intensity={80} color="#4ff" />
+<T.PointLight position={[-5, 0, 0]} intensity={80} color="#fff" />

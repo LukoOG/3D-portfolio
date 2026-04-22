@@ -3,17 +3,15 @@
 	import Cube from '../cube/Cube.svelte';
 	import { OrbitControls } from '@threlte/extras';
 	import CameraRig from './CameraRig.svelte';
+	import Background from './Background.svelte';
+	import Particles from './Particles.svelte';
 </script>
 
 <div class="scene-root">
-	<Canvas renderMode="always">
+	<Canvas renderMode="always">c
 		<CameraRig />
-        <T.AmbientLight intensity={0.6} />
-		<T.PointLight position={[0, 0, 5]} intensity={80} color="#fff" />
-		<T.PointLight position={[0, 0, -5]} intensity={80} color="#4ff" />
-		<T.PointLight position={[5, 0, 0]} intensity={80} color="#4ff" />
-		<T.PointLight position={[-5, 0, 0]} intensity={80} color="#fff" />
-
+		<Background />
+		<Particles />
 		<Cube />
 	</Canvas>
 </div>
