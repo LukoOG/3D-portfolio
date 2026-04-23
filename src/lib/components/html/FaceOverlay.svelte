@@ -18,6 +18,7 @@
 			mounted = true;
 			timer = setTimeout(() => {
 				faceColor = getActiveFaceColor();
+				console.log(faceColor)
 				visible = true;
 			}, 450);
 		} else if (mounted) {

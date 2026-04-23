@@ -3,13 +3,16 @@
 	import { cubeState, faceConfig, type FaceName } from '$lib/index';
 	import { MeshBasicMaterial, MeshStandardMaterial } from 'three';
 	import { interactivity } from '@threlte/extras';
+	import type { Snippet } from 'svelte';
 
 	let {
 		face,
-		isActive = false
+		isActive = false,
+		children
 	}: {
 		face: FaceName;
 		isActive?: boolean;
+		children: Snippet
 	} = $props();
 
 	const config = $derived(faceConfig[face]);
@@ -25,7 +28,7 @@
 	);
 
 	function handleOnClick(e: MouseEvent) {
-		console.log(cubeState.activeFace, face, faceConfig[face])
+		console.log(cubeState.activeFace, face, faceConfig[face]);
 		if (cubeState.mode == 'arrived' && cubeState.activeFace == face) {
 			console.log(cubeState.mode, cubeState.activeFace);
 			cubeState.mode = 'entered';
@@ -37,4 +40,5 @@
 
 <T.Mesh {material} onclick={handleOnClick}>
 	<T.PlaneGeometry args={[2, 2]} />
+	{@render children?.()}
 </T.Mesh>

@@ -11,7 +11,7 @@ export const cubeState = $state({
 	mode: 'idle' as cubeMode
 });
 
-export function navigateTo(face: FaceName, route: string) {
+export function navigateTo(face: FaceName, route: string, enter: boolean = false) {
 	cubeState.activeFace = face;
 	cubeState.mode = 'navigating';
 	goto(route)

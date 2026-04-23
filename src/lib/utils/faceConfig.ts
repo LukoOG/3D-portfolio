@@ -8,7 +8,9 @@ import {
   Wrench,
   GalleryHorizontalEnd as Gallery,
   ArrowLeft,
-  type LucideProps
+  type LucideProps,
+  FlaskConical,
+  Terminal
 } from '@lucide/svelte'
 
 type LucideIcon = Component<LucideProps>;
@@ -21,11 +23,12 @@ export interface FaceConfig {
   icon: LucideIcon
 }
 
+
 export const faceConfig: Record<FaceName, FaceConfig> = {
-  hero:     { label: 'Home',     route: '/',  shortcut: "1",       color: '#1a1a2e', icon: House },
-  projects: { label: 'Projects', route: '/projects', shortcut: "2", color: '#0f3460', icon: Folder },
-  skills:   { label: 'Skills',   route: '/skills', shortcut: "3",  color: '#e94560', icon: Wrench },
-  about:    { label: 'About',    route: '/about', shortcut: "4",   color: '#3f213e', icon: User },
-  contact:  { label: 'Contact',  route: '/contact', shortcut: "5", color: '#533483', icon: Mail },
-  gallery:   { label: 'Gallery',   route: '/gallery', shortcut: "6",  color: '#942605', icon: Gallery }
-};
+  hero:     { label: 'Home',     route: '/',         shortcut: '1', color: '#1a1a2e', icon: House },
+  projects: { label: 'Projects', route: '/projects', shortcut: '2', color: '#0f3460', icon: Folder },
+  about:    { label: 'About',    route: '/about',    shortcut: '3', color: '#3f213e', icon: User },
+  contact:  { label: 'Contact',  route: '/contact',  shortcut: '4', color: '#533483', icon: Mail },
+  lab:      { label: 'Lab',      route: '/lab',      shortcut: '5', color: '#942605', icon: FlaskConical },
+  secret:   { label: '?',        route: '/secret',   shortcut: '6', color: '#a0a0a0', icon: Terminal },
+}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { T, useTask } from '@threlte/core';
+	import { Text } from '@threlte/extras';
 	import { Quaternion, BoxGeometry, MeshStandardMaterial, Mesh, Group } from 'three';
 	import { cubeState, getTargetQuaternion } from '$lib/index';
 	import CubeFace from './CubeFace.svelte';
@@ -14,12 +15,12 @@
 		position: [number, number, number];
 		rotation: [number, number, number];
 	}[] = [
-		{ name: 'hero', position: [0, 0, FACE_OFFSET], rotation: [0, 0, 0] },
-		{ name: 'projects', position: [FACE_OFFSET, 0, 0], rotation: [0, Math.PI / 2, 0] },
-		{ name: 'skills', position: [-FACE_OFFSET, 0, 0], rotation: [0, -Math.PI / 2, 0] },
-		{ name: 'about', position: [0, 0, -FACE_OFFSET], rotation: [0, Math.PI, 0] },
-		{ name: 'contact', position: [0, FACE_OFFSET, 0], rotation: [-Math.PI / 2, 0, 0] },
-		{ name: 'gallery', position: [0, -FACE_OFFSET, 0], rotation: [Math.PI / 2, 0, 0] }
+		{ name: 'hero', position: [0, 0, FACE_OFFSET], rotation: [0, 0, 0] }, //front
+		{ name: 'projects', position: [FACE_OFFSET, 0, 0], rotation: [0, Math.PI / 2, 0] }, //right
+		{ name: 'about', position: [-FACE_OFFSET, 0, 0], rotation: [0, -Math.PI / 2, 0] }, //left
+		{ name: 'contact', position: [0, FACE_OFFSET, 0], rotation: [-Math.PI / 2, 0, 0] }, //top
+		{ name: 'lab', position: [0, -FACE_OFFSET, 0], rotation: [Math.PI / 2, 0, 0] }, //bottom
+		{ name: 'secret', position: [0, 0, -FACE_OFFSET], rotation: [0, -Math.PI, 0] } //back
 	];
 
 	const boxGeo = new BoxGeometry(2, 2, 2);
@@ -60,7 +61,18 @@
 		<!-- Face planes sitting 0.01 above each face surface -->
 		{#each faces as face}
 			<T.Group position={face.position} rotation={face.rotation}>
-				<CubeFace face={face.name} isActive={cubeState.activeFace === face.name} />
+				<CubeFace face={face.name} isActive={cubeState.activeFace === face.name}>
+					{#if face.name == 'secret'}
+						<Text
+							text="?"
+							fontSize={2}
+							color="black"
+							anchorX="50%"
+							anchorY="50%"
+							position.z={0.0001}
+						/>
+					{/if}
+				</CubeFace>
 			</T.Group>
 		{/each}
 	</T.Group>
