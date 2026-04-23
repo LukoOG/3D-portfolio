@@ -25,8 +25,8 @@
 			driftRotY = Math.sin(t * 0.4) * 0.25;
 		} else {
 			// smoothly settle back to neutral
-			bobY += (0 - bobY) * delta * 3;
-			driftRotY += (0 - driftRotY) * delta * 2;
+			bobY += (0 - bobY) * delta * 9;
+			driftRotY += (0 - driftRotY) * delta * 7;
 		}
 	});
 </script>

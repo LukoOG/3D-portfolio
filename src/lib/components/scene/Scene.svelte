@@ -15,13 +15,11 @@
 </script>
 
 <div class="scene-root">
-	<Canvas renderMode="always"
-		>c
+	<Canvas renderMode="always">
 		<CameraRig />
 		<Lights />
 		<Background />
 		<Cube />
-		<LavaFloor {ballCount} {isolation} {resolution} {planeAxis} />
 	</Canvas>
 </div>
 

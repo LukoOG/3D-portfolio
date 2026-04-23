@@ -15,7 +15,7 @@
 
 	$effect(() => {
 		if (cubeState.mode === 'entered') {
-      mounted = true;
+			mounted = true;
 			timer = setTimeout(() => {
 				faceColor = getActiveFaceColor();
 				visible = true;
