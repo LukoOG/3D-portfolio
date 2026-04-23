@@ -8,7 +8,7 @@
   <!-- top left: role -->
   <div class="quadrant tl">
     <div class="role-badge">
-      <span class="dot" />
+      <span class="dot"></span>
       Backend-focused
     </div>
     <p class="availability">Open to opportunities</p>

@@ -21,7 +21,7 @@
 <EnterPrompt />
 
 <main>
-	<div class="hint">Use keys 1-6 to rotate the cube</div>
+	<div class="hint">Use keys 1-6 to rotate the cube <small><i>or click nav buttons</i></small></div>
 	<Header />
 	<CubeNav />
 	<FaceOverlay>
