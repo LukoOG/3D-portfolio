@@ -15,11 +15,11 @@
 		rotation: [number, number, number];
 	}[] = [
 		{ name: 'hero', position: [0, 0, FACE_OFFSET], rotation: [0, 0, 0] },
-		{ name: 'contact', position: [0, 0, -FACE_OFFSET], rotation: [0, Math.PI, 0] },
-		{ name: 'about', position: [-FACE_OFFSET, 0, 0], rotation: [0, -Math.PI / 2, 0] },
 		{ name: 'projects', position: [FACE_OFFSET, 0, 0], rotation: [0, Math.PI / 2, 0] },
-		{ name: 'gallery', position: [0, FACE_OFFSET, 0], rotation: [-Math.PI / 2, 0, 0] },
-		{ name: 'skills', position: [0, -FACE_OFFSET, 0], rotation: [Math.PI / 2, 0, 0] },
+		{ name: 'skills', position: [-FACE_OFFSET, 0, 0], rotation: [0, -Math.PI / 2, 0] },
+		{ name: 'about', position: [0, 0, -FACE_OFFSET], rotation: [0, Math.PI, 0] },
+		{ name: 'contact', position: [0, FACE_OFFSET, 0], rotation: [-Math.PI / 2, 0, 0] },
+		{ name: 'gallery', position: [0, -FACE_OFFSET, 0], rotation: [Math.PI / 2, 0, 0] }
 	];
 
 	const boxGeo = new BoxGeometry(2, 2, 2);

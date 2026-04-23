@@ -3,4 +3,3 @@
 export { cubeState, navigateTo, exitFace, enterFace, getTargetQuaternion } from './states/cubeState.svelte'
 export { faceConfig } from './utils/faceConfig'
 export { faceRotations, type FaceName } from './utils/face'
-export { facePositions } from './utils/face'

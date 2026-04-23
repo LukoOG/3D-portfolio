@@ -27,7 +27,7 @@
 	function handleOnClick(e: MouseEvent) {
 		console.log(cubeState.activeFace, face, faceConfig[face])
 		if (cubeState.mode == 'arrived' && cubeState.activeFace == face) {
-			// console.log(cubeState.mode, cubeState.activeFace);
+			console.log(cubeState.mode, cubeState.activeFace);
 			cubeState.mode = 'entered';
 		}
 	}
