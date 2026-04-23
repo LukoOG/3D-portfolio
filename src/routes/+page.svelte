@@ -43,7 +43,7 @@
     <div class="intro">
       <h1 class="name">Emmanuel Adesipe</h1>
       <p class="title">Fullstack Developer</p>
-      <button class="cta" onclick={() => navigateTo('projects', 'projects')}>
+      <button class="cta" onclick={() => navigateTo('projects', 'projects', true)}>
         See my work
         <span class="arrow">→</span>
       </button>

@@ -13,7 +13,7 @@ export const cubeState = $state({
 
 export function navigateTo(face: FaceName, route: string, enter: boolean = false) {
 	cubeState.activeFace = face;
-	cubeState.mode = 'navigating';
+	cubeState.mode = enter ? 'entered' : 'navigating';
 	goto(route)
 }
 

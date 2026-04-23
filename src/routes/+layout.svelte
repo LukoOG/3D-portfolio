@@ -46,7 +46,7 @@
 		color: white;
 		padding: 10px;
 		border-radius: 8px;
-		animation: fadeinout 5s ease-in-out forwards;
+		animation: fadeinout 2.5s ease-in-out forwards;
 		z-index: 1000; /* Ensure it sits on top of other content */
 	}
 

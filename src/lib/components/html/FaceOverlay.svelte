@@ -7,18 +7,17 @@
 	let timer: ReturnType<typeof setTimeout>;
 	let visible = $state<boolean>(false);
 	let mounted = $state<boolean>(false);
-	let faceColor = $state('#0a0a0f');
+	let faceColor = $derived(getActiveFaceColor());
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') exitFace();
 	}
 
+	// $inspect(cubeState.activeFace, faceColor)
 	$effect(() => {
 		if (cubeState.mode === 'entered') {
 			mounted = true;
 			timer = setTimeout(() => {
-				faceColor = getActiveFaceColor();
-				console.log(faceColor)
 				visible = true;
 			}, 450);
 		} else if (mounted) {
