@@ -9,7 +9,7 @@
 	const TWEEN_SPEED = 5;
 
 	const getTargetFov = () => {
-		return $size.width < 768 ? 80 : 60;
+		return $size.width < 768 ? 80 : 80;
 	};
 
 	useTask((delta) => {

@@ -20,7 +20,7 @@
 			emissive: config.color,
 			emissiveIntensity: isActive ? 1 : 0.05,
 			roughness: 0.4,
-			metalness: 0.6
+			metalness: 0.74
 		})
 	);
 
