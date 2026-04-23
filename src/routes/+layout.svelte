@@ -1,6 +1,6 @@
 <script lang="ts">
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/favicon.png';
 	import { Canvas } from '@threlte/core';
 	import Scene from '$lib/components/scene/Scene.svelte';
 	import { navigateTo } from '$lib';
@@ -12,7 +12,10 @@
 	let { children } = $props();
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head>
+	<link rel="icon" href={favicon} />
+	<title>Sipe - Fullstack Developer</title>
+</svelte:head>
 
 <Scene />
 <EnterPrompt />

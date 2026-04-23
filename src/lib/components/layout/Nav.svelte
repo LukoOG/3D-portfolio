@@ -88,10 +88,10 @@
 		border-color: rgba(0, 255, 225, 0.35);
 	}
 
-	.icon {
+	/* .icon {
 		font-size: 1rem;
 		line-height: 1;
-	}
+	} */
 
 	.label {
 		font-size: 0.6rem;
