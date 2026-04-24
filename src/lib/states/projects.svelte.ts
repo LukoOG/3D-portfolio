@@ -3,6 +3,7 @@ export interface Project {
 	description: string;
 	stack: string[];
 	category: string;
+	image?: string;
 	year: string;
 	github: string;
 	live: string;

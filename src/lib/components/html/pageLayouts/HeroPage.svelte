@@ -1,10 +1,10 @@
 <!-- src/lib/components/html/PageTransition.svelte -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	let { children, scrollable = false }: { children: Snippet; scrollable?: boolean } = $props();
+	let { children }: { children: Snippet; scrollable?: boolean } = $props();
 </script>
 
-<div class="page-root">
+<div class="hero-root">
 	<!-- The cross lines -->
 	<div class="cross">
 		<div class="line horizontal"></div>
@@ -12,7 +12,7 @@
 	</div>
 
 	<!-- Content quadrants -->
-	<div class="content" class:scrollable>
+	<div class="content">
 		{@render children()}
 	</div>
 
