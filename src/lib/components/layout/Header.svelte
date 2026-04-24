@@ -20,25 +20,22 @@
 
 	/* Gradient, semi-transparent background with glow */
 	header div {
-		/* background: linear-gradient(135deg, rgba(0, 255, 225, 0.15), rgba(0, 150, 200, 0.1)); */
-		backdrop-filter: blur(12px);
 		display: flex;
 		padding: 0.5rem 1rem;
-		/* border-radius: 12px;
-		border: 1px solid rgba(0, 255, 225, 0.1); */
+		left: 50%;
 	}
 
 	/* Font styling and typewriter animation */
 	h2 {
 		font-family: 'Pacifico', 'Brush Script MT', cursive;
 		font-style: italic;
-		font-size: 3rem;
-		color: #e0f7f7;
+		font-size: clamp(1.8rem, 5vw, 3.5rem);
+		font-weight: 600;
+		color: #f4ffff;
 
 		/* Typewriter effect */
 		overflow: hidden;
 		white-space: nowrap;
-		border-right: 3px solid rgba(224, 247, 247, 0.8);
 		animation:
 			typing 3s steps(15, end) forwards,
 			blink-caret 0.75s step-end 4;
@@ -47,10 +44,12 @@
 	/* Typewriter keyframes */
 	@keyframes typing {
 		from {
+			border-right: 3px solid rgba(224, 247, 247, 0.8);
 			width: 0;
 		}
 		to {
-			width: 15ch;
+			border-right: transparent;
+			width: 13ch;
 		}
 	}
 
@@ -62,6 +61,21 @@
 		}
 		50% {
 			border-color: rgba(224, 247, 247, 0.8);
+		}
+	}
+
+	@media (max-width: 600px) {
+		h2 {
+			font-size: 2rem;
+			animation:
+				typing 3s steps(12, end) forwards,
+				blink-caret 0.75s step-end 4;
+		}
+
+		@keyframes typing {
+			to {
+				width: 10ch;
+			}
 		}
 	}
 </style>

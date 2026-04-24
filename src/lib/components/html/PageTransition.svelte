@@ -15,6 +15,23 @@
 	<div class="content" class:scrollable>
 		{@render children()}
 	</div>
+
+	<div class="stats">
+		<div class="stat">
+			<span class="stat-num">3+</span>
+			<span class="stat-label">Years exp.</span>
+		</div>
+		<div class="divider" />
+		<div class="stat">
+			<span class="stat-num">10+</span>
+			<span class="stat-label">Projects shipped</span>
+		</div>
+		<div class="divider" />
+		<div class="stat">
+			<span class="stat-num">2</span>
+			<span class="stat-label">Frameworks mastered</span>
+		</div>
+	</div>
 </div>
 
 <style>
@@ -73,6 +90,45 @@
 		align-items: stretch;
 	}
 
+	.stats {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		translate: -50% -50%;
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+		z-index: 2;
+		animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.65s both;
+	}
+
+	.stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.2rem;
+	}
+
+	.stat-num {
+		font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+		font-weight: 200;
+		color: rgba(255, 255, 255, 0.9);
+		letter-spacing: -0.02em;
+	}
+
+	.stat-label {
+		font-size: 0.6rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: rgba(255, 255, 255, 0.25);
+	}
+
+	.divider {
+		width: 1px;
+		height: 2rem;
+		background: rgba(255, 255, 255, 0.1);
+	}
+	
 	@keyframes grow-h {
 		from {
 			transform: scaleX(0);
