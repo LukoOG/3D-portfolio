@@ -1,30 +1,8 @@
 <!-- src/routes/+page.svelte (hero) -->
 <script lang="ts">
-  import PageTransition from '$lib/components/html/PageTransition.svelte'
 </script>
 
-<PageTransition>
-  <!-- top-left quadrant -->
-  <div class="quadrant tl">
-    <p class="eyebrow">About Me</p>
-  </div>
 
-  <!-- top-right quadrant -->
-  <div class="quadrant tr">
-    <!-- decorative / empty -->
-  </div>
-
-  <!-- bottom-left quadrant -->
-  <div class="quadrant bl">
-    <!-- decorative / empty -->
-  </div>
-
-  <!-- bottom-right quadrant -->
-  <div class="quadrant br">
-    <h1>About Me</h1>
-    <p>The Coolest Web Dev</p>
-  </div>
-</PageTransition>
 
 <style>
   .quadrant {

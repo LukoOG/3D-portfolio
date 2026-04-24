@@ -1,10 +1,10 @@
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
-  import PageTransition from '$lib/components/html/PageTransition.svelte'
+  import HeroPage from '$lib/components/html/pageLayouts/HeroPage.svelte'
   import { navigateTo } from '$lib/index'
 </script>
 
-<PageTransition>
+<HeroPage>
   <!-- top left: role -->
   <div class="quadrant tl">
     <div class="role-badge">
@@ -49,7 +49,7 @@
       </button>
     </div>
   </div>
-</PageTransition>
+</HeroPage>
 
 <style>
   /* quadrant base */

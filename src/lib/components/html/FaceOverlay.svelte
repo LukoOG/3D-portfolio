@@ -69,7 +69,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		animation: fadein 0.4s ease 0.1s both;
+		/* animation: fadein 0.4s ease 0.1s both; */
 	}
 
 	.close {
@@ -87,7 +87,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		z-index: 1;
+		z-index: 10;
 	}
 
 	.close:hover {
