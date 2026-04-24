@@ -34,6 +34,7 @@
 		position: relative;
 		z-index: 1;
 		/* pointer-events: none; */
+		/* box-sizing: content-box; */
 	}
 
 	.hint {

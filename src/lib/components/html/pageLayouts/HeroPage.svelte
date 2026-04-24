@@ -35,7 +35,7 @@
 </div>
 
 <style>
-	.page-root {
+	.hero-root {
 		position: relative;
 		width: 100%;
 		height: 100%;
@@ -83,11 +83,6 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		grid-template-rows: 1fr 1fr;
-	}
-
-	.content.scrollable {
-		overflow-y: auto;
-		align-items: stretch;
 	}
 
 	.stats {

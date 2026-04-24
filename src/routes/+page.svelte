@@ -61,7 +61,7 @@
   }
 
   .tl { justify-content: flex-start; align-items: flex-start; }
-  .tr { justify-content: flex-start; align-items: flex-end;   }
+  .tr { justify-content: center; align-items: flex-end;   }
   .bl { justify-content: flex-end;   align-items: flex-start; }
   .br { justify-content: flex-end;   align-items: flex-end;   }
 

@@ -10,8 +10,9 @@
 
 <style>
 	.projects-root {
+		position: relative;
 		width: 100%;
-		min-height: 100%;
+		max-height: 100%;
 		padding: 2rem 1.75rem 3rem;
 		display: flex;
 		flex-direction: column;

@@ -20,6 +20,8 @@
 <style>
   .page-header {
     display: flex;
+    width: calc(100% - 124px);
+    margin: auto;
     align-items: baseline;
     justify-content: space-between;
     padding-bottom: 1rem;
