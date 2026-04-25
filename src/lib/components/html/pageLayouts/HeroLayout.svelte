@@ -18,7 +18,7 @@
 
 	<div class="stats">
 		<div class="stat">
-			<span class="stat-num">3+</span>
+			<span class="stat-num">3</span>
 			<span class="stat-label">Years exp.</span>
 		</div>
 		<div class="divider" />
@@ -28,8 +28,8 @@
 		</div>
 		<div class="divider" />
 		<div class="stat">
-			<span class="stat-num">2</span>
-			<span class="stat-label">Frameworks mastered</span>
+			<span class="stat-num">1</span>
+			<span class="stat-label">Startup</span>
 		</div>
 	</div>
 </div>
