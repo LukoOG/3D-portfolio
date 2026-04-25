@@ -1,6 +1,6 @@
 <!-- src/routes/lab/+page.svelte -->
 <script lang="ts">
-  import LabPage from '$lib/components/html/pageLayouts/ProjectsLayout.svelte'
+  import LabLayout from '$lib/components/html/pageLayouts/LabLayout.svelte';
   import { ExternalLink, GitBranch as Github, Terminal, Palette, Wrench, Package } from '@lucide/svelte'
 
   type LabCategory = 'generative' | 'cli' | 'opensource' | 'experiment'
@@ -57,7 +57,7 @@
   ]
 </script>
 
-<LabPage>
+<LabLayout>
   <div class="lab-root">
 
     <div class="page-header">
@@ -144,7 +144,7 @@
     </div>
 
   </div>
-</LabPage>
+</LabLayout>
 
 <style>
   .lab-root {

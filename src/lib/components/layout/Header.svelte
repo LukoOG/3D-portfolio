@@ -33,22 +33,24 @@
 		font-weight: 600;
 		color: #f4ffff;
 
-		/* Typewriter effect */
 		overflow: hidden;
 		white-space: nowrap;
+		border-right: 3px solid rgba(224, 247, 247, 0.8);
+
 		animation:
 			typing 3s steps(15, end) forwards,
-			blink-caret 0.75s step-end 4;
+			blink-caret 0.75s step-end infinite,
+			hide-caret 0s linear 3s forwards;
 	}
 
 	/* Typewriter keyframes */
 	@keyframes typing {
 		from {
-			border-right: 3px solid rgba(224, 247, 247, 0.8);
+			/* border-right: 3px solid rgba(224, 247, 247, 0.8); */
 			width: 0;
 		}
 		to {
-			border-right: transparent;
+			/* border-right: transparent; */
 			width: 13ch;
 		}
 	}
@@ -61,6 +63,12 @@
 		}
 		50% {
 			border-color: rgba(224, 247, 247, 0.8);
+		}
+	}
+
+	@keyframes hide-caret {
+		to {
+			border-right: transparent;
 		}
 	}
 

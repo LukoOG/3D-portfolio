@@ -1,6 +1,6 @@
 <!-- src/routes/about/+page.svelte -->
 <script lang="ts">
-  import AboutPage from '$lib/components/html/pageLayouts/ProjectsLayout.svelte'
+  import AboutLayout from '$lib/components/html/pageLayouts/AboutLayout.svelte';
   import { GitBranchPlus as Github, X as Twitter, Link as Linkedin, ExternalLink } from '@lucide/svelte'
 
   const timeline = [
@@ -37,7 +37,7 @@
   ]
 </script>
 
-<AboutPage>
+<AboutLayout>
   <div class="about-root">
 
     <!-- left column -->
@@ -147,7 +147,7 @@
     </div>
 
   </div>
-</AboutPage>
+</AboutLayout>
 
 <style>
   .about-root {
