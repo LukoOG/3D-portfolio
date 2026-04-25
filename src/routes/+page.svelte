@@ -1,10 +1,10 @@
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
-  import HeroPage from '$lib/components/html/pageLayouts/HeroPage.svelte'
+  import HeroLayout from '$lib/components/html/pageLayouts/HeroLayout.svelte'
   import { navigateTo } from '$lib/index'
 </script>
 
-<HeroPage>
+<HeroLayout>
   <!-- top left: role -->
   <div class="quadrant tl">
     <div class="role-badge">
@@ -49,7 +49,7 @@
       </button>
     </div>
   </div>
-</HeroPage>
+</HeroLayout>
 
 <style>
   /* quadrant base */

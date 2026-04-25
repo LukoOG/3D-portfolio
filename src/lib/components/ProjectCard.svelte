@@ -1,6 +1,6 @@
 <!-- ProjectCard.svelte -->
 <script lang="ts">
-  import { ExternalLink, GitBranchPlus as Github, ArrowUpRight } from '@lucide/svelte'
+  import { ExternalLink, GitBranchIcon as Github, ArrowUpRight } from '@lucide/svelte'
   import type { Project } from '$lib'
 
   let { project, i }: { project: Project; i: number } = $props()
@@ -9,7 +9,7 @@
 <article class="card" style="animation-delay: {0.1 + i * 0.08}s">
   <!-- image area -->
   <div class="card-image">
-    {#if project?.image}
+    {#if project.image}
       <img src={project.image} alt={project.name} />
     {:else}
       <div class="image-placeholder">
@@ -62,8 +62,7 @@
 <style>
   .card {
     display: flex;
-    flex-direction: row; /* Changed from column to row */
-    gap: 2rem; /* More space between image and text */
+    flex-direction: column;
     border: 1px solid rgba(255,255,255,0.07);
     border-radius: 12px;
     overflow: hidden;
@@ -72,9 +71,6 @@
     animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
     transition: border-color 0.2s, background 0.2s, translate 0.2s;
     cursor: default;
-    width: 100%;
-    max-width: 1200px; /* Expand width for cards */
-    margin: auto;
   }
 
   .card:hover {
@@ -83,9 +79,10 @@
     translate: 0 -2px;
   }
 
+  /* image */
   .card-image {
     position: relative;
-    width: 45%; /* Control image width */
+    width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
     background: rgba(255,255,255,0.03);
@@ -113,6 +110,15 @@
       rgba(255,255,255,0.03) 0%,
       rgba(255,255,255,0.06) 100%
     );
+  }
+
+  .placeholder-name {
+    font-size: 2rem;
+    font-weight: 200;
+    letter-spacing: -0.02em;
+    color: rgba(255,255,255,0.08);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
   }
 
   .image-badges {
@@ -157,21 +163,23 @@
     letter-spacing: 0.08em;
   }
 
+  /* content */
   .card-content {
+    padding: 1rem 1.1rem 1.1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 55%;
+    gap: 0.9rem;
+    flex: 1;
   }
 
   .card-body {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.35rem;
   }
 
   .name {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 300;
     letter-spacing: -0.01em;
     color: rgba(255,255,255,0.9);
@@ -179,11 +187,10 @@
   }
 
   .description {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     line-height: 1.65;
     color: rgba(255,255,255,0.4);
     margin: 0;
-    flex-grow: 1;
   }
 
   .card-footer {
@@ -245,13 +252,8 @@
     background: rgba(255,255,255,0.08);
   }
 
-  /* Animations for alternating layout */
-  .card:nth-child(odd) .card-image {
-    order: -1;
-  }
-
   @keyframes slide-up {
     from { opacity: 0; translate: 0 10px; }
-    to { opacity: 1; translate: 0 0; }
+    to   { opacity: 1; translate: 0 0;    }
   }
 </style>
