@@ -13,16 +13,19 @@
 
 	$effect(() => {
 		if (!project.image) return;
-		const path = `../assests/project-images/${project.image}`;
+		const path = `../assets/project-images/${project.image}`;
 		imageSrc = images[path] ?? null;
+		// console.log(imageSrc)
 	});
+
+	// console.log(images)
 </script>
 
 <article class="card" style="animation-delay: {0.12 + i * 0.12}s">
 	<!-- image area -->
 	<div class="card-image">
 		{#if project.image}
-			<img src={`/assests/project-images/${project.image}`} alt={project.name} />
+			<img src={imageSrc} alt={project.name} />
 		{:else}
 			<div class="image-placeholder">
 				<span class="placeholder-name">{project.name}</span>
