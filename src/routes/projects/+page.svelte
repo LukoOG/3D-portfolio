@@ -1,66 +1,131 @@
 <script lang="ts">
 	import { projects } from '$lib';
-	import ProjectsPage from '$lib/components/html/pageLayouts/ProjectsLayout.svelte';
+	import ProjectsLayout from '$lib/components/html/pageLayouts/ProjectsLayout.svelte';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 </script>
 
 <!-- /projects/+page.svelte -->
-<ProjectsPage>
-  <div class="page-header">
-    <h2 class="page-title">Projects</h2>
-    <span class="count">{projects.length} works</span>
-  </div>
+<ProjectsLayout>
+	<div class="page-header">
+		<div class="intro">
+			<h2 class="page-title">My Projects</h2>
+			<p class="page-subtext">
+				A collection of products, experiments, and systems I've built — focusing on performance,
+				usability, and real-world constraints.
+			</p>
+			<div class="filters">
+				{#each ['All', 'Web', 'AI', 'Systems'] as f}
+					<button class:selected={activeFilter === f} on:click={() => (activeFilter = f)}>
+						{f}
+					</button>
+				{/each}
+			</div>
+		</div>
 
-  <div class="grid">
-    {#each projects as project, i}
-      <ProjectCard {project} {i} />
-    {/each}
-  </div>
-</ProjectsPage>
+		<div class="meta">
+			<span class="count-pill">{projects.length} projects</span>
+		</div>
+	</div>
+
+	<div class="grid">
+		{#each projects as project, i}
+			<ProjectCard {project} {i} />
+		{/each}
+	</div>
+</ProjectsLayout>
 
 <style>
-  .page-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-  }
+	.page-header {
+		display: flex;
+		justify-content: space-between;
+		gap: 2rem;
+		padding-bottom: 1.25rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+	}
 
-  .page-title {
-    font-size: 1rem;
-    font-weight: 300;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.9);
-    margin: 0;
-  }
+	.intro {
+		max-width: 480px;
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
 
-  .count {
-    font-size: 0.65rem;
-    color: rgba(255,255,255,0.25);
-    letter-spacing: 0.08em;
-  }
+	.page-title {
+		font-size: 1.05rem;
+		font-weight: 400;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.85rem;
-  }
+	.page-subtext {
+		font-size: 0.75rem;
+		color: rgba(255, 255, 255, 0.45);
+		line-height: 1.6;
+	}
 
-  /* first card spans full width as a featured project */
-  .grid :global(.card:first-child) {
-    grid-column: 1 / -1;
-  }
+	.count-pill {
+		font-size: 0.65rem;
+		padding: 0.35rem 0.65rem;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		color: rgba(255, 255, 255, 0.5);
+		letter-spacing: 0.06em;
+	}
 
-  /* on that featured card, show image taller */
-  .grid :global(.card:first-child .card-image) {
-    aspect-ratio: 21 / 9;
-  }
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		gap: 1.25rem;
+		margin-top: 0.5rem;
+	}
 
-  @keyframes slide-up {
-    from { opacity: 0; translate: 0 8px; }
-    to   { opacity: 1; translate: 0 0;   }
-  }
+	/* first card spans full width as a featured project */
+	.grid :global(.card:first-child .card-image) {
+		aspect-ratio: 18 / 8;
+	}
+
+	/* on that featured card, show image taller */
+	.grid :global(.card:first-child .card-image) {
+		aspect-ratio: 21 / 9;
+	}
+
+	/* filters */
+	.filters {
+		display: flex;
+		gap: 0.4rem;
+		margin-top: 0.75rem;
+	}
+
+	.filters button {
+		font-size: 0.65rem;
+		padding: 0.3rem 0.65rem;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		background: transparent;
+		color: rgba(255, 255, 255, 0.35);
+		cursor: pointer;
+		transition: all 0.2s;
+	}
+
+	.filters button:hover {
+		color: rgba(255, 255, 255, 0.7);
+		border-color: rgba(255, 255, 255, 0.2);
+	}
+
+	.filters button.selected {
+		color: white;
+		border-color: rgba(255, 255, 255, 0.35);
+		background: rgba(255, 255, 255, 0.08);
+	}
+
+	@keyframes slide-up {
+		from {
+			opacity: 0;
+			translate: 0 8px;
+		}
+		to {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
 </style>

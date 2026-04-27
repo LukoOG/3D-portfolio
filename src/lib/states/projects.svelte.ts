@@ -57,13 +57,4 @@ export const projects: Project[] = [
 		github: 'https://github.com/LukoOG/sui-profile-dapp',
 		live: 'https://sui-profile-dapp.vercel.app/'
 	},
-	{
-		name: 'Sui Project 2',
-		description: 'A decentralised application on the Sui blockchain.',
-		stack: ['Next.js', 'Move', 'Sui'],
-		category: 'Web3',
-		year: '2024',
-		github: 'https://github.com/',
-		live: 'https://'
-	}
 ];
