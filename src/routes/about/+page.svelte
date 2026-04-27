@@ -39,9 +39,9 @@
 	];
 
 	const social = [
-		{ label: 'GitHub', href: 'https://github.com/', icon: Github },
-		{ label: 'Twitter', href: 'https://twitter.com/', icon: Twitter },
-		{ label: 'LinkedIn', href: 'https://linkedin.com/', icon: Linkedin }
+		{ label: 'GitHub', href: 'https://github.com/LukoOG', icon: Github },
+		{ label: '', href: 'https://x.com/Sipe_OG1', icon: Twitter },
+		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/emmanuel-adesipe-79b901365/', icon: Linkedin }
 	];
 </script>
 
@@ -71,7 +71,8 @@
 				<div class="social">
 					{#each social as link}
 						<a href={link.href} target="_blank" rel="noopener" class="social-link">
-							<svelte:component this={link.icon} size={14} />
+							<!-- <svelte:component this={link.icon} size={14} /> -->
+							 <link.icon size={14} />
 							<span>{link.label}</span>
 						</a>
 					{/each}
