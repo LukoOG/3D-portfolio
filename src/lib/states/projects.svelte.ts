@@ -18,7 +18,7 @@ export interface Project {
 	status?: 'in-progress';
 }
 
-const getImageLink = (name: string) => `/src/lib/assets/project-images/${name}`
+// const getImageLink = (name: string) => `${name}`
 
 export const projects: Project[] = [
 	{
@@ -27,7 +27,7 @@ export const projects: Project[] = [
 			'A fully functional Twitter-like social platform with real-time feeds, follows, and interactions.',
 		stack: ['SvelteKit 5', 'Django', 'Supabase'],
 		category: Category.Fullstack,
-		image: '/src/lib/assets/project-images/swix.png',
+		image: 'swix.png',
 		year: '2024',
 		github: 'https://github.com/LukoOG/Fullstack_projects/tree/main/Social-media',
 		live: 'https://swix-lake.vercel.app/',
@@ -39,7 +39,7 @@ export const projects: Project[] = [
 			'A fully functional e-commerce food platform with cart, checkout, and order management.',
 		stack: ['SvelteKit 5', 'Django', 'Supabase'],
 		category: Category.Fullstack,
-		image: '/src/lib/assets/project-images/svellit.png',
+		image: 'svellit.png',
 		year: '2024',
 		github: 'https://github.com/LukoOG/Fullstack_projects/tree/main/E-commerce',
 		live: 'https://svellit-diamond.vercel.app/'
@@ -50,7 +50,7 @@ export const projects: Project[] = [
 			'Frontend implementation of a Figma design — pixel-perfect, responsive, and production ready.',
 		stack: ['Next.js'],
 		category: Category.Frontend,
-		image: '/src/lib/assets/project-images/cartolinks-1.png',
+		image: 'cartolinks-1.png',
 		year: '2024',
 		github: 'https://github.com/LukoOG/cartolinks-application-assignment',
 		live: 'https://cartolinks-application.vercel.app/'
@@ -60,7 +60,7 @@ export const projects: Project[] = [
 		description: 'A decentralised application built on the Sui blockchain. It allows Users to own and display profile cards, providing a means of decentralised identification.',
 		stack: ['Next.js', 'Move', 'Sui'],
 		category: Category.Web3,
-		image: getImageLink('sui-profile.png'),
+		image: 'sui-profile.png',
 		year: '2024',
 		github: 'https://github.com/LukoOG/sui-profile-dapp',
 		live: 'https://sui-profile-dapp.vercel.app/'

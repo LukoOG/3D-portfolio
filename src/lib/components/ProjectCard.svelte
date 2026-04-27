@@ -4,13 +4,30 @@
 	import type { Project } from '$lib';
 
 	let { project, i }: { project: Project; i: number } = $props();
+
+	let imageSrc = $state<string | null>(null);
+	// let imageSrc = $derived(import(`../assets/project-images/${project.image}`));
+	//above works if I use await block in html and access via imageSrc.default
+
+	$effect(() => {
+		if (!project.image) return;
+
+		import(`../assets/project-images/${project.image}`)
+			.then((mod) => {
+				imageSrc = mod.default;
+			})
+			.catch((err) => {
+				imageSrc = null;
+				console.error(err);
+			});
+	});
 </script>
 
 <article class="card" style="animation-delay: {0.12 + i * 0.12}s">
 	<!-- image area -->
 	<div class="card-image">
-		{#if project.image}
-			<img src={project.image} alt={project.name} />
+		{#if imageSrc}
+			<img src={imageSrc} alt={project.name} />
 		{:else}
 			<div class="image-placeholder">
 				<span class="placeholder-name">{project.name}</span>
@@ -27,7 +44,7 @@
 
 		<!-- year floats bottom right of image -->
 	</div>
-	
+
 	<!-- card content -->
 	<div class="card-content">
 		<div class="card-body">
@@ -197,6 +214,7 @@
 
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}
