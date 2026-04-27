@@ -4,31 +4,25 @@
 	import type { Project } from '$lib';
 
 	let { project, i }: { project: Project; i: number } = $props();
-
 	let imageSrc = $state<string | null>(null);
-	// let imageSrc = $derived(import(`../assets/project-images/${project.image}`));
-	//above works if I use await block in html and access via imageSrc.default
+
+	const images = import.meta.glob('../assets/project-images/*', {
+		eager: true,
+		import: 'default'
+	}) as Record<string, string>;
 
 	$effect(() => {
 		if (!project.image) return;
-
-		import(`../assets/project-images/${project.image}`)
-			.then((mod) => {
-				imageSrc = mod.default;
-				console.log(mod)
-			})
-			.catch((err) => {
-				imageSrc = null;
-				console.error(err);
-			});
+		const path = `../assests/project-images/${project.image}`;
+		imageSrc = images[path] ?? null;
 	});
 </script>
 
 <article class="card" style="animation-delay: {0.12 + i * 0.12}s">
 	<!-- image area -->
 	<div class="card-image">
-		{#if imageSrc}
-			<img src={imageSrc} alt={project.name} />
+		{#if project.image}
+			<img src={`/assests/project-images/${project.image}`} alt={project.name} />
 		{:else}
 			<div class="image-placeholder">
 				<span class="placeholder-name">{project.name}</span>
