@@ -15,6 +15,7 @@
 		import(`../assets/project-images/${project.image}`)
 			.then((mod) => {
 				imageSrc = mod.default;
+				console.log(mod)
 			})
 			.catch((err) => {
 				imageSrc = null;
