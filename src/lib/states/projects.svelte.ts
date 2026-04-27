@@ -10,16 +10,17 @@ export interface Project {
 	status?: 'in-progress';
 }
 
-export const projects: Project[] = [
+export const project-images: Project[] = [
 	{
 		name: 'Swix',
 		description:
 			'A fully functional Twitter-like social platform with real-time feeds, follows, and interactions.',
 		stack: ['SvelteKit 5', 'Django', 'Supabase'],
 		category: 'Fullstack',
+		image: '/src/lib/assets/project-images/swix.png',
 		year: '2024',
 		github: 'https://github.com/',
-		live: 'https://',
+		live: 'https://swix-lake.vercel.app/',
 		status: 'in-progress'
 	},
 	{
@@ -28,9 +29,10 @@ export const projects: Project[] = [
 			'A fully functional e-commerce food platform with cart, checkout, and order management.',
 		stack: ['SvelteKit 5', 'Django', 'Supabase'],
 		category: 'Fullstack',
+		image: '/src/lib/assets/project-images/svellit.png',
 		year: '2024',
 		github: 'https://github.com/',
-		live: 'https://'
+		live: 'https://svellit-diamond.vercel.app/'
 	},
 	{
 		name: 'CartoLinks',
@@ -38,13 +40,14 @@ export const projects: Project[] = [
 			'Frontend implementation of a Figma design — pixel-perfect, responsive, and production ready.',
 		stack: ['Next.js'],
 		category: 'Frontend',
+		image: '/src/lib/assets/project-images/cartolinks-1.png',
 		year: '2024',
 		github: 'https://github.com/',
-		live: 'https://'
+		live: 'https://cartolinks-application.vercel.app/'
 	},
 	{
-		name: 'Sui Project 1',
-		description: 'A decentralised application on the Sui blockchain.',
+		name: 'Sui Profile',
+		description: 'A decentralised application built on the Sui blockchain. It allows Users to own and display profile cards, providing a means of decentralised identification.',
 		stack: ['Next.js', 'Move', 'Sui'],
 		category: 'Web3',
 		year: '2024',

@@ -2,7 +2,7 @@
 	import ContactLayout from '$lib/components/html/pageLayouts/ContactLayout.svelte';
 	import { enhance } from '$app/forms';
 	import { Download } from '@lucide/svelte';
-    import resume from "$lib/assets/cv.pdf"
+    import resume from "$lib/assets/documents/cv.pdf"
 
 	let { form } = $props();
 
