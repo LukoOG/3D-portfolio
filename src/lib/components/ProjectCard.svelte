@@ -7,18 +7,29 @@
 	let imageSrc = $state<string | null>(null);
 
 	const images = import.meta.glob('../assets/project-images/*', {
-		eager: true,
 		import: 'default'
-	}) as Record<string, string>;
+	});
 
 	$effect(() => {
 		if (!project.image) return;
-		const path = `../assets/project-images/${project.image}`;
-		imageSrc = images[path] ?? null;
-		// console.log(imageSrc)
-	});
 
-	// console.log(images)
+		const path = `../assets/project-images/${project.image}`;
+		const loader = images[path];
+
+		if (!loader) {
+			imageSrc = null;
+			return;
+		}
+
+		loader()
+			.then((src) => {
+				imageSrc = src as string;
+			})
+			.catch((err) => {
+				imageSrc = null;
+				console.error(err);
+			});
+	});
 </script>
 
 <article class="card" style="animation-delay: {0.12 + i * 0.12}s">
