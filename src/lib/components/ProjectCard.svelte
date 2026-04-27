@@ -6,7 +6,7 @@
 	let { project, i }: { project: Project; i: number } = $props();
 </script>
 
-<article class="card {i == 0 ? 'featured' : ''}" style="animation-delay: {0.12 + i * 0.12}s">
+<article class="card" style="animation-delay: {0.12 + i * 0.12}s">
 	<!-- image area -->
 	<div class="card-image">
 		{#if project.image}
@@ -26,13 +26,13 @@
 		</div>
 
 		<!-- year floats bottom right of image -->
-		<span class="image-year">{project.year}</span>
 	</div>
-
+	
 	<!-- card content -->
 	<div class="card-content">
 		<div class="card-body">
 			<h3 class="name">{project.name}</h3>
+			<span class="image-year">{project.year}</span>
 			<p class="description">{project.description}</p>
 		</div>
 
@@ -173,34 +173,6 @@
 		flex-direction: column;
 		gap: 0.9rem;
 		flex: 1;
-	}
-	/* featured-card */
-	.card.featured {
-		display: grid;
-		grid-template-columns: 1.2fr 1fr;
-		align-items: stretch;
-	}
-
-	.card.featured .card-image {
-		aspect-ratio: auto;
-		height: 100%;
-	}
-
-	.card.featured .card-content {
-		padding: 1.25rem;
-		justify-content: space-between;
-	}
-	.card.featured .name {
-		font-size: 1.25rem;
-	}
-
-	.card.featured .description {
-		font-size: 0.8rem;
-		-webkit-line-clamp: 3;
-	}
-	.card.featured {
-		background: rgba(255, 255, 255, 0.05);
-		border-color: rgba(255, 255, 255, 0.12);
 	}
 
 	.card-body {

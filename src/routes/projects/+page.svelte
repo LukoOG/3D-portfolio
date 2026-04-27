@@ -62,10 +62,13 @@
 	}
 
 	.page-title {
-		font-size: 1.05rem;
-		font-weight: 400;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
+		font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+		font-weight: 300;
+		letter-spacing: -0.02em;
+		margin: 0;
+		line-height: 1;
+		color: white;
+		animation: slide-down 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
 	}
 
 	.page-subtext {
