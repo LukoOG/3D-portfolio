@@ -1,12 +1,9 @@
 <!-- ProjectCard.svelte -->
 <script lang="ts">
   import { ExternalLink, GitBranchIcon as Github, ArrowUpRight } from '@lucide/svelte'
-  import swix from '$lib/assets/project-imgaes/swix.png'
   import type { Project } from '$lib'
 
   let { project, i }: { project: Project; i: number } = $props()
-  console.log(swix == project.image)
-  console.log(swix, project.image)
 </script>
 
 <article class="card" style="animation-delay: {0.1 + i * 0.08}s">

@@ -10,7 +10,9 @@ export interface Project {
 	status?: 'in-progress';
 }
 
-export const project-images: Project[] = [
+const getImageLink = (name: string) => `/src/lib/assets/project-images/${name}`
+
+export const projects: Project[] = [
 	{
 		name: 'Swix',
 		description:
@@ -19,9 +21,9 @@ export const project-images: Project[] = [
 		category: 'Fullstack',
 		image: '/src/lib/assets/project-images/swix.png',
 		year: '2024',
-		github: 'https://github.com/',
+		github: 'https://github.com/LukoOG/Fullstack_projects/tree/main/Social-media',
 		live: 'https://swix-lake.vercel.app/',
-		status: 'in-progress'
+		// status: 'in-progress'
 	},
 	{
 		name: 'Svellit',
@@ -31,7 +33,7 @@ export const project-images: Project[] = [
 		category: 'Fullstack',
 		image: '/src/lib/assets/project-images/svellit.png',
 		year: '2024',
-		github: 'https://github.com/',
+		github: 'https://github.com/LukoOG/Fullstack_projects/tree/main/E-commerce',
 		live: 'https://svellit-diamond.vercel.app/'
 	},
 	{
@@ -42,7 +44,7 @@ export const project-images: Project[] = [
 		category: 'Frontend',
 		image: '/src/lib/assets/project-images/cartolinks-1.png',
 		year: '2024',
-		github: 'https://github.com/',
+		github: 'https://github.com/LukoOG/cartolinks-application-assignment',
 		live: 'https://cartolinks-application.vercel.app/'
 	},
 	{
@@ -50,9 +52,10 @@ export const project-images: Project[] = [
 		description: 'A decentralised application built on the Sui blockchain. It allows Users to own and display profile cards, providing a means of decentralised identification.',
 		stack: ['Next.js', 'Move', 'Sui'],
 		category: 'Web3',
+		image: getImageLink('sui-profile.png'),
 		year: '2024',
-		github: 'https://github.com/',
-		live: 'https://'
+		github: 'https://github.com/LukoOG/sui-profile-dapp',
+		live: 'https://sui-profile-dapp.vercel.app/'
 	},
 	{
 		name: 'Sui Project 2',
