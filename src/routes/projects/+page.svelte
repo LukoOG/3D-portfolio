@@ -2,6 +2,18 @@
 	import { projects } from '$lib';
 	import ProjectsLayout from '$lib/components/html/pageLayouts/ProjectsLayout.svelte';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
+	import { Category, type Project } from '$lib/states/projects.svelte';
+
+	let activeFilter = $state<Category | 'all'>('all');
+	let filters = [];
+
+	Object.values(Category).forEach((category) => filters.push(category));
+
+	console.log(filters);
+
+	let filteredProjects: Project[] = $derived.by(() =>
+		projects.filter((project) => project.category == activeFilter)
+	);
 </script>
 
 <!-- /projects/+page.svelte -->
@@ -15,7 +27,7 @@
 			</p>
 			<div class="filters">
 				{#each ['All', 'Web', 'AI', 'Systems'] as f}
-					<button class:selected={activeFilter === f} on:click={() => (activeFilter = f)}>
+					<button class:selected={activeFilter === f} onclick={() => (activeFilter = f)}>
 						{f}
 					</button>
 				{/each}
@@ -28,7 +40,7 @@
 	</div>
 
 	<div class="grid">
-		{#each projects as project, i}
+		{#each filteredProjects as project, i}
 			<ProjectCard {project} {i} />
 		{/each}
 	</div>

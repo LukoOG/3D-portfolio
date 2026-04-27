@@ -1,8 +1,16 @@
+export enum Category {
+	"web3",
+	"fullstack",
+	"frontend",
+	"backend"
+}
+
+
 export interface Project {
 	name: string;
 	description: string;
 	stack: string[];
-	category: string;
+	category: Category;
 	image?: string;
 	year: string;
 	github: string;
@@ -18,7 +26,7 @@ export const projects: Project[] = [
 		description:
 			'A fully functional Twitter-like social platform with real-time feeds, follows, and interactions.',
 		stack: ['SvelteKit 5', 'Django', 'Supabase'],
-		category: 'Fullstack',
+		category: Category.fullstack,
 		image: '/src/lib/assets/project-images/swix.png',
 		year: '2024',
 		github: 'https://github.com/LukoOG/Fullstack_projects/tree/main/Social-media',
@@ -30,7 +38,7 @@ export const projects: Project[] = [
 		description:
 			'A fully functional e-commerce food platform with cart, checkout, and order management.',
 		stack: ['SvelteKit 5', 'Django', 'Supabase'],
-		category: 'Fullstack',
+		category: Category.fullstack,
 		image: '/src/lib/assets/project-images/svellit.png',
 		year: '2024',
 		github: 'https://github.com/LukoOG/Fullstack_projects/tree/main/E-commerce',
@@ -41,7 +49,7 @@ export const projects: Project[] = [
 		description:
 			'Frontend implementation of a Figma design — pixel-perfect, responsive, and production ready.',
 		stack: ['Next.js'],
-		category: 'Frontend',
+		category: Category.frontend,
 		image: '/src/lib/assets/project-images/cartolinks-1.png',
 		year: '2024',
 		github: 'https://github.com/LukoOG/cartolinks-application-assignment',
@@ -51,7 +59,7 @@ export const projects: Project[] = [
 		name: 'Sui Profile',
 		description: 'A decentralised application built on the Sui blockchain. It allows Users to own and display profile cards, providing a means of decentralised identification.',
 		stack: ['Next.js', 'Move', 'Sui'],
-		category: 'Web3',
+		category: Category.web3,
 		image: getImageLink('sui-profile.png'),
 		year: '2024',
 		github: 'https://github.com/LukoOG/sui-profile-dapp',
