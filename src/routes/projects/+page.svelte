@@ -5,15 +5,14 @@
 	import { Category, type Project } from '$lib/states/projects.svelte';
 
 	let activeFilter = $state<Category | 'all'>('all');
-	let filters = [];
+	let filters: (Category | 'all')[] = ['all', ...Object.values(Category)];
 
-	Object.values(Category).forEach((category) => filters.push(category));
+	let filteredProjects: Project[] = $derived.by(() => {
+		if (activeFilter == 'all') return projects;
+		else return projects.filter((project) => project.category == activeFilter);
+	});
 
 	console.log(filters);
-
-	let filteredProjects: Project[] = $derived.by(() =>
-		projects.filter((project) => project.category == activeFilter)
-	);
 </script>
 
 <!-- /projects/+page.svelte -->
@@ -26,7 +25,7 @@
 				usability, and real-world constraints.
 			</p>
 			<div class="filters">
-				{#each ['All', 'Web', 'AI', 'Systems'] as f}
+				{#each filters as f}
 					<button class:selected={activeFilter === f} onclick={() => (activeFilter = f)}>
 						{f}
 					</button>
