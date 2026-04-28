@@ -94,16 +94,6 @@
 		margin-top: 0.5rem;
 	}
 
-	/* first card spans full width as a featured project */
-	.grid :global(.card:first-child .card-image) {
-		aspect-ratio: 18 / 8;
-	}
-
-	/* on that featured card, show image taller */
-	.grid :global(.card:first-child .card-image) {
-		aspect-ratio: 21 / 9;
-	}
-
 	/* filters */
 	.filters {
 		display: flex;

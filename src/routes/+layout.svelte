@@ -20,6 +20,7 @@
 
 	onMount(() => {
 		const currentTimestamp = Date.now();
+		const value = JSON.stringify(currentTimestamp)
 		if (browser) {
 			try {
 				let lastVisitTimeStamp = JSON.parse(localStorage.getItem(key));
@@ -28,9 +29,9 @@
 				//First time visit or First visit in a long time
 				if (!lastVisitTimeStamp || currentTimestamp - lastVisitTimeStamp > TWO_WEEKS) {
 					firstVisit = true;
-					localStorage.setItem(key, currentTimestamp);
+					localStorage.setItem(key, value);
 				} else {
-					localStorage.setItem(key, currentTimestamp);
+					localStorage.setItem(key, value);
 				}
 			} catch (e) {
 				console.error(e);

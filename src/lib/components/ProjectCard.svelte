@@ -1,6 +1,6 @@
 <!-- ProjectCard.svelte -->
 <script lang="ts">
-	import { ExternalLink, GitBranchIcon as Github, ArrowUpRight } from '@lucide/svelte';
+	import { ExternalLink, GitCommitHorizontal as Github, ArrowUpRight } from '@lucide/svelte';
 	import type { Project } from '$lib';
 
 	let { project, i }: { project: Project; i: number } = $props();
@@ -33,26 +33,28 @@
 </script>
 
 <article class="card" style="animation-delay: {0.12 + i * 0.12}s">
-	<!-- image area -->
-	<div class="card-image">
-		{#if project.image}
-			<img src={imageSrc} alt={project.name} />
-		{:else}
-			<div class="image-placeholder">
-				<span class="placeholder-name">{project.name}</span>
-			</div>
-		{/if}
-
-		<!-- category + status float on top of image -->
-		<div class="image-badges">
-			<span class="category">{project.category}</span>
-			{#if project.status === 'in-progress'}
-				<span class="badge">In progress</span>
+	<a class="display-none" target="_blank" rel="noopener" href={project.live}>
+		<!-- image area -->
+		<div class="card-image">
+			{#if project.image}
+				<img src={imageSrc} alt={project.name} />
+			{:else}
+				<div class="image-placeholder">
+					<span class="placeholder-name">{project.name}</span>
+				</div>
 			{/if}
-		</div>
 
-		<!-- year floats bottom right of image -->
-	</div>
+			<!-- category + status float on top of image -->
+			<div class="image-badges">
+				<span class="category">{project.category}</span>
+				{#if project.status === 'in-progress'}
+					<span class="badge">In progress</span>
+				{/if}
+			</div>
+
+			<!-- year floats bottom right of image -->
+		</div>
+	</a>
 
 	<!-- card content -->
 	<div class="card-content">
@@ -74,12 +76,6 @@
 					<Github size={13} />
 					<span>Code</span>
 				</a>
-				{#if project.status !== 'in-progress'}
-					<a href={project.live} target="_blank" rel="noopener" class="link primary">
-						<span>Live</span>
-						<ArrowUpRight size={13} />
-					</a>
-				{/if}
 			</div>
 		</div>
 	</div>
@@ -255,15 +251,15 @@
 		gap: 0.5rem;
 		flex-shrink: 0;
 	}
-
+	
 	.link {
 		display: flex;
 		align-items: center;
 		gap: 0.3rem;
 		font-size: 0.65rem;
-		color: rgba(255, 255, 255, 0.35);
+		color: #cfe6ff; /* brighter soft blue */
 		padding: 0.3rem 0.65rem;
-		border: 1px solid rgba(255, 255, 255, 0.08);
+		border: 1px solid rgba(207, 230, 255, 0.25);
 		border-radius: 999px;
 		text-decoration: none;
 		transition:
@@ -271,23 +267,13 @@
 			border-color 0.2s,
 			background 0.2s;
 		letter-spacing: 0.04em;
+		background: rgba(255, 255, 255, 0.03);
 	}
 
 	.link:hover {
-		color: rgba(255, 255, 255, 0.8);
-		border-color: rgba(255, 255, 255, 0.2);
-		background: rgba(255, 255, 255, 0.05);
-	}
-
-	.link.primary {
-		color: rgba(255, 255, 255, 0.7);
-		border-color: rgba(255, 255, 255, 0.15);
-	}
-
-	.link.primary:hover {
-		color: white;
-		border-color: rgba(255, 255, 255, 0.35);
-		background: rgba(255, 255, 255, 0.08);
+		color: #ffffff;
+		border-color: #7fbfff;
+		background: rgba(127, 191, 255, 0.12);
 	}
 
 	@keyframes slide-up {
