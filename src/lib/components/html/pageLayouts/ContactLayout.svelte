@@ -4,7 +4,9 @@
 </script>
 
 <div class="contact-layout">
-  {@render children()}
+  <div class="contact-inner">
+    {@render children()}
+  </div>
 </div>
 
 <style>
@@ -14,5 +16,14 @@
     overflow-y: auto;
     overflow-x: hidden;
     color: white;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 </style>

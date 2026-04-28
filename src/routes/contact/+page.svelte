@@ -2,7 +2,8 @@
 	import ContactLayout from '$lib/components/html/pageLayouts/ContactLayout.svelte';
 	import { enhance } from '$app/forms';
 	import { Download } from '@lucide/svelte';
-    import resume from "$lib/assets/documents/cv.pdf"
+	import resume from '$lib/assets/documents/cv.pdf';
+	import { navigateTo } from '$lib';
 
 	let { form } = $props();
 
@@ -154,13 +155,30 @@
 				</form>
 			{/if}
 		</div>
+		<div class="flex flex-row justify-center w-full col-span-2">
+			<button class="cta" onclick={() => navigateTo('hero', '/', true)}>
+				<!-- <span class="arrow">←</span> -->
+				Contaced me? Back to Home 
+			</button>
+		</div>
+	</div>
+
+	<!-- footer strip -->
+	<div class="contact-footer">
+		<div class="footer-left">
+			<span class="footer-dot" />
+			<span>Lagos, Nigeria</span>
+			<span class="footer-sep">·</span>
+			<span>WAT (UTC+1)</span>
+		</div>
+		<span class="footer-right">Typically responds within 24hrs</span>
 	</div>
 </ContactLayout>
 
 <style>
 	.contact-root {
 		width: 100%;
-		min-height: 100%;
+		height: 100%;
 		padding: 2rem 1.75rem 3rem;
 		display: grid;
 		grid-template-columns: 1fr 1.4fr;
@@ -198,6 +216,40 @@
 		color: rgba(255, 255, 255, 0.92);
 	}
 
+	.cta {
+		margin-top: 0.75rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 1.1rem;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.06);
+		color: rgba(255, 255, 255, 0.8);
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		cursor: pointer;
+		transition:
+			background 0.2s,
+			border-color 0.2s,
+			color 0.2s;
+		animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+	}
+
+	.cta:hover {
+		background: rgba(255, 255, 255, 0.12);
+		border-color: rgba(255, 255, 255, 0.35);
+		color: white;
+	}
+
+	.arrow {
+		transition: translate 0.2s;
+	}
+
+	.cta:hover .arrow {
+		translate: 3px 0;
+	}
+
 	.contact-sub {
 		font-size: 0.72rem;
 		line-height: 1.7;
@@ -209,6 +261,43 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+	}
+
+	.contact-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.85rem 1.75rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.05);
+		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+	}
+
+	.footer-left {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.62rem;
+		color: rgba(255, 255, 255, 0.25);
+		letter-spacing: 0.06em;
+	}
+
+	.footer-dot {
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: #4ade80;
+		box-shadow: 0 0 5px #4ade80;
+		animation: pulse 2s ease-in-out infinite;
+	}
+
+	.footer-sep {
+		color: rgba(255, 255, 255, 0.1);
+	}
+
+	.footer-right {
+		font-size: 0.62rem;
+		color: rgba(255, 255, 255, 0.2);
+		letter-spacing: 0.06em;
 	}
 
 	.email-link {
