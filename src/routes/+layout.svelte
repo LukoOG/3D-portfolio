@@ -1,15 +1,42 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.png';
 	import { Canvas } from '@threlte/core';
 	import Scene from '$lib/components/scene/Scene.svelte';
 	import { navigateTo } from '$lib';
-	import CubeNav from '$lib/components/layout/Nav.svelte';
+	import Nav from '$lib/components/layout/Nav.svelte';
 	import EnterPrompt from '$lib/components/html/EnterPrompt.svelte';
 	import FaceOverlay from '$lib/components/html/FaceOverlay.svelte';
 	import Header from '$lib/components/layout/Header.svelte';
+	import Hint from '$lib/components/html/Hint.svelte';
 
 	let { children } = $props();
+	let firstVisit = $state(false);
+
+	const TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
+	const key = 'lastVisit';
+
+	onMount(() => {
+		const currentTimestamp = Date.now();
+		if (browser) {
+			try {
+				let lastVisitTimeStamp = JSON.parse(localStorage.getItem(key));
+				console.log('time:', lastVisitTimeStamp);
+
+				//First time visit or First visit in a long time
+				if (!lastVisitTimeStamp || currentTimestamp - lastVisitTimeStamp > TWO_WEEKS) {
+					firstVisit = true;
+					localStorage.setItem(key, currentTimestamp);
+				} else {
+					localStorage.setItem(key, currentTimestamp);
+				}
+			} catch (e) {
+				console.error(e);
+			}
+		}
+	});
 </script>
 
 <svelte:head>
@@ -21,9 +48,9 @@
 <EnterPrompt />
 
 <main>
-	<div class="hint">Use keys 1-6 to rotate the cube <small><i>or click nav buttons</i></small></div>
+	<Hint visible={firstVisit} />
 	<Header />
-	<CubeNav />
+	<Nav />
 	<FaceOverlay>
 		{@render children?.()}
 	</FaceOverlay>
@@ -35,41 +62,5 @@
 		z-index: 1;
 		/* pointer-events: none; */
 		/* box-sizing: content-box; */
-	}
-
-	.hint {
-		position: fixed;
-		top: 6rem; /* Position just below the header */
-		left: 50%;
-		transform: translateX(-50%);
-		font-size: 1rem;
-		background: rgba(0, 0, 0, 0.8);
-		color: white;
-		padding: 10px;
-		border-radius: 8px;
-		animation: fadeinout 2.5s ease-in-out forwards;
-		z-index: 1000; /* Ensure it sits on top of other content */
-	}
-
-	@keyframes fadeinout {
-		0% {
-			opacity: 0;
-		}
-		20% {
-			opacity: 1;
-		}
-		80% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-		}
-	}
-
-	/* Mobile responsive adjustments */
-	@media (max-width: 480px) {
-		.hint {
-			display: none;
-		}
 	}
 </style>

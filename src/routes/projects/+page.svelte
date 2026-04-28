@@ -33,9 +33,9 @@
 			</div>
 		</div>
 
-		<div class="meta">
+		<!-- <div class="meta">
 			<span class="count-pill">{projects.length} projects</span>
-		</div>
+		</div> -->
 	</div>
 
 	<div class="grid">
