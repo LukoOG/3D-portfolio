@@ -7,7 +7,8 @@
 		Link as Linkedin,
 		ExternalLink
 	} from '@lucide/svelte';
-  import profilePic from '$lib/assets/profile/me.png'
+	import profilePic from '$lib/assets/profile/me.png';
+	import { navigateTo } from '$lib';
 
 	const timeline = [
 		{
@@ -41,7 +42,11 @@
 	const social = [
 		{ label: 'GitHub', href: 'https://github.com/LukoOG', icon: Github },
 		{ label: '', href: 'https://x.com/Sipe_OG1', icon: Twitter },
-		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/emmanuel-adesipe-79b901365/', icon: Linkedin }
+		{
+			label: 'LinkedIn',
+			href: 'https://www.linkedin.com/in/emmanuel-adesipe-79b901365/',
+			icon: Linkedin
+		}
 	];
 </script>
 
@@ -51,7 +56,6 @@
 		<div class="left">
 			<!-- bio block -->
 			<section class="section bio-section">
-
 				<div class="photo-block">
 					<img src={profilePic} alt="Emmanuel Adesipe" class="photo" />
 					<div class="photo-info">
@@ -72,7 +76,7 @@
 					{#each social as link}
 						<a href={link.href} target="_blank" rel="noopener" class="social-link">
 							<!-- <svelte:component this={link.icon} size={14} /> -->
-							 <link.icon size={14} />
+							<link.icon size={14} />
 							<span>{link.label}</span>
 						</a>
 					{/each}
@@ -158,6 +162,22 @@
 				</div>
 			</section>
 		</div>
+
+		<!-- left button -->
+		<span>
+			<button class="cta" onclick={() => navigateTo('contact', '/contact', true)}>
+				<span class="arrow">←</span>
+				Contact me
+			</button>
+		</span>
+
+		<!-- right button -->
+		<span class="flex flex-end justify-end flex-row">
+			<button class="cta" onclick={() => navigateTo('hero', '/', true)}>
+				Home Page
+				<span class="arrow">→</span>
+			</button>
+		</span>
 	</div>
 </AboutLayout>
 
@@ -288,6 +308,40 @@
 		font-size: 0.58rem;
 		color: rgba(255, 255, 255, 0.25);
 		letter-spacing: 0.06em;
+	}
+
+	.cta {
+		margin-top: 0.75rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 1.1rem;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.06);
+		color: rgba(255, 255, 255, 0.8);
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		cursor: pointer;
+		transition:
+			background 0.2s,
+			border-color 0.2s,
+			color 0.2s;
+		animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+	}
+
+	.cta:hover {
+		background: rgba(255, 255, 255, 0.12);
+		border-color: rgba(255, 255, 255, 0.35);
+		color: white;
+	}
+
+	.arrow {
+		transition: translate 0.2s;
+	}
+
+	.cta:hover .arrow {
+		translate: 3px 0;
 	}
 
 	/* values */

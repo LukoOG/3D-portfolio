@@ -34,11 +34,12 @@
 
 	<!-- bottom left: decorative year + quote -->
 	<div class="quadrant bl">
+		<p class="title">What people say about me</p>
+		<div class="text-carousel">[insert testiomonials carousel]</div>
 		<p class="year">EST. {new Date().getFullYear()}</p>
 		<p class="quote">"APIs, pipelines and the<br />occasional pretty frontend."</p>
 		<div class="about">
-			<p class="title"></p>
-			<button class="cta" onclick={() => navigateTo('about', 'about', true)}>
+			<button class="cta" onclick={() => navigateTo('about', '/about', true)}>
 				<span class="arrow">←</span>
 				Get to know me
 			</button>
@@ -50,7 +51,7 @@
 		<div class="intro">
 			<h1 class="name">Emmanuel Adesipe</h1>
 			<p class="title">Fullstack Developer</p>
-			<button class="cta" onclick={() => navigateTo('projects', 'projects', true)}>
+			<button class="cta" onclick={() => navigateTo('projects', '/projects', true)}>
 				See my work
 				<span class="arrow">→</span>
 			</button>

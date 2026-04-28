@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { projects } from '$lib';
+	import { navigateTo, projects } from '$lib';
 	import ProjectsLayout from '$lib/components/html/pageLayouts/ProjectsLayout.svelte';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import { Category, type Project } from '$lib/states/projects.svelte';
@@ -43,6 +43,21 @@
 			<ProjectCard {project} {i} />
 		{/each}
 	</div>
+
+	<span>
+		<button class="cta" onclick={() => navigateTo('about', '/about', true)}>
+			<span class="arrow">←</span>
+			Get to know me
+		</button>
+	</span>
+
+	<!-- right button -->
+	<span class="flex-end flex flex-row justify-end">
+		<button class="cta" onclick={() => navigateTo('lab', '/lab', true)}>
+			Check out my lab
+			<span class="arrow">→</span>
+		</button>
+	</span>
 </ProjectsLayout>
 
 <style>
@@ -92,6 +107,40 @@
 		justify-content: center;
 		gap: 1.25rem;
 		margin-top: 0.5rem;
+	}
+
+	.cta {
+		margin-top: 0.75rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 1.1rem;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.06);
+		color: rgba(255, 255, 255, 0.8);
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		cursor: pointer;
+		transition:
+			background 0.2s,
+			border-color 0.2s,
+			color 0.2s;
+		animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+	}
+
+	.cta:hover {
+		background: rgba(255, 255, 255, 0.12);
+		border-color: rgba(255, 255, 255, 0.35);
+		color: white;
+	}
+
+	.arrow {
+		transition: translate 0.2s;
+	}
+
+	.cta:hover .arrow {
+		translate: 3px 0;
 	}
 
 	/* filters */
