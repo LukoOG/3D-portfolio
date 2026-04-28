@@ -5,7 +5,7 @@
 
 <SecretLayout>
 	<div class="flex h-[90%] flex-col items-center justify-center">
-		<h1 class="text-3xl">Explore the site</h1>
+		<h1 class="text-3xl">Check out my portfolio first 🫵</h1>
 	</div>
 </SecretLayout>
 
