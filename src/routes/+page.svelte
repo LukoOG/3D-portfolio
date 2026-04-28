@@ -2,6 +2,18 @@
 <script lang="ts">
 	import HeroLayout from '$lib/components/html/pageLayouts/HeroLayout.svelte';
 	import { navigateTo } from '$lib/index';
+	import { testimonials } from '$lib/states/testimonials.svelte';
+
+	let index = $state(0);
+
+	$effect(() => {
+		const timer = setTimeout(() => {
+			index += 1;
+			index %= testimonials.length;
+		}, 3500);
+		console.log(index)
+		return () => clearInterval(timer);
+	});
 </script>
 
 <HeroLayout>
@@ -35,7 +47,14 @@
 	<!-- bottom left: decorative year + quote -->
 	<div class="quadrant bl">
 		<p class="title">What people say about me</p>
-		<div class="text-carousel">[insert testiomonials carousel]</div>
+		{#key index}
+			<div class="testimonial">
+				<p class="testimonial-text">
+					{testimonials[index].text}
+				</p>
+				<p class="testimonial-author">{testimonials[index].author}</p>
+			</div>
+		{/key}
 		<p class="year">EST. {new Date().getFullYear()}</p>
 		<p class="quote">"APIs, pipelines and the<br />occasional pretty frontend."</p>
 		<div class="about">
@@ -183,12 +202,35 @@
 	}
 
 	.title {
-		font-size: 0.72rem;
+		font-size: 0.9rem;
 		text-transform: uppercase;
 		letter-spacing: 0.14em;
 		color: rgba(255, 255, 255, 0.4);
 		margin: 0;
 		animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+	}
+
+	.testimonial {
+		margin: 0.6rem 0 0.8rem;
+		max-width: 320px;
+		border-left: 1px solid rgba(255, 255, 255, 0.08);
+		padding-left: 0.6rem;
+		animation: slide-left-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+
+	.testimonial-text {
+		font-size: 0.75rem;
+		line-height: 1.5;
+		color: rgba(255, 255, 255, 0.8);
+		margin: 0 0 0.35rem;
+	}
+
+	.testimonial-author {
+		font-size: 0.85rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.35);
+		margin: 0;
 	}
 
 	.cta {
@@ -230,6 +272,17 @@
 		from {
 			opacity: 0;
 			translate: 0 10px;
+		}
+		to {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+
+	@keyframes slide-left-in {
+		from {
+			opacity: 0;
+			translate: 16px 0;
 		}
 		to {
 			opacity: 1;

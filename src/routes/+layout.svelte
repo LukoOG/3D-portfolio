@@ -24,7 +24,6 @@
 		if (browser) {
 			try {
 				let lastVisitTimeStamp = JSON.parse(localStorage.getItem(key));
-				console.log('time:', lastVisitTimeStamp);
 
 				//First time visit or First visit in a long time
 				if (!lastVisitTimeStamp || currentTimestamp - lastVisitTimeStamp > TWO_WEEKS) {
