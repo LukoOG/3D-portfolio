@@ -1,403 +1,485 @@
 <!-- src/routes/lab/+page.svelte -->
 <script lang="ts">
-  import LabLayout from '$lib/components/html/pageLayouts/LabLayout.svelte';
-  import { ExternalLink, GitBranch as Github, Terminal, Palette, Wrench, Package } from '@lucide/svelte'
+	import { navigateTo } from '$lib';
+	import LabLayout from '$lib/components/html/pageLayouts/LabLayout.svelte';
+	import {
+		ExternalLink,
+		GitBranch as Github,
+		Terminal,
+		Palette,
+		Wrench,
+		Package
+	} from '@lucide/svelte';
 
-  type LabCategory = 'generative' | 'cli' | 'opensource' | 'experiment'
+	type LabCategory = 'generative' | 'cli' | 'opensource' | 'experiment';
 
-  interface LabItem {
-    name: string
-    description: string
-    category: LabCategory
-    tags: string[]
-    github?: string
-    live?: string
-    wip?: boolean
-  }
+	interface LabItem {
+		name: string;
+		description: string;
+		category: LabCategory;
+		tags: string[];
+		github?: string;
+		live?: string;
+		wip?: boolean;
+	}
 
-  const categoryMeta: Record<LabCategory, { label: string; icon: any; color: string }> = {
-    generative: { label: 'Generative',   icon: Palette,  color: '#e879f9' },
-    cli:        { label: 'CLI Tool',      icon: Terminal, color: '#34d399' },
-    opensource: { label: 'Open Source',  icon: Package,  color: '#60a5fa' },
-    experiment: { label: 'Experiment',   icon: Wrench,   color: '#fb923c' },
-  }
+	const categoryMeta: Record<LabCategory, { label: string; icon: any; color: string }> = {
+		generative: { label: 'Generative', icon: Palette, color: '#e879f9' },
+		cli: { label: 'CLI Tool', icon: Terminal, color: '#34d399' },
+		opensource: { label: 'Open Source', icon: Package, color: '#60a5fa' },
+		experiment: { label: 'Experiment', icon: Wrench, color: '#fb923c' }
+	};
 
-  const items: LabItem[] = [
-    {
-      name: 'Experiment 001',
-      description: 'A generative art piece exploring noise fields and particle systems. Replace this with your actual experiment.',
-      category: 'generative',
-      tags: ['canvas', 'noise', 'animation'],
-      live: 'https://',
-      github: 'https://github.com/',
-      wip: true,
-    },
-    {
-      name: 'CLI Tool 001',
-      description: 'A command line utility that does something useful. Replace this description with your actual tool.',
-      category: 'cli',
-      tags: ['python', 'cli', 'automation'],
-      github: 'https://github.com/',
-    },
-    {
-      name: 'OSS Contribution',
-      description: 'A contribution to an open source project. Describe what you fixed or added.',
-      category: 'opensource',
-      tags: ['typescript', 'open-source'],
-      github: 'https://github.com/',
-    },
-    {
-      name: 'Throwaway 001',
-      description: 'A small throwaway project built over a weekend to try out a new technology or idea.',
-      category: 'experiment',
-      tags: ['rust', 'wasm'],
-      github: 'https://github.com/',
-      wip: true,
-    },
-  ]
+	const items: LabItem[] = [
+		{
+			name: 'Experiment 001',
+			description:
+				'A generative art piece exploring noise fields and particle systems. Replace this with your actual experiment.',
+			category: 'generative',
+			tags: ['canvas', 'noise', 'animation'],
+			live: 'https://',
+			github: 'https://github.com/',
+			wip: true
+		},
+		{
+			name: 'CLI Tool 001',
+			description:
+				'A command line utility that does something useful. Replace this description with your actual tool.',
+			category: 'cli',
+			tags: ['python', 'cli', 'automation'],
+			github: 'https://github.com/'
+		},
+		{
+			name: 'OSS Contribution',
+			description: 'A contribution to an open source project. Describe what you fixed or added.',
+			category: 'opensource',
+			tags: ['typescript', 'open-source'],
+			github: 'https://github.com/'
+		},
+		{
+			name: 'Throwaway 001',
+			description:
+				'A small throwaway project built over a weekend to try out a new technology or idea.',
+			category: 'experiment',
+			tags: ['rust', 'wasm'],
+			github: 'https://github.com/',
+			wip: true
+		}
+	];
 </script>
 
 <LabLayout>
-  <div class="lab-root">
+	<div class="lab-root">
+		<div class="page-header">
+			<div class="header-left">
+				<h2 class="page-title">Lab</h2>
+				<p class="page-sub">
+					Where things get weird. Experiments, tools, generative art, and anything that doesn't fit
+					neatly elsewhere.
+				</p>
+			</div>
+			<span class="count">{items.length} experiments</span>
+		</div>
 
-    <div class="page-header">
-      <div class="header-left">
-        <h2 class="page-title">Lab</h2>
-        <p class="page-sub">
-          Where things get weird. Experiments, tools, generative art,
-          and anything that doesn't fit neatly elsewhere.
-        </p>
-      </div>
-      <span class="count">{items.length} experiments</span>
-    </div>
+		<!-- category legend -->
+		<div class="legend">
+			{#each Object.entries(categoryMeta) as [key, meta]}
+				<div class="legend-item">
+					<svelte:component this={meta.icon} size={11} color={meta.color} />
+					<span style="color: {meta.color}">{meta.label}</span>
+				</div>
+			{/each}
+		</div>
 
-    <!-- category legend -->
-    <div class="legend">
-      {#each Object.entries(categoryMeta) as [key, meta]}
-        <div class="legend-item">
-          <svelte:component this={meta.icon} size={11} color={meta.color} />
-          <span style="color: {meta.color}">{meta.label}</span>
-        </div>
-      {/each}
-    </div>
+		<!-- lab grid -->
+		<div class="lab-grid">
+			{#each items as item, i}
+				{@const meta = categoryMeta[item.category]}
+				<article
+					class="lab-card"
+					style="animation-delay: {0.1 + i * 0.07}s; --accent: {meta.color}"
+				>
+					<!-- top bar with category color -->
+					<div class="card-accent" />
 
-    <!-- lab grid -->
-    <div class="lab-grid">
-      {#each items as item, i}
-        {@const meta = categoryMeta[item.category]}
-        <article
-          class="lab-card"
-          style="animation-delay: {0.1 + i * 0.07}s; --accent: {meta.color}"
-        >
-          <!-- top bar with category color -->
-          <div class="card-accent" />
+					<div class="card-inner">
+						<div class="card-header">
+							<div class="card-icon">
+								<svelte:component this={meta.icon} size={13} color={meta.color} />
+							</div>
+							<div class="card-meta">
+								<span class="card-category" style="color: {meta.color}">{meta.label}</span>
+								{#if item.wip}
+									<span class="wip-badge">WIP</span>
+								{/if}
+							</div>
+						</div>
 
-          <div class="card-inner">
-            <div class="card-header">
-              <div class="card-icon">
-                <svelte:component this={meta.icon} size={13} color={meta.color} />
-              </div>
-              <div class="card-meta">
-                <span class="card-category" style="color: {meta.color}">{meta.label}</span>
-                {#if item.wip}
-                  <span class="wip-badge">WIP</span>
-                {/if}
-              </div>
-            </div>
+						<div class="card-body">
+							<h3 class="card-name">{item.name}</h3>
+							<p class="card-desc">{item.description}</p>
+						</div>
 
-            <div class="card-body">
-              <h3 class="card-name">{item.name}</h3>
-              <p class="card-desc">{item.description}</p>
-            </div>
+						<div class="card-footer">
+							<div class="tags">
+								{#each item.tags as tag}
+									<span class="tag">{tag}</span>
+								{/each}
+							</div>
 
-            <div class="card-footer">
-              <div class="tags">
-                {#each item.tags as tag}
-                  <span class="tag">{tag}</span>
-                {/each}
-              </div>
+							<div class="card-links">
+								{#if item.github}
+									<a href={item.github} target="_blank" rel="noopener" class="card-link">
+										<Github size={12} />
+									</a>
+								{/if}
+								{#if item.live}
+									<a href={item.live} target="_blank" rel="noopener" class="card-link">
+										<ExternalLink size={12} />
+									</a>
+								{/if}
+							</div>
+						</div>
+					</div>
+				</article>
+			{/each}
+		</div>
 
-              <div class="card-links">
-                {#if item.github}
-                  <a href={item.github} target="_blank" rel="noopener" class="card-link">
-                    <Github size={12} />
-                  </a>
-                {/if}
-                {#if item.live}
-                  <a href={item.live} target="_blank" rel="noopener" class="card-link">
-                    <ExternalLink size={12} />
-                  </a>
-                {/if}
-              </div>
-            </div>
-          </div>
-        </article>
-      {/each}
-    </div>
+		<!-- empty state for future items -->
+		<div class="more-soon">
+			<span>More experiments incoming</span>
+			<div class="dots">
+				<span /><span /><span />
+			</div>
+		</div>
 
-    <!-- empty state for future items -->
-    <div class="more-soon">
-      <span>More experiments incoming</span>
-      <div class="dots">
-        <span /><span /><span />
-      </div>
-    </div>
+		<div class="grid grid-cols-2 gap-y-6">
+			<span>
+				<button class="cta" onclick={() => navigateTo('hero', '/', true)}>
+					<span class="arrow">←</span>
+					Back to my Hero page
+				</button>
+			</span>
 
-  </div>
+			<!-- right button -->
+			<span class="flex-end flex flex-row justify-end">
+				<button class="cta" onclick={() => navigateTo('secret', '/secret', true)}>
+					First Clue?
+					<span class="arrow">→</span>
+				</button>
+			</span>
+
+      <!-- Tip -->
+			<span class="text-md cols-span-2"> Tip: Return to the 3d scene by pressing escape or clicking the close button at the top right </span>
+		</div>
+	</div>
 </LabLayout>
 
 <style>
-  .lab-root {
-    width: 100%;
-    min-height: 100%;
-    padding: 2rem 1.75rem 3rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
+	.lab-root {
+		width: 100%;
+		min-height: 100%;
+		padding: 2rem 1.75rem 3rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
 
-  /* header */
-  .page-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-  }
+	/* header */
+	.page-header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+	}
 
-  .header-left {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
+	.header-left {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+	}
 
-  .page-title {
-    font-size: 1rem;
-    font-weight: 300;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.9);
-    margin: 0;
-  }
+	.page-title {
+		font-size: 1rem;
+		font-weight: 300;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.9);
+		margin: 0;
+	}
 
-  .page-sub {
-    font-size: 0.68rem;
-    color: rgba(255,255,255,0.3);
-    margin: 0;
-    line-height: 1.5;
-    max-width: 32ch;
-  }
+	.page-sub {
+		font-size: 0.68rem;
+		color: rgba(255, 255, 255, 0.3);
+		margin: 0;
+		line-height: 1.5;
+		max-width: 32ch;
+	}
 
-  .count {
-    font-size: 0.6rem;
-    color: rgba(255,255,255,0.2);
-    letter-spacing: 0.08em;
-    flex-shrink: 0;
-    padding-top: 0.2rem;
-  }
+	.count {
+		font-size: 0.6rem;
+		color: rgba(255, 255, 255, 0.2);
+		letter-spacing: 0.08em;
+		flex-shrink: 0;
+		padding-top: 0.2rem;
+	}
 
-  /* legend */
-  .legend {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
-  }
+	/* legend */
+	.legend {
+		display: flex;
+		gap: 1rem;
+		flex-wrap: wrap;
+		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+	}
 
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.6rem;
-    letter-spacing: 0.08em;
-    opacity: 0.7;
-  }
+	.legend-item {
+		display: flex;
+		align-items: center;
+		gap: 0.3rem;
+		font-size: 0.6rem;
+		letter-spacing: 0.08em;
+		opacity: 0.7;
+	}
 
-  /* grid */
-  .lab-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
+	/* grid */
+	.lab-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.75rem;
+	}
 
-  /* card */
-  .lab-card {
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 10px;
-    overflow: hidden;
-    background: rgba(255,255,255,0.02);
-    opacity: 0;
-    animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-    transition: border-color 0.2s, background 0.2s, translate 0.2s;
-    display: flex;
-    flex-direction: column;
-  }
+	/* card */
+	.lab-card {
+		border: 1px solid rgba(255, 255, 255, 0.07);
+		border-radius: 10px;
+		overflow: hidden;
+		background: rgba(255, 255, 255, 0.02);
+		opacity: 0;
+		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+		transition:
+			border-color 0.2s,
+			background 0.2s,
+			translate 0.2s;
+		display: flex;
+		flex-direction: column;
+	}
 
-  .lab-card:hover {
-    border-color: var(--accent, rgba(255,255,255,0.15));
-    background: rgba(255,255,255,0.04);
-    translate: 0 -2px;
-  }
+	.lab-card:hover {
+		border-color: var(--accent, rgba(255, 255, 255, 0.15));
+		background: rgba(255, 255, 255, 0.04);
+		translate: 0 -2px;
+	}
 
-  /* colored top accent bar */
-  .card-accent {
-    height: 2px;
-    background: var(--accent, rgba(255,255,255,0.1));
-    opacity: 0.6;
-  }
+	.cta {
+		margin-top: 0.75rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 1.1rem;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.06);
+		color: rgba(255, 255, 255, 0.8);
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		cursor: pointer;
+		transition:
+			background 0.2s,
+			border-color 0.2s,
+			color 0.2s;
+		animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+	}
 
-  .card-inner {
-    padding: 0.9rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-    flex: 1;
-  }
+	.cta:hover {
+		background: rgba(255, 255, 255, 0.12);
+		border-color: rgba(255, 255, 255, 0.35);
+		color: white;
+	}
 
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
+	.arrow {
+		transition: translate 0.2s;
+	}
 
-  .card-icon {
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.07);
-    background: rgba(255,255,255,0.03);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
+	.cta:hover .arrow {
+		translate: 3px 0;
+	}
+	/* colored top accent bar */
+	.card-accent {
+		height: 2px;
+		background: var(--accent, rgba(255, 255, 255, 0.1));
+		opacity: 0.6;
+	}
 
-  .card-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
+	.card-inner {
+		padding: 0.9rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.7rem;
+		flex: 1;
+	}
 
-  .card-category {
-    font-size: 0.58rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
+	.card-header {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
 
-  .wip-badge {
-    font-size: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 0.1rem 0.35rem;
-    border-radius: 999px;
-    border: 1px solid rgba(251,146,60,0.3);
-    color: rgba(251,146,60,0.8);
-    background: rgba(251,146,60,0.05);
-  }
+	.card-icon {
+		width: 24px;
+		height: 24px;
+		border-radius: 6px;
+		border: 1px solid rgba(255, 255, 255, 0.07);
+		background: rgba(255, 255, 255, 0.03);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
 
-  .card-body {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    flex: 1;
-  }
+	.card-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
 
-  .card-name {
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: rgba(255,255,255,0.85);
-    margin: 0;
-    letter-spacing: -0.01em;
-  }
+	.card-category {
+		font-size: 0.58rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+	}
 
-  .card-desc {
-    font-size: 0.65rem;
-    line-height: 1.6;
-    color: rgba(255,255,255,0.35);
-    margin: 0;
-  }
+	.wip-badge {
+		font-size: 0.5rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		padding: 0.1rem 0.35rem;
+		border-radius: 999px;
+		border: 1px solid rgba(251, 146, 60, 0.3);
+		color: rgba(251, 146, 60, 0.8);
+		background: rgba(251, 146, 60, 0.05);
+	}
 
-  .card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-  }
+	.card-body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+		flex: 1;
+	}
 
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-  }
+	.card-name {
+		font-size: 0.9rem;
+		font-weight: 300;
+		color: rgba(255, 255, 255, 0.85);
+		margin: 0;
+		letter-spacing: -0.01em;
+	}
 
-  .tag {
-    font-size: 0.55rem;
-    padding: 0.12rem 0.4rem;
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 999px;
-    color: rgba(255,255,255,0.25);
-    letter-spacing: 0.04em;
-  }
+	.card-desc {
+		font-size: 0.65rem;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.35);
+		margin: 0;
+	}
 
-  .card-links {
-    display: flex;
-    gap: 0.4rem;
-    flex-shrink: 0;
-  }
+	.card-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+	}
 
-  .card-link {
-    color: rgba(255,255,255,0.25);
-    transition: color 0.2s;
-    display: flex;
-    align-items: center;
-    padding: 0.3rem;
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 6px;
-    transition: color 0.2s, border-color 0.2s;
-  }
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem;
+	}
 
-  .card-link:hover {
-    color: rgba(255,255,255,0.7);
-    border-color: rgba(255,255,255,0.15);
-  }
+	.tag {
+		font-size: 0.55rem;
+		padding: 0.12rem 0.4rem;
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		border-radius: 999px;
+		color: rgba(255, 255, 255, 0.25);
+		letter-spacing: 0.04em;
+	}
 
-  /* more soon */
-  .more-soon {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding-top: 0.5rem;
-    font-size: 0.62rem;
-    color: rgba(255,255,255,0.15);
-    letter-spacing: 0.08em;
-    animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
-  }
+	.card-links {
+		display: flex;
+		gap: 0.4rem;
+		flex-shrink: 0;
+	}
 
-  .dots {
-    display: flex;
-    gap: 0.3rem;
-  }
+	.card-link {
+		color: rgba(255, 255, 255, 0.25);
+		transition: color 0.2s;
+		display: flex;
+		align-items: center;
+		padding: 0.3rem;
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		border-radius: 6px;
+		transition:
+			color 0.2s,
+			border-color 0.2s;
+	}
 
-  .dots span {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    animation: pulse 1.5s ease-in-out infinite;
-  }
+	.card-link:hover {
+		color: rgba(255, 255, 255, 0.7);
+		border-color: rgba(255, 255, 255, 0.15);
+	}
 
-  .dots span:nth-child(2) { animation-delay: 0.2s; }
-  .dots span:nth-child(3) { animation-delay: 0.4s; }
+	/* more soon */
+	.more-soon {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding-top: 0.5rem;
+		font-size: 0.62rem;
+		color: rgba(255, 255, 255, 0.15);
+		letter-spacing: 0.08em;
+		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+	}
 
-  @keyframes slide-up {
-    from { opacity: 0; translate: 0 8px; }
-    to   { opacity: 1; translate: 0 0;   }
-  }
+	.dots {
+		display: flex;
+		gap: 0.3rem;
+	}
 
-  @keyframes pulse {
-    0%, 100% { opacity: 0.15; }
-    50%       { opacity: 0.5;  }
-  }
+	.dots span {
+		width: 3px;
+		height: 3px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.15);
+		animation: pulse 1.5s ease-in-out infinite;
+	}
+
+	.dots span:nth-child(2) {
+		animation-delay: 0.2s;
+	}
+	.dots span:nth-child(3) {
+		animation-delay: 0.4s;
+	}
+
+	@keyframes slide-up {
+		from {
+			opacity: 0;
+			translate: 0 8px;
+		}
+		to {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
+
+	@keyframes pulse {
+		0%,
+		100% {
+			opacity: 0.15;
+		}
+		50% {
+			opacity: 0.5;
+		}
+	}
 </style>

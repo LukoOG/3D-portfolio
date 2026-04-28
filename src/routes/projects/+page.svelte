@@ -44,20 +44,22 @@
 		{/each}
 	</div>
 
-	<span>
-		<button class="cta" onclick={() => navigateTo('about', '/about', true)}>
-			<span class="arrow">←</span>
-			Get to know me
-		</button>
-	</span>
+	<div class="flex flex-row justify-between">
+		<span>
+			<button class="cta" onclick={() => navigateTo('about', '/about', true)}>
+				<span class="arrow">←</span>
+				Get to know me
+			</button>
+		</span>
 
-	<!-- right button -->
-	<span class="flex-end flex flex-row justify-end">
-		<button class="cta" onclick={() => navigateTo('lab', '/lab', true)}>
-			Check out my lab
-			<span class="arrow">→</span>
-		</button>
-	</span>
+		<!-- right button -->
+		<span class="flex-end flex flex-row justify-end">
+			<button class="cta" onclick={() => navigateTo('lab', '/lab', true)}>
+				Check out my lab
+				<span class="arrow">→</span>
+			</button>
+		</span>
+	</div>
 </ProjectsLayout>
 
 <style>
