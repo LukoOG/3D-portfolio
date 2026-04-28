@@ -1,40 +1,31 @@
 <!-- src/routes/+page.svelte (hero) -->
 <script lang="ts">
+	import SecretLayout from '$lib/components/html/pageLayouts/SecretLayout.svelte';
 </script>
 
-
+<SecretLayout>
+	<div class="flex h-[90%] flex-col items-center justify-center">
+		<h1 class="text-3xl">Explore the site</h1>
+	</div>
+</SecretLayout>
 
 <style>
-  .quadrant {
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    color: white;
-  }
+	h1 {
+		font-size: clamp(2rem, 5vw, 4rem);
+		font-weight: 300;
+		letter-spacing: -0.02em;
+		margin: 0;
+		animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+	}
 
-  .tl { justify-content: flex-start; align-items: flex-start; }
-  .tr { justify-content: flex-start; align-items: flex-end; }
-  .bl { justify-content: flex-end;   align-items: flex-start; }
-  .br { justify-content: flex-end;   align-items: flex-end; }
-
-  h1 {
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 300;
-    letter-spacing: -0.02em;
-    margin: 0;
-    animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
-  }
-
-  p {
-    font-size: 0.875rem;
-    opacity: 0.5;
-    margin: 0.5rem 0 0;
-    animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
-  }
-
-  @keyframes slide-up {
-    from { opacity: 0; translate: 0 12px; }
-    to   { opacity: 1; translate: 0 0; }
-  }
+	@keyframes slide-up {
+		from {
+			opacity: 0;
+			translate: 0 12px;
+		}
+		to {
+			opacity: 1;
+			translate: 0 0;
+		}
+	}
 </style>
