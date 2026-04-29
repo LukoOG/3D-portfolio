@@ -6,14 +6,14 @@
 
 	let index = $state(0);
 
-	$effect(() => {
-		const timer = setTimeout(() => {
-			index += 1;
-			index %= testimonials.length;
-		}, 3500);
-		console.log(index)
-		return () => clearInterval(timer);
-	});
+	// $effect(() => {
+	// 	const timer = setTimeout(() => {
+	// 		index += 1;
+	// 		index %= testimonials.length;
+	// 	}, 3500);
+	// 	console.log(index)
+	// 	return () => clearInterval(timer);
+	// });
 </script>
 
 <HeroLayout>
@@ -45,7 +45,7 @@
 	</div>
 
 	<!-- bottom left: decorative year + quote -->
-	<div class="quadrant bl">
+	<div class="quadrant bl sm:p-0">
 		<p class="title">What people say about me</p>
 		{#key index}
 			<div class="testimonial">
@@ -265,6 +265,12 @@
 
 	.cta:hover .arrow {
 		translate: 3px 0;
+	}
+
+	@media (max-width: 640px) {
+		.quadrant.bl {
+			padding: 0.5rem 0.5rem 1.75rem 0.5rem; /* smaller padding for mobile */
+		}
 	}
 
 	/* shared animations */
