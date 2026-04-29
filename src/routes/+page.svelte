@@ -6,14 +6,14 @@
 
 	let index = $state(0);
 
-	// $effect(() => {
-	// 	const timer = setTimeout(() => {
-	// 		index += 1;
-	// 		index %= testimonials.length;
-	// 	}, 3500);
-	// 	console.log(index)
-	// 	return () => clearInterval(timer);
-	// });
+	$effect(() => {
+		const timer = setTimeout(() => {
+			index += 1;
+			index %= testimonials.length;
+		}, 3500);
+		// console.log(index)
+		return () => clearInterval(timer);
+	});
 </script>
 
 <HeroLayout>
