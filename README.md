@@ -7,7 +7,7 @@
 ![Three.js](https://img.shields.io/badge/Three.js-r128-black?logo=threedotjs)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript)
 
-![[Portfolio Screenhot](./screenshot.png)](https://sipe-portfolio.vercel.app/)
+[![Portfolio Screenshot](./screenshot.png)](https://sipe-portfolio.vercel.app)
 
 ---
 
