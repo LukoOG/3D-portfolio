@@ -7,7 +7,7 @@
 		Link as Linkedin,
 		ExternalLink
 	} from '@lucide/svelte';
-	import profilePic from '$lib/assets/profile/me.png';
+	import profilePic from '$lib/assets/profile/me.png?enhanced';
 	import { navigateTo } from '$lib';
 
 	const timeline = [
@@ -48,6 +48,8 @@
 			icon: Linkedin
 		}
 	];
+
+	console.log(profilePic)
 </script>
 
 <AboutLayout>
@@ -57,7 +59,7 @@
 			<!-- bio block -->
 			<section class="section bio-section">
 				<div class="photo-block">
-					<img src={profilePic} alt="Emmanuel Adesipe" class="photo" />
+					<enhanced:img src={profilePic} alt="Emmanuel Adesipe" class="photo" />
 					<div class="photo-info">
 						<h2 class="bio-name">Emmanuel<br />Adesipe</h2>
 						<p class="bio-role">Fullstack Developer · Backend Focus</p>
