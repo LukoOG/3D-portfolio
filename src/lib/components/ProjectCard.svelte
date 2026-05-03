@@ -2,9 +2,10 @@
 <script lang="ts">
 	import { ExternalLink, GitCommitHorizontal as Github, ArrowUpRight } from '@lucide/svelte';
 	import type { Project } from '$lib';
+	import Placeholder from '$lib/assets/project-images/placeholder.png'
 
 	let { project, i }: { project: Project; i: number } = $props();
-	let imageSrc = $state<string | null>(null);
+	let imageSrc = $state<string>(Placeholder);
 
 	const images = import.meta.glob('../assets/project-images/*', {
 		import: 'default'
@@ -17,7 +18,7 @@
 		const loader = images[path];
 
 		if (!loader) {
-			imageSrc = null;
+			imageSrc = Placeholder;
 			return;
 		}
 
@@ -26,7 +27,7 @@
 				imageSrc = src as string;
 			})
 			.catch((err) => {
-				imageSrc = null;
+				imageSrc = Placeholder;
 				console.error(err);
 			});
 	});
@@ -37,7 +38,7 @@
 		<!-- image area -->
 		<div class="card-image">
 			{#if project.image}
-				<img src={imageSrc} alt={project.name} />
+				<enhanced:img src={imageSrc} alt={project.name} />
 			{:else}
 				<div class="image-placeholder">
 					<span class="placeholder-name">{project.name}</span>
