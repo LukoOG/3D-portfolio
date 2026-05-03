@@ -2,34 +2,45 @@
 <script lang="ts">
 	import { ExternalLink, GitCommitHorizontal as Github, ArrowUpRight } from '@lucide/svelte';
 	import type { Project } from '$lib';
-	import Placeholder from '$lib/assets/project-images/placeholder.png'
+	import Placeholder from '$lib/assets/project-images/placeholder.png?enhanced';
+	import type { Picture } from '@sveltejs/enhanced-img';
 
 	let { project, i }: { project: Project; i: number } = $props();
-	let imageSrc = $state<string>(Placeholder);
+	let imageSrc = $state<string | Picture>(Placeholder);
 
 	const images = import.meta.glob('../assets/project-images/*', {
-		import: 'default'
+		import: 'default',
+		eager: true,
+		query: {
+			enhanced: true
+		}
 	});
 
 	$effect(() => {
 		if (!project.image) return;
 
 		const path = `../assets/project-images/${project.image}`;
-		const loader = images[path];
+		const loader = images[path] as Picture;
 
 		if (!loader) {
 			imageSrc = Placeholder;
 			return;
+		} else {
+			imageSrc = loader;
+			return
 		}
 
-		loader()
-			.then((src) => {
-				imageSrc = src as string;
-			})
-			.catch((err) => {
-				imageSrc = Placeholder;
-				console.error(err);
-			});
+		// Snippet if eager attribute was false because loader will
+		//become a Promise
+
+		// loader()
+		// 	.then((src) => {
+		// 		imageSrc = src as string;
+		// 	})
+		// 	.catch((err) => {
+		// 		imageSrc = Placeholder;
+		// 		console.error(err);
+		// 	});
 	});
 </script>
 
@@ -252,7 +263,7 @@
 		gap: 0.5rem;
 		flex-shrink: 0;
 	}
-	
+
 	.link {
 		display: flex;
 		align-items: center;
