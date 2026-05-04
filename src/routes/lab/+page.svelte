@@ -67,10 +67,15 @@
 						</div>
 
 						<div class="card-footer">
-							<div class="tags">
-								{#each item.tags as tag}
-									<span class="tag">{tag}</span>
-								{/each}
+							<div class="footer-left">
+								<div class="tags">
+									{#each item.tags as tag}
+										<span class="tag">{tag}</span>
+									{/each}
+								</div>
+								{#if item.origin}
+									<span class="origin">via {item.origin}</span>
+								{/if}
 							</div>
 
 							<div class="card-links">
@@ -85,9 +90,6 @@
 									</a>
 								{/if}
 							</div>
-							{#if item.origin}
-								<span class="origin">via {item.origin}</span>
-							{/if}
 						</div>
 					</div>
 				</article>
@@ -204,10 +206,10 @@
 
 	/* card */
 	.lab-card {
-		border: 1px solid rgba(255, 255, 255, 0.07);
+		border: 1px solid rgba(255, 255, 255, 0.12);
 		border-radius: 10px;
 		overflow: hidden;
-		background: rgba(255, 255, 255, 0.02);
+		background: rgba(0, 0, 0, 0.25);
 		opacity: 0;
 		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 		transition:
@@ -220,7 +222,7 @@
 
 	.lab-card:hover {
 		border-color: var(--accent, rgba(255, 255, 255, 0.15));
-		background: rgba(255, 255, 255, 0.04);
+		background: rgba(0, 0, 0, 0.35);
 		translate: 0 -2px;
 	}
 
@@ -282,8 +284,8 @@
 		width: 24px;
 		height: 24px;
 		border-radius: 6px;
-		border: 1px solid rgba(255, 255, 255, 0.07);
-		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: rgba(0, 0, 0, 0.2);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -323,7 +325,7 @@
 	.card-name {
 		font-size: 0.9rem;
 		font-weight: 300;
-		color: rgba(255, 255, 255, 0.85);
+		color: rgba(255, 255, 255, 0.95);
 		margin: 0;
 		letter-spacing: -0.01em;
 	}
@@ -331,7 +333,7 @@
 	.card-desc {
 		font-size: 0.65rem;
 		line-height: 1.6;
-		color: rgba(255, 255, 255, 0.35);
+		color: rgba(255, 255, 255, 0.7);
 		margin: 0;
 	}
 
@@ -351,9 +353,9 @@
 	.tag {
 		font-size: 0.55rem;
 		padding: 0.12rem 0.4rem;
-		border: 1px solid rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.2);
 		border-radius: 999px;
-		color: rgba(255, 255, 255, 0.25);
+		color: rgba(255, 255, 255, 0.6);
 		letter-spacing: 0.04em;
 	}
 
@@ -364,12 +366,12 @@
 	}
 
 	.card-link {
-		color: rgba(255, 255, 255, 0.25);
+		color: rgba(255, 255, 255, 0.6);
 		transition: color 0.2s;
 		display: flex;
 		align-items: center;
 		padding: 0.3rem;
-		border: 1px solid rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.25);
 		border-radius: 6px;
 		transition:
 			color 0.2s,
@@ -378,7 +380,7 @@
 
 	.card-link:hover {
 		color: rgba(255, 255, 255, 0.7);
-		border-color: rgba(255, 255, 255, 0.15);
+		border-color: rgba(255, 255, 255, 0.4);
 	}
 
 	/* more soon */
@@ -388,7 +390,7 @@
 		gap: 0.75rem;
 		padding-top: 0.5rem;
 		font-size: 0.62rem;
-		color: rgba(255, 255, 255, 0.15);
+		color: rgba(255, 255, 255, 0.3);
 		letter-spacing: 0.08em;
 		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
 	}
@@ -402,7 +404,7 @@
 		width: 3px;
 		height: 3px;
 		border-radius: 50%;
-		background: rgba(255, 255, 255, 0.15);
+		background: rgba(255, 255, 255, 0.4);
 		animation: pulse 1.5s ease-in-out infinite;
 	}
 
@@ -415,7 +417,7 @@
 
 	.origin {
 		font-size: 0.55rem;
-		color: rgba(255, 255, 255, 0.2);
+		color: rgba(255, 255, 255, 0.45);
 		letter-spacing: 0.06em;
 		font-style: italic;
 	}
