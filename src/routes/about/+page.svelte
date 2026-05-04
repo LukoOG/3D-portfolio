@@ -59,7 +59,7 @@
 			<!-- bio block -->
 			<section class="section bio-section">
 				<div class="photo-block">
-					<enhanced:img src={profilePic} alt="Emmanuel Adesipe" class="photo" />
+					<enhanced:img src={profilePic} alt="Emmanuel Adesipe Profile Picture" class="photo" />
 					<div class="photo-info">
 						<h2 class="bio-name">Emmanuel<br />Adesipe</h2>
 						<p class="bio-role">Fullstack Developer · Backend Focus</p>

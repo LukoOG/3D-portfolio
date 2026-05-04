@@ -11,61 +11,7 @@
 		Package
 	} from '@lucide/svelte';
 
-	type LabCategory = 'generative' | 'cli' | 'opensource' | 'experiment';
-
-	interface LabItem {
-		name: string;
-		description: string;
-		category: LabCategory;
-		tags: string[];
-		github?: string;
-		live?: string;
-		wip?: boolean;
-	}
-
-	const categoryMeta: Record<LabCategory, { label: string; icon: any; color: string }> = {
-		generative: { label: 'Generative', icon: Palette, color: '#e879f9' },
-		cli: { label: 'CLI Tool', icon: Terminal, color: '#34d399' },
-		opensource: { label: 'Open Source', icon: Package, color: '#60a5fa' },
-		experiment: { label: 'Experiment', icon: Wrench, color: '#fb923c' }
-	};
-
-	const items: LabItem[] = [
-		{
-			name: 'Experiment 001',
-			description:
-				'A generative art piece exploring noise fields and particle systems. Replace this with your actual experiment.',
-			category: 'generative',
-			tags: ['canvas', 'noise', 'animation'],
-			live: 'https://',
-			github: 'https://github.com/',
-			wip: true
-		},
-		{
-			name: 'CLI Tool 001',
-			description:
-				'A command line utility that does something useful. Replace this description with your actual tool.',
-			category: 'cli',
-			tags: ['python', 'cli', 'automation'],
-			github: 'https://github.com/'
-		},
-		{
-			name: 'OSS Contribution',
-			description: 'A contribution to an open source project. Describe what you fixed or added.',
-			category: 'opensource',
-			tags: ['typescript', 'open-source'],
-			github: 'https://github.com/'
-		},
-		{
-			name: 'Throwaway 001',
-			description:
-				'A small throwaway project built over a weekend to try out a new technology or idea.',
-			category: 'experiment',
-			tags: ['rust', 'wasm'],
-			github: 'https://github.com/',
-			wip: true
-		}
-	];
+	import { items, categoryMeta } from '$lib/states';
 </script>
 
 <LabLayout>
@@ -85,7 +31,7 @@
 		<div class="legend">
 			{#each Object.entries(categoryMeta) as [key, meta]}
 				<div class="legend-item">
-					<svelte:component this={meta.icon} size={11} color={meta.color} />
+					<meta.icon size={11} color={meta.color} />
 					<span style="color: {meta.color}">{meta.label}</span>
 				</div>
 			{/each}
@@ -100,12 +46,12 @@
 					style="animation-delay: {0.1 + i * 0.07}s; --accent: {meta.color}"
 				>
 					<!-- top bar with category color -->
-					<div class="card-accent" />
+					<div class="card-accent"></div>
 
 					<div class="card-inner">
 						<div class="card-header">
 							<div class="card-icon">
-								<svelte:component this={meta.icon} size={13} color={meta.color} />
+								<meta.icon size={13} color={meta.color} />
 							</div>
 							<div class="card-meta">
 								<span class="card-category" style="color: {meta.color}">{meta.label}</span>
@@ -139,6 +85,9 @@
 									</a>
 								{/if}
 							</div>
+							{#if item.origin}
+								<span class="origin">via {item.origin}</span>
+							{/if}
 						</div>
 					</div>
 				</article>
@@ -149,7 +98,7 @@
 		<div class="more-soon">
 			<span>More experiments incoming</span>
 			<div class="dots">
-				<span /><span /><span />
+				<span></span><span></span><span></span>
 			</div>
 		</div>
 
@@ -169,8 +118,10 @@
 				</button>
 			</span>
 
-      <!-- Tip -->
-			<span class="text-md cols-span-2"> Tip: Return to the 3d scene by pressing escape or clicking the close button at the top right </span>
+			<!-- Tip -->
+			<span class="text-md cols-span-2">
+				Tip: Return to the 3d scene by pressing escape or clicking the close button at the top right
+			</span>
 		</div>
 	</div>
 </LabLayout>
@@ -460,6 +411,13 @@
 	}
 	.dots span:nth-child(3) {
 		animation-delay: 0.4s;
+	}
+
+	.origin {
+		font-size: 0.55rem;
+		color: rgba(255, 255, 255, 0.2);
+		letter-spacing: 0.06em;
+		font-style: italic;
 	}
 
 	@keyframes slide-up {
