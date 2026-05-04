@@ -3,6 +3,8 @@ import { fail } from '@sveltejs/kit';
 import nodemailer from 'nodemailer';
 import { GMAIL_USER, GMAIL_PASS } from '$env/static/private';
 
+export const prerender = false;
+
 export const actions: Actions = {
 	default: async ({ request }) => {
 		const data = await request.formData();
