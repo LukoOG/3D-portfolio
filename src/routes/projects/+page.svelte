@@ -94,15 +94,6 @@
 		line-height: 1.6;
 	}
 
-	.count-pill {
-		font-size: 0.65rem;
-		padding: 0.35rem 0.65rem;
-		border-radius: 999px;
-		border: 1px solid rgba(255, 255, 255, 0.08);
-		color: rgba(255, 255, 255, 0.5);
-		letter-spacing: 0.06em;
-	}
-
 	.grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));

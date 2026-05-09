@@ -23,7 +23,7 @@
 		const value = JSON.stringify(currentTimestamp)
 		if (browser) {
 			try {
-				let lastVisitTimeStamp = JSON.parse(localStorage.getItem(key));
+				let lastVisitTimeStamp = JSON.parse(localStorage.getItem(key)!);
 
 				//First time visit or First visit in a long time
 				if (!lastVisitTimeStamp || currentTimestamp - lastVisitTimeStamp > TWO_WEEKS) {

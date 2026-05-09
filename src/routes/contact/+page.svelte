@@ -67,7 +67,7 @@
 
 			<!-- availability indicator -->
 			<div class="availability">
-				<span class="dot" />
+				<span class="dot"></span> 
 				<span>Available for new opportunities</span>
 			</div>
 		</div>
@@ -146,7 +146,7 @@
 
 					<button type="submit" class="submit" disabled={loading}>
 						{#if loading}
-							<span class="spinner" />
+							<span class="spinner"></span> 
 							Sending...
 						{:else}
 							Send message →
@@ -166,7 +166,7 @@
 	<!-- footer strip -->
 	<div class="contact-footer">
 		<div class="footer-left">
-			<span class="footer-dot" />
+			<span class="footer-dot"></span>
 			<span>Lagos, Nigeria</span>
 			<span class="footer-sep">·</span>
 			<span>WAT (UTC+1)</span>
@@ -240,14 +240,6 @@
 		background: rgba(255, 255, 255, 0.12);
 		border-color: rgba(255, 255, 255, 0.35);
 		color: white;
-	}
-
-	.arrow {
-		transition: translate 0.2s;
-	}
-
-	.cta:hover .arrow {
-		translate: 3px 0;
 	}
 
 	.contact-sub {

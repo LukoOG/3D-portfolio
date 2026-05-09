@@ -127,10 +127,10 @@
 						<div class="timeline-item" style="animation-delay: {0.2 + i * 0.1}s">
 							<div class="timeline-left">
 								<span class="timeline-year">{item.year}</span>
-								<div class="timeline-line" class:current={item.type === 'current'} />
+								<div class="timeline-line" class:current={item.type === 'current'}></div>
 							</div>
 							<div class="timeline-right">
-								<div class="timeline-dot" class:current={item.type === 'current'} />
+								<div class="timeline-dot" class:current={item.type === 'current'}></div>
 								<div class="timeline-content">
 									<p class="timeline-title">{item.title}</p>
 									<p class="timeline-desc">{item.description}</p>
