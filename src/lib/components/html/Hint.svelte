@@ -14,7 +14,7 @@
 				</p>
 				<p>
 					If you're on a PC, use the numerical keys 1-6 to face the desired page or simply click the
-					navigation menu buttons.
+					navigation menu buttons on PC or Mobile.
 				</p>
 				<p class="clue">
 					Interested in unlocking the mystery page? Visit all pages to get a clue!😉
