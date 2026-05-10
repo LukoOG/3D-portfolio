@@ -74,16 +74,10 @@
 
 	@media (max-width: 600px) {
 		h2 {
-			font-size: 2rem;
+			font-size: 3rem;
 			animation:
 				typing 3s steps(12, end) forwards,
 				blink-caret 0.75s step-end 4;
-		}
-
-		@keyframes typing {
-			to {
-				width: 10ch;
-			}
 		}
 	}
 </style>
