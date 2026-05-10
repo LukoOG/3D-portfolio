@@ -1,6 +1,6 @@
 <!-- ProjectCard.svelte -->
 <script lang="ts">
-	import { ExternalLink, GitCommitHorizontal as Github, ArrowUpRight } from '@lucide/svelte';
+	import { ExternalLink, GitFork as Github, ArrowUpRight } from '@lucide/svelte';
 	import type { Project } from '$lib';
 	import Placeholder from '$lib/assets/project-images/placeholder.png?enhanced';
 	import type { Picture } from '@sveltejs/enhanced-img';
@@ -30,7 +30,7 @@
 			return
 		}
 
-		// Snippet if eager attribute was false because loader will
+		// Code if eager attribute is false because loader will
 		//become a Promise
 
 		// loader()
@@ -63,8 +63,6 @@
 					<span class="badge">In progress</span>
 				{/if}
 			</div>
-
-			<!-- year floats bottom right of image -->
 		</div>
 	</a>
 
