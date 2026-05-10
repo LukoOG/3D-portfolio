@@ -162,8 +162,9 @@
 </AboutLayout>
 
 <style>
+	/* because of enhanced:img adding a picture tag on the img elemtn  */
 	picture {
-		width: 100%;
+		min-width: max-content;
 	}
 
 	.about-root {
