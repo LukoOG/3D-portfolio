@@ -5,9 +5,6 @@ import {
 	User,
 	Folder,
 	Mail,
-	Wrench,
-	GalleryHorizontalEnd as Gallery,
-	ArrowLeft,
 	type LucideProps,
 	FlaskConical,
 	Terminal
