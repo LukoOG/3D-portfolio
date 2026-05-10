@@ -8,30 +8,8 @@
 		ExternalLink
 	} from '@lucide/svelte';
 	import profilePic from '$lib/assets/profile/me.png?enhanced';
+	import { timeline } from '$lib/states/timeline.svelte';
 	import { navigateTo } from '$lib';
-
-	const timeline = [
-		{
-			year: '2025',
-			title: 'Open to opportunities',
-			description: 'Actively seeking fullstack or backend roles.',
-			type: 'current'
-		},
-		{
-			year: '2024',
-			title: 'Bootcamp Graduate',
-			description:
-				'Completed an intensive fullstack development bootcamp, sharpening backend systems and API design.',
-			type: 'education'
-		},
-		{
-			year: '2023',
-			title: 'Self-taught Journey Begins',
-			description:
-				'Started learning programming independently — fell in love with building backend systems.',
-			type: 'education'
-		}
-	];
 
 	const values = [
 		{ label: 'Clean APIs', description: 'Well-designed contracts matter more than clever code.' },
@@ -49,7 +27,7 @@
 		}
 	];
 
-	console.log(profilePic)
+	// console.log(profilePic)
 </script>
 
 <AboutLayout>
@@ -59,7 +37,7 @@
 			<!-- bio block -->
 			<section class="section bio-section">
 				<div class="photo-block">
-					<enhanced:img src={profilePic} alt="Emmanuel Adesipe Profile Picture" class="photo" />
+					<enhanced:img src={profilePic} alt="Emmanuel Adesipe's Profile Picture" class="photo" />
 					<div class="photo-info">
 						<h2 class="bio-name">Emmanuel<br />Adesipe</h2>
 						<p class="bio-role">Fullstack Developer · Backend Focus</p>
@@ -174,7 +152,7 @@
 		</span>
 
 		<!-- right button -->
-		<span class="flex flex-end justify-end flex-row">
+		<span class="flex-end flex flex-row justify-end">
 			<button class="cta" onclick={() => navigateTo('hero', '/', true)}>
 				Home Page
 				<span class="arrow">→</span>
@@ -184,6 +162,10 @@
 </AboutLayout>
 
 <style>
+	picture {
+		width: 100%;
+	}
+
 	.about-root {
 		width: 100%;
 		min-height: 100%;

@@ -21,12 +21,12 @@
 			<span class="stat-num">3</span>
 			<span class="stat-label">Years exp.</span>
 		</div>
-		<div class="divider" />
+		<div class="divider"></div> 
 		<div class="stat">
 			<span class="stat-num">10+</span>
 			<span class="stat-label">Projects shipped</span>
 		</div>
-		<div class="divider" />
+		<div class="divider"></div> 
 		<div class="stat">
 			<span class="stat-num">1</span>
 			<span class="stat-label">Startup</span>
