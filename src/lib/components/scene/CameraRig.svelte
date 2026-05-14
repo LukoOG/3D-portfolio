@@ -9,7 +9,7 @@
 	const TWEEN_SPEED = 5;
 
 	const getTargetFov = () => {
-		return $size.width < 768 ? 80 : 80;
+		return $size.width < 768 ? 80 : 60;
 	};
 
 	useTask((delta) => {
@@ -26,5 +26,5 @@
 	});
 </script>
 
-<T.PerspectiveCamera makeDefault position={[0, 0, 5]} fov={60} />
+<T.PerspectiveCamera makeDefault position={[0, 0, 5]} />
 
