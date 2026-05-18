@@ -2,11 +2,10 @@
 <script lang="ts">
 	import AboutLayout from '$lib/components/html/pageLayouts/AboutLayout.svelte';
 	import {
-		GitBranchPlus as Github,
 		X as Twitter,
 		Link as Linkedin,
-		ExternalLink
 	} from '@lucide/svelte';
+	import Github from '$lib/components/icon/github.svelte';
 	import profilePic from '$lib/assets/profile/me.png?enhanced';
 	import { timeline } from '$lib/states/timeline.svelte';
 	import { navigateTo } from '$lib';
@@ -44,26 +43,28 @@
 		<div class="left">
 			<!-- bio block -->
 			<section class="section bio-section">
-				<div class="photo-block">
+				<div class="photo-wrapper">
 					<enhanced:img src={profilePic} alt="Emmanuel Adesipe's Profile Picture" class="photo" />
-					<div class="photo-info">
-						<h2 class="bio-name">Emmanuel<br />Adesipe</h2>
-						<p class="bio-role">Fullstack Developer · Backend Focus</p>
-					</div>
 				</div>
 
 				<span class="section-label">About</span>
 				<h2 class="bio-name">Emmanuel<br />Adesipe</h2>
 				<p class="bio-role">Fullstack Developer · Backend Focus</p>
 				<p class="bio-text">
-					Your bio goes here. Talk about what drives you, the kinds of problems you love solving,
-					and what makes you different as a developer. Keep it human, not a resume.
+					I'm a fullstack developer with a passion for building scalable backend systems and elegant user experiences.
+					I thrive on solving complex problems and turning ideas into production-ready applications.
+					My journey in tech started with curiosity about how things work under the hood, and that curiosity
+					continues to drive me to explore new technologies and push boundaries.
+				</p>
+				<p class="bio-text">
+					When I'm not coding, you'll find me diving deep into system design patterns, contributing to open source,
+					or experimenting with emerging technologies. I believe in writing code that's not just functional,
+					but maintainable, testable, and a joy to work with.
 				</p>
 
 				<div class="social">
 					{#each social as link}
 						<a href={link.href} target="_blank" rel="noopener" class="social-link">
-							<!-- <svelte:component this={link.icon} size={14} /> -->
 							<link.icon size={14} />
 							<span>{link.label}</span>
 						</a>
@@ -81,6 +82,71 @@
 							<p class="value-desc">{value.description}</p>
 						</div>
 					{/each}
+				</div>
+			</section>
+
+			<!-- tech stack -->
+			<section class="section">
+				<span class="section-label">Tech Stack</span>
+				<div class="tech-categories">
+					<div class="tech-category">
+						<h4 class="tech-category-title">Backend</h4>
+						<div class="tech-tags">
+							<span class="tech-tag">Node.js</span>
+							<span class="tech-tag">Python</span>
+							<span class="tech-tag">PostgreSQL</span>
+							<span class="tech-tag">Redis</span>
+							<span class="tech-tag">Docker</span>
+						</div>
+					</div>
+					<div class="tech-category">
+						<h4 class="tech-category-title">Frontend</h4>
+						<div class="tech-tags">
+							<span class="tech-tag">SvelteKit</span>
+							<span class="tech-tag">React</span>
+							<span class="tech-tag">TypeScript</span>
+							<span class="tech-tag">Three.js</span>
+							<span class="tech-tag">Tailwind</span>
+						</div>
+					</div>
+					<div class="tech-category">
+						<h4 class="tech-category-title">Tools & Others</h4>
+						<div class="tech-tags">
+							<span class="tech-tag">Git</span>
+							<span class="tech-tag">Linux</span>
+							<span class="tech-tag">AWS</span>
+							<span class="tech-tag">GraphQL</span>
+							<span class="tech-tag">REST APIs</span>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- approach -->
+			<section class="section">
+				<span class="section-label">My Approach</span>
+				<div class="approach-items">
+					<div class="approach-item">
+						<h4 class="approach-title">Problem First</h4>
+						<p class="approach-desc">
+							I start by deeply understanding the problem before jumping to solutions.
+							The best code solves real problems elegantly.
+						</p>
+					</div>
+					<div class="approach-item">
+						<h4 class="approach-title">Iterative Development</h4>
+						<p class="approach-desc">
+							Ship early, gather feedback, iterate. Perfect is the enemy of good,
+							but good is the foundation of great.
+						</p>
+					</div>
+					<div class="approach-item">
+						<h4 class="approach-title">Documentation Matters</h4>
+						<p class="approach-desc">
+							Code is read more than it's written. Clear documentation and self-explanatory
+							code save countless hours down the line.
+						</p>
+					</div>
 				</div>
 			</section>
 		</div>
@@ -148,6 +214,56 @@
 						<span class="current-val">Backend · Fullstack · Remote roles</span>
 					</div>
 				</div>
+
+			<!-- interests & hobbies -->
+			<section class="section">
+				<span class="section-label">Beyond Code</span>
+				<div class="interests-grid">
+					<div class="interest-card">
+						<span class="interest-emoji">🎮</span>
+						<h4 class="interest-title">Gaming</h4>
+						<p class="interest-desc">Strategy games and competitive multiplayer</p>
+					</div>
+					<div class="interest-card">
+						<span class="interest-emoji">📚</span>
+						<h4 class="interest-title">Reading</h4>
+						<p class="interest-desc">Tech books, sci-fi, and system design</p>
+					</div>
+					<div class="interest-card">
+						<span class="interest-emoji">🎵</span>
+						<h4 class="interest-title">Music</h4>
+						<p class="interest-desc">Coding soundtracks and discovering new artists</p>
+					</div>
+					<div class="interest-card">
+						<span class="interest-emoji">🌍</span>
+						<h4 class="interest-title">Travel</h4>
+						<p class="interest-desc">Exploring new places and cultures</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- fun facts -->
+			<section class="section">
+				<span class="section-label">Fun Facts</span>
+				<div class="fun-facts">
+					<div class="fun-fact">
+						<span class="fact-icon">💡</span>
+						<p class="fact-text">I debug better with music on — preferably lo-fi beats</p>
+					</div>
+					<div class="fun-fact">
+						<span class="fact-icon">☕</span>
+						<p class="fact-text">Coffee enthusiast — I've tried brewing methods from 5 different countries</p>
+					</div>
+					<div class="fun-fact">
+						<span class="fact-icon">🌙</span>
+						<p class="fact-text">Night owl coder — my best work happens after 10 PM</p>
+					</div>
+					<div class="fun-fact">
+						<span class="fact-icon">🎯</span>
+						<p class="fact-text">I maintain a personal wiki of everything I learn</p>
+					</div>
+				</div>
+			</section>
 			</section>
 		</div>
 
@@ -231,19 +347,26 @@
 		margin: 0;
 	}
 
-	.photo-block {
+	.photo-wrapper {
 		display: flex;
-		align-items: center;
-		gap: 1rem;
+		justify-content: center;
+		margin-bottom: 1rem;
 	}
 
 	.photo {
-		width: 64px;
-		height: 64px;
+		width: 120px;
+		height: 120px;
 		border-radius: 50%;
 		object-fit: cover;
-		border: 1px solid rgba(255, 255, 255, 0.1);
+		border: 2px solid rgba(255, 255, 255, 0.15);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 		flex-shrink: 0;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.photo:hover {
+		transform: scale(1.05);
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 	}
 
 	.social {
@@ -477,6 +600,149 @@
 	.current-val {
 		font-size: 0.7rem;
 		color: rgba(255, 255, 255, 0.6);
+	}
+
+	/* tech stack */
+	.tech-categories {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.tech-category {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.tech-category-title {
+		font-size: 0.68rem;
+		color: rgba(255, 255, 255, 0.6);
+		font-weight: 400;
+		margin: 0;
+		letter-spacing: 0.05em;
+	}
+
+	.tech-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+
+	.tech-tag {
+		font-size: 0.62rem;
+		padding: 0.35rem 0.7rem;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.03);
+		color: rgba(255, 255, 255, 0.5);
+		transition: all 0.2s;
+	}
+
+	.tech-tag:hover {
+		background: rgba(255, 255, 255, 0.08);
+		border-color: rgba(255, 255, 255, 0.15);
+		color: rgba(255, 255, 255, 0.75);
+	}
+
+	/* approach */
+	.approach-items {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.approach-item {
+		padding: 0.85rem;
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.approach-title {
+		font-size: 0.7rem;
+		color: rgba(255, 255, 255, 0.7);
+		font-weight: 400;
+		margin: 0 0 0.3rem 0;
+	}
+
+	.approach-desc {
+		font-size: 0.65rem;
+		color: rgba(255, 255, 255, 0.35);
+		margin: 0;
+		line-height: 1.6;
+	}
+
+	/* interests */
+	.interests-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.6rem;
+	}
+
+	.interest-card {
+		padding: 0.85rem;
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.02);
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+		transition: all 0.2s;
+	}
+
+	.interest-card:hover {
+		background: rgba(255, 255, 255, 0.04);
+		border-color: rgba(255, 255, 255, 0.1);
+	}
+
+	.interest-emoji {
+		font-size: 1.5rem;
+		line-height: 1;
+	}
+
+	.interest-title {
+		font-size: 0.7rem;
+		color: rgba(255, 255, 255, 0.7);
+		font-weight: 400;
+		margin: 0;
+	}
+
+	.interest-desc {
+		font-size: 0.62rem;
+		color: rgba(255, 255, 255, 0.35);
+		margin: 0;
+		line-height: 1.5;
+	}
+
+	/* fun facts */
+	.fun-facts {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
+	.fun-fact {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.6rem;
+		padding: 0.7rem;
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.fact-icon {
+		font-size: 1.2rem;
+		line-height: 1;
+		flex-shrink: 0;
+	}
+
+	.fact-text {
+		font-size: 0.68rem;
+		color: rgba(255, 255, 255, 0.5);
+		margin: 0;
+		line-height: 1.6;
 	}
 
 	@keyframes slide-up {

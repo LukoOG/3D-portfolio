@@ -4,20 +4,19 @@
 	import LabLayout from '$lib/components/html/pageLayouts/LabLayout.svelte';
 	import {
 		ExternalLink,
-		GitBranch as Github,
-		Terminal,
-		Palette,
-		Wrench,
-		Package
 	} from '@lucide/svelte';
+	import Github from '$lib/components/icon/github.svelte';
 
 	import { items, categoryMeta } from '$lib/states';
 
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.target instanceof HTMLInputElement) return;
-		if (e.key === 'ArrowLeft') navigateTo('projects', '/project', true);
+		if (e.key === 'ArrowLeft') navigateTo('projects', '/projects', true);
 		else if (e.key === 'ArrowRight') navigateTo('secret', '/secret', true);
 	};
+
+	//random per visit
+	const tip = "Return to the 3d scene by pressing escape or clicking the close button at the top right"
 </script>
 
 <svelte:window onkeydown={handleKeyDown} />
@@ -130,7 +129,7 @@
 
 			<!-- Tip -->
 			<span class="text-md cols-span-2">
-				Tip: Return to the 3d scene by pressing escape or clicking the close button at the top right
+				Tip: {tip}
 			</span>
 		</div>
 	</div>

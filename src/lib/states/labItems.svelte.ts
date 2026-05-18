@@ -13,6 +13,11 @@ export interface LabItem {
 	wip?: boolean;
 }
 
+export interface TipItem {
+	tip: string;
+	probability: number;
+}
+
 export const categoryMeta: Record<LabCategory, { label: string; icon: any; color: string }> = {
 	generative: { label: 'Generative', icon: Palette, color: '#e879f9' },
 	cli: { label: 'CLI Tool', icon: Terminal, color: '#34d399' },
@@ -58,3 +63,8 @@ export const items: LabItem[] = [
 		wip: true
 	}
 ];
+
+export const tips: TipItem[] = [{
+	tip: "Return to the 3d scene by pressing escape or clicking the close button at the top right",
+	probability: 10,
+}]

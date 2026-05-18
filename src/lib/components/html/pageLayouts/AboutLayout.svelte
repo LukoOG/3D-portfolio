@@ -11,7 +11,7 @@
   .about-layout {
     width: 100%;
     height: 100%;
-    overflow-y: auto;
+    overflow: auto; /* Allow both x and y scrolling */
     color: white;
   }
 </style>
