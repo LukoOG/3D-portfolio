@@ -1,10 +1,7 @@
 <!-- src/routes/about/+page.svelte -->
 <script lang="ts">
 	import AboutLayout from '$lib/components/html/pageLayouts/AboutLayout.svelte';
-	import {
-		X as Twitter,
-		Link as Linkedin,
-	} from '@lucide/svelte';
+	import { X as Twitter, Link as Linkedin } from '@lucide/svelte';
 	import Github from '$lib/components/icon/github.svelte';
 	import profilePic from '$lib/assets/profile/me.png?enhanced';
 	import { timeline } from '$lib/states/timeline.svelte';
@@ -51,15 +48,16 @@
 				<h2 class="bio-name">Emmanuel<br />Adesipe</h2>
 				<p class="bio-role">Fullstack Developer · Backend Focus</p>
 				<p class="bio-text">
-					I'm a fullstack developer with a passion for building scalable backend systems and elegant user experiences.
-					I thrive on solving complex problems and turning ideas into production-ready applications.
-					My journey in tech started with curiosity about how things work under the hood, and that curiosity
-					continues to drive me to explore new technologies and push boundaries.
+					I'm a fullstack developer with a passion for building scalable backend systems and elegant
+					user experiences. I thrive on solving complex problems and turning ideas into
+					production-ready applications. My journey in tech started with curiosity about how things
+					work under the hood, and that curiosity continues to drive me to explore new technologies
+					and push boundaries.
 				</p>
 				<p class="bio-text">
-					When I'm not coding, you'll find me diving deep into system design patterns, contributing to open source,
-					or experimenting with emerging technologies. I believe in writing code that's not just functional,
-					but maintainable, testable, and a joy to work with.
+					When I'm not coding, you'll find me diving deep into system design patterns, contributing
+					to open source, or experimenting with emerging technologies. I believe in writing code
+					that's not just functional, but maintainable, testable, and a joy to work with.
 				</p>
 
 				<div class="social">
@@ -129,22 +127,22 @@
 					<div class="approach-item">
 						<h4 class="approach-title">Problem First</h4>
 						<p class="approach-desc">
-							I start by deeply understanding the problem before jumping to solutions.
-							The best code solves real problems elegantly.
+							I start by deeply understanding the problem before jumping to solutions. The best code
+							solves real problems elegantly.
 						</p>
 					</div>
 					<div class="approach-item">
 						<h4 class="approach-title">Iterative Development</h4>
 						<p class="approach-desc">
-							Ship early, gather feedback, iterate. Perfect is the enemy of good,
-							but good is the foundation of great.
+							Ship early, gather feedback, iterate. Perfect is the enemy of good, but good is the
+							foundation of great.
 						</p>
 					</div>
 					<div class="approach-item">
 						<h4 class="approach-title">Documentation Matters</h4>
 						<p class="approach-desc">
-							Code is read more than it's written. Clear documentation and self-explanatory
-							code save countless hours down the line.
+							Code is read more than it's written. Clear documentation and self-explanatory code
+							save countless hours down the line.
 						</p>
 					</div>
 				</div>
@@ -215,73 +213,77 @@
 					</div>
 				</div>
 
-			<!-- interests & hobbies -->
-			<section class="section">
-				<span class="section-label">Beyond Code</span>
-				<div class="interests-grid">
-					<div class="interest-card">
-						<span class="interest-emoji">🎮</span>
-						<h4 class="interest-title">Gaming</h4>
-						<p class="interest-desc">Strategy games and competitive multiplayer</p>
+				<!-- interests & hobbies -->
+				<section class="section">
+					<span class="section-label">Beyond Code</span>
+					<div class="interests-grid">
+						<div class="interest-card">
+							<span class="interest-emoji">🎮</span>
+							<h4 class="interest-title">Gaming</h4>
+							<p class="interest-desc">Strategy games and competitive multiplayer</p>
+						</div>
+						<div class="interest-card">
+							<span class="interest-emoji">📚</span>
+							<h4 class="interest-title">Reading</h4>
+							<p class="interest-desc">Tech books, sci-fi, and system design</p>
+						</div>
+						<div class="interest-card">
+							<span class="interest-emoji">🎵</span>
+							<h4 class="interest-title">Music</h4>
+							<p class="interest-desc">Coding soundtracks and discovering new artists</p>
+						</div>
+						<div class="interest-card">
+							<span class="interest-emoji">🌍</span>
+							<h4 class="interest-title">Travel</h4>
+							<p class="interest-desc">Exploring new places and cultures</p>
+						</div>
 					</div>
-					<div class="interest-card">
-						<span class="interest-emoji">📚</span>
-						<h4 class="interest-title">Reading</h4>
-						<p class="interest-desc">Tech books, sci-fi, and system design</p>
-					</div>
-					<div class="interest-card">
-						<span class="interest-emoji">🎵</span>
-						<h4 class="interest-title">Music</h4>
-						<p class="interest-desc">Coding soundtracks and discovering new artists</p>
-					</div>
-					<div class="interest-card">
-						<span class="interest-emoji">🌍</span>
-						<h4 class="interest-title">Travel</h4>
-						<p class="interest-desc">Exploring new places and cultures</p>
-					</div>
-				</div>
-			</section>
+				</section>
 
-			<!-- fun facts -->
-			<section class="section">
-				<span class="section-label">Fun Facts</span>
-				<div class="fun-facts">
-					<div class="fun-fact">
-						<span class="fact-icon">💡</span>
-						<p class="fact-text">I debug better with music on — preferably lo-fi beats</p>
+				<!-- fun facts -->
+				<section class="section">
+					<span class="section-label">Fun Facts</span>
+					<div class="fun-facts">
+						<div class="fun-fact">
+							<span class="fact-icon">💡</span>
+							<p class="fact-text">I debug better with music on — preferably lo-fi beats</p>
+						</div>
+						<div class="fun-fact">
+							<span class="fact-icon">☕</span>
+							<p class="fact-text">
+								Coffee enthusiast — I've tried brewing methods from 5 different countries
+							</p>
+						</div>
+						<div class="fun-fact">
+							<span class="fact-icon">🌙</span>
+							<p class="fact-text">Night owl coder — my best work happens after 10 PM</p>
+						</div>
+						<div class="fun-fact">
+							<span class="fact-icon">🎯</span>
+							<p class="fact-text">I maintain a personal wiki of everything I learn</p>
+						</div>
 					</div>
-					<div class="fun-fact">
-						<span class="fact-icon">☕</span>
-						<p class="fact-text">Coffee enthusiast — I've tried brewing methods from 5 different countries</p>
-					</div>
-					<div class="fun-fact">
-						<span class="fact-icon">🌙</span>
-						<p class="fact-text">Night owl coder — my best work happens after 10 PM</p>
-					</div>
-					<div class="fun-fact">
-						<span class="fact-icon">🎯</span>
-						<p class="fact-text">I maintain a personal wiki of everything I learn</p>
-					</div>
-				</div>
-			</section>
+				</section>
 			</section>
 		</div>
 
-		<!-- left button -->
-		<span>
-			<button class="cta" onclick={() => navigateTo('contact', '/contact', true)}>
-				<span class="arrow">←</span>
-				Contact me
-			</button>
-		</span>
+		<div class="flex flex-row justify-between gap-1">
+			<!-- left button -->
+			<span>
+				<button class="cta" onclick={() => navigateTo('contact', '/contact', true)}>
+					<span class="arrow">←</span>
+					Contact me
+				</button>
+			</span>
 
-		<!-- right button -->
-		<span class="flex-end flex flex-row justify-end">
-			<button class="cta" onclick={() => navigateTo('hero', '/', true)}>
-				Home Page
-				<span class="arrow">→</span>
-			</button>
-		</span>
+			<!-- right button -->
+			<span class="flex-end flex flex-row justify-end">
+				<button class="cta" onclick={() => navigateTo('hero', '/', true)}>
+					Home Page
+					<span class="arrow">→</span>
+				</button>
+			</span>
+		</div>
 	</div>
 </AboutLayout>
 
@@ -299,6 +301,14 @@
 		grid-template-columns: 1fr 1fr;
 		gap: 2rem;
 		align-items: start;
+	}
+
+	@media (max-width: 768px) {
+		.about-root {
+			grid-template-columns: 1fr;
+			padding: 1.5rem 1rem 2rem;
+			gap: 0;
+		}
 	}
 
 	/* sections */
@@ -345,6 +355,15 @@
 		line-height: 1.75;
 		color: rgba(255, 255, 255, 0.5);
 		margin: 0;
+		max-width: 65ch;
+	}
+
+	@media (max-width: 768px) {
+		.bio-text {
+			max-width: 100%;
+			font-size: 0.7rem;
+			line-height: 1.65;
+		}
 	}
 
 	.photo-wrapper {
@@ -361,12 +380,21 @@
 		border: 2px solid rgba(255, 255, 255, 0.15);
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 		flex-shrink: 0;
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		transition:
+			transform 0.3s ease,
+			box-shadow 0.3s ease;
 	}
 
 	.photo:hover {
 		transform: scale(1.05);
 		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+	}
+
+	@media (max-width: 768px) {
+		.photo {
+			width: 100px;
+			height: 100px;
+		}
 	}
 
 	.social {
@@ -400,6 +428,25 @@
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 0.5rem;
+	}
+
+	@media (max-width: 768px) {
+		.stats {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 0.4rem;
+		}
+
+		.stat {
+			padding: 0.7rem 0.5rem;
+		}
+
+		.stat-num {
+			font-size: 1.3rem;
+		}
+
+		.stat-label {
+			font-size: 0.55rem;
+		}
 	}
 
 	.stat {
@@ -678,6 +725,13 @@
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		gap: 0.6rem;
+
+		@media (max-width: 768px) {
+			.interests-grid {
+				grid-template-columns: 1fr;
+				gap: 0.5rem;
+			}
+		}
 	}
 
 	.interest-card {
