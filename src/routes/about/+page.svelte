@@ -28,7 +28,7 @@
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.target instanceof HTMLInputElement) return;
 		if (e.key === 'ArrowLeft') navigateTo('contact', '/contact', true);
-		else if (e.key === 'ArrowRight') navigateTo('hero', '/contact', true);
+		else if (e.key === 'ArrowRight') navigateTo('hero', '/', true);
 	};
 </script>
 
