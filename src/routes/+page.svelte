@@ -3,6 +3,7 @@
 	import HeroLayout from '$lib/components/html/pageLayouts/HeroLayout.svelte';
 	import { navigateTo } from '$lib/index';
 	import { testimonials } from '$lib/states/testimonials.svelte';
+	import { icons } from '@lucide/svelte';
 
 	let index = $state(0);
 
@@ -14,7 +15,15 @@
 		// console.log(index)
 		return () => clearInterval(timer);
 	});
+
+	const handleKeyDown = (e: KeyboardEvent) => {
+		if (e.target instanceof HTMLInputElement) return;
+		if (e.key === "ArrowLeft") navigateTo('about', '/about', true);
+		else if(e.key === "ArrowRight") navigateTo('projects', '/projects', true);
+	}
 </script>
+
+<svelte:window onkeydown={handleKeyDown} />
 
 <HeroLayout>
 	<!-- top left: role -->

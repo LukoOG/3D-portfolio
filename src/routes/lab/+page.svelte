@@ -12,7 +12,15 @@
 	} from '@lucide/svelte';
 
 	import { items, categoryMeta } from '$lib/states';
+
+	const handleKeyDown = (e: KeyboardEvent) => {
+		if (e.target instanceof HTMLInputElement) return;
+		if (e.key === 'ArrowLeft') navigateTo('projects', '/project', true);
+		else if (e.key === 'ArrowRight') navigateTo('secret', '/secret', true);
+	};
 </script>
+
+<svelte:window onkeydown={handleKeyDown} />
 
 <LabLayout>
 	<div class="lab-root">

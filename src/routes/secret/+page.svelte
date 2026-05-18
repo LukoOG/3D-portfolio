@@ -1,6 +1,10 @@
 <!-- src/routes/+page.svelte (hero) -->
 <script lang="ts">
 	import SecretLayout from '$lib/components/html/pageLayouts/SecretLayout.svelte';
+
+	const handleKeyDown = (e: KeyboardEvent) => {
+		console.log("Clues are coming")
+	};
 </script>
 
 <SecretLayout>
@@ -8,6 +12,8 @@
 		<h1 class="text-3xl">Check out my portfolio first 🫵</h1>
 	</div>
 </SecretLayout>
+
+<svelte:window onkeydown={handleKeyDown} />
 
 <style>
 	h1 {

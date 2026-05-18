@@ -13,7 +13,15 @@
 	});
 
 	console.log(filters);
+
+	const handleKeyDown = (e: KeyboardEvent) => {
+		if (e.target instanceof HTMLInputElement) return;
+		if (e.key === 'ArrowLeft') navigateTo('about', '/about', true);
+		else if (e.key === 'ArrowRight') navigateTo('lab', '/lab', true);
+	};
 </script>
+
+<svelte:window onkeydown={handleKeyDown} />
 
 <!-- /projects/+page.svelte -->
 <ProjectsLayout>

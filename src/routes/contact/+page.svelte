@@ -26,7 +26,14 @@
 			icon: `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`
 		}
 	];
+	const handleKeyDown = (e: KeyboardEvent) => {
+		if (e.target instanceof HTMLInputElement) return;
+		if (e.key === 'ArrowLeft') navigateTo('hero', '/', true); //clue??
+		else if (e.key === 'ArrowRight') navigateTo('hero', '/', true); //clue??
+	};
 </script>
+
+<svelte:window onkeydown={handleKeyDown} />
 
 <ContactLayout>
 	<div class="contact-root">
@@ -67,7 +74,7 @@
 
 			<!-- availability indicator -->
 			<div class="availability">
-				<span class="dot"></span> 
+				<span class="dot"></span>
 				<span>Available for new opportunities</span>
 			</div>
 		</div>
@@ -146,7 +153,7 @@
 
 					<button type="submit" class="submit" disabled={loading}>
 						{#if loading}
-							<span class="spinner"></span> 
+							<span class="spinner"></span>
 							Sending...
 						{:else}
 							Send message →
@@ -155,10 +162,10 @@
 				</form>
 			{/if}
 		</div>
-		<div class="flex flex-row justify-center w-full col-span-2">
+		<div class="col-span-2 flex w-full flex-row justify-center">
 			<button class="cta" onclick={() => navigateTo('hero', '/', true)}>
 				<!-- <span class="arrow">←</span> -->
-				Contaced me? Back to Home 
+				Contaced me? Back to Home
 			</button>
 		</div>
 	</div>
