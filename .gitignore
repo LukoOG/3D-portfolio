@@ -24,3 +24,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 # Playwright
 test-results
+
+#
+src/routes/secret/lib
+src/routes/secret/components
