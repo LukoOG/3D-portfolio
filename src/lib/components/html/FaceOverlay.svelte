@@ -2,13 +2,16 @@
 	import { cubeState, exitFace } from '$lib';
 	import { getActiveFaceColor } from '$lib/states/cubeState.svelte';
 	import type { Snippet } from 'svelte';
+	import { page } from '$app/state';
+
+	type HideElement = 'none' | 'block'
 
 	let { children }: { children: Snippet } = $props();
 	let timer: ReturnType<typeof setTimeout>;
 	let visible = $state<boolean>(false);
 	let mounted = $state<boolean>(false);
 	let faceColor = $derived(getActiveFaceColor());
-	let glowRef: HTMLDivElement = $state(null);
+	let glowRef: HTMLDivElement = $state(null)!;
 	let glowClientX = $state<number>(0);
 	let glowClientY = $state<number>(0);
 
@@ -19,6 +22,11 @@
 	function handleMouseMove(e: MouseEvent) {
 		glowClientX = e.clientX
 		glowClientY = e.clientY
+	}
+
+	function showGlow(): HideElement {
+		if(page.route.id == "/secret") return "block"
+		return "none"
 	}
 
 	// $inspect(cubeState.activeFace, faceColor)
@@ -50,7 +58,7 @@
 			</div>
 		{/if}
 	</div>
-	<div class="cursor-glow" style={`transform: translate(${glowClientX}px, ${glowClientY}px) translate(-50%, -50%)`} bind:this={glowRef}></div>
+	<div class="cursor-glow" style:display={showGlow()} style={`transform: translate(${glowClientX}px, ${glowClientY}px) translate(-50%, -50%)`} bind:this={glowRef}></div>
 {/if}
 
 
@@ -88,11 +96,11 @@
 		left: 0;
 		width: 400px;
 		height: 400px;
-		background: radial-gradient(circle, rgba(254, 254, 254, 0.15), transparent 80%);
+		background: radial-gradient(circle, rgba(255, 255, 255, 0.125), transparent 80%);
 		border-radius: 50%;
 		pointer-events: none;
 		z-index: 9999;
-		filter: blur(20px);
+		filter: blur(2px);
 		transition: opacity 0.3s ease;
 	}
 
