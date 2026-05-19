@@ -8,9 +8,17 @@
 	let visible = $state<boolean>(false);
 	let mounted = $state<boolean>(false);
 	let faceColor = $derived(getActiveFaceColor());
+	let glowRef: HTMLDivElement = $state(null);
+	let glowClientX = $state<number>(0);
+	let glowClientY = $state<number>(0);
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') exitFace();
+	}
+
+	function handleMouseMove(e: MouseEvent) {
+		glowClientX = e.clientX
+		glowClientY = e.clientY
 	}
 
 	// $inspect(cubeState.activeFace, faceColor)
@@ -31,7 +39,7 @@
 	});
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
+<svelte:window onmousemove={handleMouseMove} onkeydown={handleKeydown} />
 
 {#if mounted}
 	<div class="overlay" class:visible style="--face-color: {faceColor}">
@@ -42,7 +50,9 @@
 			</div>
 		{/if}
 	</div>
+	<div class="cursor-glow" style={`transform: translate(${glowClientX}px, ${glowClientY}px) translate(-50%, -50%)`} bind:this={glowRef}></div>
 {/if}
+
 
 <style>
 	.overlay {
@@ -70,6 +80,20 @@
 		align-items: center;
 		justify-content: center;
 		/* animation: fadein 0.4s ease 0.1s both; */
+	}
+
+	.cursor-glow {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 400px;
+		height: 400px;
+		background: radial-gradient(circle, rgba(254, 254, 254, 0.15), transparent 80%);
+		border-radius: 50%;
+		pointer-events: none;
+		z-index: 9999;
+		filter: blur(20px);
+		transition: opacity 0.3s ease;
 	}
 
 	.close {
