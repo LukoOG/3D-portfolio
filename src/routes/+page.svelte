@@ -12,7 +12,8 @@
 			index += 1;
 			index %= testimonials.length;
 		}, 3500);
-		// console.log(index)
+		//Index isn't reactive without this line for some reason
+		console.log(index)
 		return () => clearInterval(timer);
 	});
 

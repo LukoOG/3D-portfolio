@@ -26,5 +26,5 @@ export const faceConfig: Record<FaceName, FaceConfig> = {
 	about:    { label: 'About',     route: '/about', shortcut: '3', color: '#341a33', icon: User },
 	contact:  { label: 'Contact',   route: '/contact', shortcut: '4', color: '#3e2766', icon: Mail },
 	lab:      { label: 'Lab',       route: '/lab', shortcut: '5', color: '#4a0f0f', icon: FlaskConical },
-	secret:   { label: '?',         route: '/secret', shortcut: '^', color: '#a0a0a0', icon: Terminal }
+	secret:   { label: '?',         route: '/secret', shortcut: '^', color: '#676363', icon: Terminal }
 };

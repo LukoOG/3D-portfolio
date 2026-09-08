@@ -114,7 +114,7 @@
 	<div class="secret-root">
 		<div class="page-header">
 			<div class="header-left">
-				<span class="secret-label">/// SECRET</span>
+				<span class="secret-label">/// Yay! You unlocked the secret 🎉</span>
 				<h2 class="page-title">Maze Solver</h2>
 				<p class="page-sub">Watch algorithms find their way through the void.</p>
 			</div>
@@ -126,12 +126,12 @@
 				selected={algorithm}
 				onSelect={(a) => {
 					algorithm = a;
-					reset();
+					// reset();
 				}}
 				disabled={isRunning}
 			/>
 
-			<div class="control-divider" />
+			<div class="control-divider"></div>
 
 			<!-- edit mode -->
 			<div class="edit-modes">
@@ -150,7 +150,7 @@
 				</div>
 			</div>
 
-			<div class="control-divider" />
+			<div class="control-divider"></div>
 
 			<!-- run / stop / reset -->
 			<div class="run-btns">
@@ -175,23 +175,23 @@
 		<!-- legend -->
 		<div class="legend">
 			<div class="legend-item">
-				<span class="legend-dot" style="background:#4ade80; box-shadow: 0 0 6px #4ade80" />
+				<span class="legend-dot" style="background:#4ade80; box-shadow: 0 0 6px #4ade80"></span>
 				Start
 			</div>
 			<div class="legend-item">
-				<span class="legend-dot" style="background:#f87171; box-shadow: 0 0 6px #f87171" />
+				<span class="legend-dot" style="background:#f87171; box-shadow: 0 0 6px #f87171"></span>
 				End
 			</div>
 			<div class="legend-item">
-				<span class="legend-dot" style="background:rgba(234,179,8,0.6)" />
+				<span class="legend-dot" style="background:rgba(234,179,8,0.6)"></span>
 				Visited
 			</div>
 			<div class="legend-item">
-				<span class="legend-dot" style="background:#22d3ee; box-shadow: 0 0 6px #22d3ee" />
+				<span class="legend-dot" style="background:#22d3ee; box-shadow: 0 0 6px #22d3ee"></span>
 				Path
 			</div>
 			<div class="legend-item">
-				<span class="legend-dot" style="background:rgba(255,255,255,0.04)" />
+				<span class="legend-dot" style="background:rgba(255,255,255,0.04)"></span>
 				Wall
 			</div>
 		</div>

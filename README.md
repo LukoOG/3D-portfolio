@@ -13,7 +13,7 @@
 
 ## Overview
 
-Instead of a traditional scrolling portfolio, this site places the visitor inside a 3D scene — a metallic cube floats in an empty dark void. Each face of the cube is a page. Navigate to a face, press Enter or click to dock in, and the page content fades up as if the cube face itself became a screen.
+Instead of a traditional scrolling portfolio, this site places you inside a 3D scene: a metallic cube floats in an empty dark void. Each face of the cube is a page. Navigate to a face, press Enter or click to dock in, and the page content fades up as if the cube face itself became a screen.
 
 ## Features
 
@@ -93,7 +93,7 @@ src/
 | `3` | About |
 | `4` | Contact |
 | `5` | Lab |
-| `6` | Secret |
+| `?` | Secret |
 | `Enter` | Enter active face |
 | `Escape` | Exit back to scene |
 

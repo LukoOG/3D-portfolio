@@ -51,6 +51,7 @@ export const actions: Actions = {
 
 			return { success: true };
 		} catch (e) {
+			console.error("error while sending mail:",e)
 			return fail(500, {
 				error: 'Something went wrong. Please try again.',
 				values: { name, email, subject, message }
