@@ -2,12 +2,12 @@
 	import type { PageData } from './$types';
 	import { navigateTo } from '$lib';
 	import AboutLayout from '$lib/components/html/pageLayouts/AboutLayout.svelte';
-	import { getImage } from '$lib/utils/projectImages';
+	import { getProjectImage } from '$lib/utils/projectImages';
 
 	let { data }: { data: PageData } = $props();
 	let { project } = $derived(data);
 
-	let heroImg = $derived(getImage(project.image))
+	let heroImg = $derived(getProjectImage(project.image))
 	const liveLink = $derived(project.links.find((l) => l.kind === 'live'));
 	const githubLink = $derived(project.links.find((l) => l.kind === 'github'));
 	const otherLinks = $derived(
@@ -194,7 +194,7 @@
 							<!-- additional screenshots after hero -->
 							<div class="screenshot-frame">
 								<enhanced:img
-									src={getImage(imgName)}
+									src={getProjectImage(imgName)}
 									alt="{project.name} screenshot {idx + 1}"
 									class="screenshot"
 									loading="lazy"

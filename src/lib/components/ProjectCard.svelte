@@ -2,11 +2,11 @@
 <script lang="ts">
 	import type { Project } from '$lib';
 	import { navigateTo } from '$lib';
-	import { getImage } from '$lib/utils/projectImages';
+	import { getProjectImage } from '$lib/utils/projectImages';
 
 	let { project, i, featured = false }: { project: Project; i: number; featured?: boolean } =
 		$props();
-	let imageSrc = $derived(getImage(project.image))
+	let imageSrc = $derived(getProjectImage(project.image))
 
 	function handleClick() {
 		// Navigate within the portfolio to the project detail page
