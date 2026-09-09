@@ -1,28 +1,13 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { navigateTo } from '$lib';
-	import type { Picture } from '@sveltejs/enhanced-img';
-	import Placeholder from '$lib/assets/project-images/placeholder.png?enhanced';
 	import AboutLayout from '$lib/components/html/pageLayouts/AboutLayout.svelte';
+	import { getImage } from '$lib/utils/projectImages';
 
 	let { data }: { data: PageData } = $props();
 	let { project } = $derived(data);
 
-	let imageSrc = $state<string | Picture>(Placeholder);
-
-	const images = import.meta.glob('../../../lib/assets/project-images/*', {
-		import: 'default',
-		eager: true,
-		query: { enhanced: true }
-	});
-
-	$effect(() => {
-		if (!project.image) return;
-		const path = `../../../lib/assets/project-images/${project.image}`;
-		const loader = images[path] as Picture;
-		imageSrc = loader ?? Placeholder;
-	});
-
+	let heroImg = $derived(getImage(project.image))
 	const liveLink = $derived(project.links.find((l) => l.kind === 'live'));
 	const githubLink = $derived(project.links.find((l) => l.kind === 'github'));
 	const otherLinks = $derived(
@@ -34,10 +19,7 @@
 		if (e.key === 'ArrowLeft') navigateTo('projects', '/projects', true);
 	};
 
-	function getImage(name: string): Picture {
-		const path = `../../../lib/assets/project-images/${name}`;
-		return (images[path] as Picture) ?? Placeholder;
-	}
+
 </script>
 
 <svelte:head>
@@ -125,7 +107,7 @@
 				<div class="header-image">
 					{#if project.image}
 						<div class="image-frame">
-							<enhanced:img src={imageSrc} alt={project.name} class="hero-img" />
+							<enhanced:img src={heroImg} alt={project.name} class="hero-img" />
 						</div>
 					{/if}
 				</div>

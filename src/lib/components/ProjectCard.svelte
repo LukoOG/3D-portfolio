@@ -1,27 +1,12 @@
 <!-- ProjectCard.svelte -->
 <script lang="ts">
 	import type { Project } from '$lib';
-	import Placeholder from '$lib/assets/project-images/placeholder.png?enhanced';
-	import type { Picture } from '@sveltejs/enhanced-img';
-	import { goto } from '$app/navigation';
 	import { navigateTo } from '$lib';
+	import { getImage } from '$lib/utils/projectImages';
 
 	let { project, i, featured = false }: { project: Project; i: number; featured?: boolean } =
 		$props();
-	let imageSrc = $state<string | Picture>(Placeholder);
-
-	const images = import.meta.glob('../assets/project-images/*', {
-		import: 'default',
-		eager: true,
-		query: { enhanced: true }
-	});
-
-	$effect(() => {
-		if (!project.image) return;
-		const path = `../assets/project-images/${project.image}`;
-		const loader = images[path] as Picture;
-		imageSrc = loader ?? Placeholder;
-	});
+	let imageSrc = $derived(getImage(project.image))
 
 	function handleClick() {
 		// Navigate within the portfolio to the project detail page
