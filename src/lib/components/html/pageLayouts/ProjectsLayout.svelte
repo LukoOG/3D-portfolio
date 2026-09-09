@@ -12,8 +12,8 @@
 	.projects-root {
 		position: relative;
 		width: 100%;
-		max-height: 100vh;
-		min-height: 90%;
+		height: 100%;
+		overflow-y: auto;
 		padding: 2rem 1.75rem 3rem;
 		display: flex;
 		flex-direction: column;
