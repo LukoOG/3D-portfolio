@@ -11,7 +11,7 @@
 	let inputRef: HTMLInputElement | undefined = $state();
 
 	$effect(() => {
-		if (cubeState.mode === 'arrived' && cubeState.activeFace === 'secret') {
+		if (cubeState.mode === 'arrived' && cubeState.activeFace === 'secret' && !progress.cipherSolved) {
 			setTimeout(() => inputRef?.focus(), 100);
 		} else {
 			answer = '';
@@ -20,10 +20,13 @@
 	});
 
 	function handleCipherKey(e: KeyboardEvent) {
+		console.log(e.key)
 		if (e.key !== 'Enter') return;
 		e.preventDefault();
 
 		if (answer.trim().toLowerCase() === CIPHER_ANSWER.toLowerCase()) {
+			progress.cipherSolved = true;
+			persist();
 			wrong = false;
 			enterFace();
 		} else {
@@ -49,30 +52,37 @@
 		<span class="label">or click the face</span>
 	</div>
 {:else if cubeState.mode == 'arrived' && cubeState.activeFace == 'secret'}
-	<div class="cipher-prompt" class:shake={shaking}>
-		<p class="cipher-hint">find the word that sets me apart</p>
-
-		<div class="cipher-input-row">
-			<span class="cursor-prefix">_</span>
-			<input
-				bind:this={inputRef}
-				bind:value={answer}
-				onkeydown={handleCipherKey}
-				class="cipher-input"
-				type="text"
-				autocomplete="off"
-				autocorrect="off"
-				autocapitalize="off"
-				spellcheck="false"
-				maxlength={20}
-				placeholder="type your answer"
-			/>
+	{#if progress.cipherSolved}
+		<div class="prompt">
+			<span class="key">Enter</span>
+			<span class="label">or click the face</span>
 		</div>
+	{:else}
+		<div class="cipher-prompt" class:shake={shaking}>
+			<p class="cipher-hint">find the word that sets me apart</p>
 
-		{#if wrong}
-			<p class="cipher-wrong">incorrect. look closer.</p>
-		{/if}
-	</div>
+			<div class="cipher-input-row">
+				<span class="cursor-prefix">_</span>
+				<input
+					bind:this={inputRef}
+					bind:value={answer}
+					onkeydown={handleCipherKey}
+					class="cipher-input"
+					type="text"
+					autocomplete="off"
+					autocorrect="off"
+					autocapitalize="off"
+					spellcheck="false"
+					maxlength={20}
+					placeholder="type your answer"
+				/>
+			</div>
+
+			{#if wrong}
+				<p class="cipher-wrong">incorrect. look closer.</p>
+			{/if}
+		</div>
+	{/if}
 {/if}
 
 <style>

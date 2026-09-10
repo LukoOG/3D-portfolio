@@ -6,7 +6,8 @@ const PAGE_TOKENS = Object.values(TOKEN_MAP);
 export const progress = $state({
 	visited: new Set<String>(),
 	stage: 0,
-	keyFound: false
+	keyFound: false,
+	cipherSolved: false
 });
 
 export const markVisited = (token: String) => {
@@ -25,7 +26,8 @@ export function persist() {
 		JSON.stringify({
 			v: [...progress.visited],
 			s: progress.stage,
-			k: progress.keyFound
+			k: progress.keyFound,
+			c: progress.cipherSolved,
 		})
 	);
 }
@@ -38,6 +40,7 @@ export function hydrate() {
 		progress.visited = new Set(data.v);
 		progress.stage = data.s;
 		progress.keyFound = data.k;
+		progress.cipherSolved = data.c;
 	} catch {}
 }
 

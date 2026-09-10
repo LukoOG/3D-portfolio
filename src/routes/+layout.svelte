@@ -13,7 +13,7 @@
 	import Hint from '$lib/components/html/Hint.svelte';
 	import { TOKEN_MAP } from './secret/lib/tokens';
 	import { cubeState, enterFace, markVisited, persist, progress } from '$lib';
-	import { KEY } from './secret/lib/key';
+	import { getKey } from './secret/lib/key.svelte';
 
 	let { children } = $props();
 	let firstVisit = $state(false);
@@ -58,8 +58,8 @@
 	});
 
 	function handleKeyDown(e: KeyboardEvent) {
-		if (cubeState.activeFace != 'secret') {
-			if (e.key === KEY) {
+		if (cubeState.activeFace != 'secret' || progress.cipherSolved) {
+			if (e.key === getKey()) {
 				progress.keyFound = true;
 				persist();
 			}

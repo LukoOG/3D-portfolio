@@ -9,6 +9,7 @@ import {
 	FlaskConical,
 	Terminal
 } from '@lucide/svelte';
+import { getKey } from '../../routes/secret/lib/key.svelte';
 
 type LucideIcon = Component<LucideProps>;
 

@@ -1,16 +1,20 @@
 <script lang="ts">
-	import { faceConfig } from '$lib';
+	import { faceConfig, progress } from '$lib';
 	import { cubeState, navigateTo } from '$lib/states/cubeState.svelte';
 	import type { FaceConfig } from '$lib/utils/faceConfig';
 	import type { FaceName } from '$lib/utils/face';
+	import { getKey } from '../../../routes/secret/lib/key.svelte';
 
 	// Keyboard shortcuts
 	function handleKeydown(e: KeyboardEvent) {
 		// ignore if user is typing in an input
 		if (e.target instanceof HTMLInputElement) return;
-		const face = Object.entries(faceConfig).find(([name, face]) => face.shortcut == e.key) as
-			| [FaceName, FaceConfig]
-			| undefined;
+		const face = Object.entries(faceConfig).find(([name, face]) => {
+			if(name == 'secret'){
+				return getKey() === e.key;
+			}
+			return face.shortcut == e.key;
+		}) as [FaceName, FaceConfig] | undefined;
 		if (face) navigateTo(face[0], face[1].route);
 	}
 </script>
