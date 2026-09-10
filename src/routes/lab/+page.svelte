@@ -227,7 +227,7 @@
 
 							<!-- subtle progress bar -->
 							<div class="prompt-bar">
-								<div class="prompt-bar-fill" style="width: {(enteredCount / totalLength) * 100}%" />
+								<div class="prompt-bar-fill" style="width: {(enteredCount / totalLength) * 100}%"></div>
 							</div>
 						{:else if promptState === 'all_seen'}
 							<!-- unlock hint -->

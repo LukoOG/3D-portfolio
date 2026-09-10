@@ -9,7 +9,7 @@
 			<button class="close" onclick={() => (visible = !visible)}>continue</button>
 			<div class="hint-body">
 				<p>
-					Navigation on my portfolio doesn't work the same as most websites. Each face of the cube
+					Navigation on my portfolio isn't like most websites. Each face of the cube
 					corresponds to a page of my portfolio.
 				</p>
 				<p>
@@ -17,7 +17,7 @@
 					navigation menu buttons on PC or Mobile.
 				</p>
 				<p class="clue">
-					Interested in unlocking the mystery page? Visit all pages to get a clue!😉
+					Interested in unlocking the secret page? Visit all pages to get a clue!😉
 				</p>
 			</div>
 		</div>

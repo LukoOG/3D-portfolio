@@ -31,7 +31,7 @@ Instead of a traditional scrolling portfolio, this site places you inside a 3D s
 |------|-------|---------|
 | Hero | `/` | Introduction, stack, CTA |
 | Projects | `/projects` | Fullstack, frontend and Web3 work |
-| About | `/about` | Bio, timeline, values |
+| About | `/about` | My Bio, timeline, values |
 | Contact | `/contact` | Form + social links |
 | Lab | `/lab` | Experiments, tools, generative art |
 | Secret | `/secret` | ??? |
@@ -93,7 +93,7 @@ src/
 | `3` | About |
 | `4` | Contact |
 | `5` | Lab |
-| `?` | Secret |
+| `?6` | Secret |
 | `Enter` | Enter active face |
 | `Escape` | Exit back to scene |
 
