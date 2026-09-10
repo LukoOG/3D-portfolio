@@ -2,6 +2,8 @@ import { Quaternion, Euler } from 'three';
 import { faceRotations, type FaceName } from '$lib/utils/face';
 import { faceConfig } from '$lib/utils/faceConfig';
 import { goto } from '$app/navigation';
+import { page } from '$app/state';
+import { progress } from '$lib';
 
 export type cubeMode = 'idle' | 'navigating' | 'arrived' | 'entered';
 
@@ -12,9 +14,9 @@ export const cubeState = $state({
 });
 
 export function navigateTo(face: FaceName, route: string, enter: boolean = false) {
+	goto(route).catch((e)=>console.error(e));
 	cubeState.activeFace = face;
 	cubeState.mode = enter ? 'entered' : 'navigating';
-	goto(route)
 }
 
 export function enterFace() {
@@ -33,4 +35,4 @@ export const getTargetQuaternion = () => {
 	return q;
 };
 
-export const getActiveFaceColor = () => faceConfig[cubeState.activeFace].color
+export const getActiveFaceColor = () => faceConfig[cubeState.activeFace].color;

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { afterNavigate } from '$app/navigation';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import './layout.css';
@@ -12,13 +12,21 @@
 	import Header from '$lib/components/layout/Header.svelte';
 	import Hint from '$lib/components/html/Hint.svelte';
 	import { TOKEN_MAP } from './secret/lib/tokens';
-	import { cubeState, markVisited } from '$lib';
+	import { cubeState, enterFace, markVisited, persist, progress } from '$lib';
+	import { KEY } from './secret/lib/key';
 
 	let { children } = $props();
 	let firstVisit = $state(false);
 
 	const TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 	const key = 'lastVisit';
+
+	beforeNavigate((navigation) => {
+		if (navigation.to?.url.pathname == '/secret' && !progress.keyFound) {
+			navigation.cancel();
+			cubeState.mode = 'idle';
+		}
+	});
 
 	onMount(() => {
 		const currentTimestamp = Date.now();
@@ -48,6 +56,16 @@
 
 		markVisited(TOKEN_MAP[key]);
 	});
+
+	function handleKeyDown(e: KeyboardEvent) {
+		if (cubeState.activeFace != 'secret') {
+			if (e.key === KEY) {
+				progress.keyFound = true;
+				persist();
+			}
+			if (e.key === 'Enter') enterFace();
+		}
+	}
 </script>
 
 <svelte:head>
@@ -56,7 +74,7 @@
 </svelte:head>
 
 <Scene />
-<EnterPrompt />
+<EnterPrompt {handleKeyDown} />
 
 <main>
 	<Hint visible={firstVisit} />
