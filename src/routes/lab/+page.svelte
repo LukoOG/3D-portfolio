@@ -2,12 +2,9 @@
 <script lang="ts">
 	import { navigateTo } from '$lib';
 	import LabLayout from '$lib/components/html/pageLayouts/LabLayout.svelte';
-	import {
-		ExternalLink,
-	} from '@lucide/svelte';
+	import { ExternalLink } from '@lucide/svelte';
 	import Github from '$lib/components/icon/github.svelte';
-
-	import { items, categoryMeta } from '$lib/states';
+	import { items, domainMeta } from '$lib/states';
 
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.target instanceof HTMLInputElement) return;
@@ -15,424 +12,661 @@
 		else if (e.key === 'ArrowRight') navigateTo('secret', '/secret', true);
 	};
 
-	//random per visit
-	const tip = "Return to the 3d scene by pressing escape or clicking the close button at the top right"
+	const activeItems = $derived(items.filter((i) => !i.wip));
+	const wipItems = $derived(items.filter((i) => i.wip));
 </script>
+
+<svelte:head>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&display=swap"
+		rel="stylesheet"
+	/>
+</svelte:head>
 
 <svelte:window onkeydown={handleKeyDown} />
 
 <LabLayout>
 	<div class="lab-root">
-		<div class="page-header">
-			<div class="header-left">
-				<h2 class="page-title">Lab</h2>
-				<p class="page-sub">
-					Where things get weird. Experiments, tools, generative art, and anything that doesn't fit
-					neatly elsewhere.
+
+		<!-- ══════════════════════════════════════════
+		     HEADER — The lab's identity
+		     ══════════════════════════════════════════ -->
+		<header class="lab-header">
+			<div class="header-identity">
+				<span class="micro-label">The Lab</span>
+				<h1 class="lab-title">
+					Where things get
+					<em class="cursive-accent">weird.</em>
+				</h1>
+				<p class="lab-sub">
+					Questions that became code. Experiments, rabbit holes, and things I built because
+					I wanted to understand how they work.
 				</p>
 			</div>
-			<span class="count">{items.length} experiments</span>
-		</div>
 
-		<!-- category legend -->
-		<div class="legend">
-			{#each Object.entries(categoryMeta) as [key, meta]}
-				<div class="legend-item">
-					<meta.icon size={11} color={meta.color} />
-					<span style="color: {meta.color}">{meta.label}</span>
+			<div class="header-aside">
+				<div class="lab-manifesto">
+					<p class="manifesto-line">Not everything here needs to become a product.</p>
+					<p class="manifesto-line">Some of these are finished. Some are not.</p>
+					<p class="manifesto-line">All of them started with curiosity.</p>
 				</div>
-			{/each}
-		</div>
-
-		<!-- lab grid -->
-		<div class="lab-grid">
-			{#each items as item, i}
-				{@const meta = categoryMeta[item.category]}
-				<article
-					class="lab-card"
-					style="animation-delay: {0.1 + i * 0.07}s; --accent: {meta.color}"
-				>
-					<!-- top bar with category color -->
-					<div class="card-accent"></div>
-
-					<div class="card-inner">
-						<div class="card-header">
-							<div class="card-icon">
-								<meta.icon size={13} color={meta.color} />
-							</div>
-							<div class="card-meta">
-								<span class="card-category" style="color: {meta.color}">{meta.label}</span>
-								{#if item.wip}
-									<span class="wip-badge">WIP</span>
-								{/if}
-							</div>
-						</div>
-
-						<div class="card-body">
-							<h3 class="card-name">{item.name}</h3>
-							<p class="card-desc">{item.description}</p>
-						</div>
-
-						<div class="card-footer">
-							<div class="footer-left">
-								<div class="tags">
-									{#each item.tags as tag}
-										<span class="tag">{tag}</span>
-									{/each}
-								</div>
-								{#if item.origin}
-									<span class="origin">via {item.origin}</span>
-								{/if}
-							</div>
-
-							<div class="card-links">
-								{#if item.github}
-									<a href={item.github} target="_blank" rel="noopener" class="card-link">
-										<Github size={12} />
-									</a>
-								{/if}
-								{#if item.live}
-									<a href={item.live} target="_blank" rel="noopener" class="card-link">
-										<ExternalLink size={12} />
-									</a>
-								{/if}
-							</div>
-						</div>
-					</div>
-				</article>
-			{/each}
-		</div>
-
-		<!-- empty state for future items -->
-		<div class="more-soon">
-			<span>More experiments incoming</span>
-			<div class="dots">
-				<span></span><span></span><span></span>
+				<div class="experiment-count">
+					<span class="count-num">{items.length}</span>
+					<span class="count-label">experiment{items.length !== 1 ? 's' : ''}</span>
+				</div>
 			</div>
+		</header>
+
+		<!-- ══════════════════════════════════════════
+		     EXPERIMENTS — The workbench
+		     ══════════════════════════════════════════ -->
+		{#if activeItems.length > 0}
+			<section class="experiments-section">
+				<span class="section-eyebrow">Experiments</span>
+
+				<div class="experiments-list">
+					{#each activeItems as item, i}
+						{@const meta = domainMeta[item.domain]}
+						<div
+							class="experiment-entry"
+							style="animation-delay: {0.1 + i * 0.1}s; --accent: {meta.color}"
+						>
+							<!-- Left: question + description -->
+							<div class="entry-main">
+								{#if item.question}
+									<p class="entry-question">"{item.question}"</p>
+								{/if}
+
+								<div class="entry-title-row">
+									<h2 class="entry-name">{item.name}</h2>
+									{#if item.origin}
+										<span class="entry-origin">via {item.origin}</span>
+									{/if}
+								</div>
+
+								<p class="entry-desc">{item.description}</p>
+
+								<div class="entry-meta">
+									<div class="entry-tags">
+										{#each item.tags as tag}
+											<span class="entry-tag">{tag}</span>
+										{/each}
+									</div>
+
+									<div class="entry-links">
+										{#if item.github}
+											<a
+												href={item.github}
+												target="_blank"
+												rel="noopener"
+												class="entry-link"
+												title="GitHub"
+											>
+												<Github size={12} />
+												<span>Code</span>
+											</a>
+										{/if}
+										{#if item.live}
+											<a
+												href={item.live}
+												target="_blank"
+												rel="noopener"
+												class="entry-link"
+												title="Live demo"
+											>
+												<ExternalLink size={12} />
+												<span>Live</span>
+											</a>
+										{/if}
+									</div>
+								</div>
+							</div>
+
+							<!-- Right: domain annotation -->
+							<div class="entry-annotation">
+								<span class="annotation-domain" style="color: {meta.color}">{meta.label}</span>
+								{#if item.year}
+									<span class="annotation-year">{item.year}</span>
+								{/if}
+							</div>
+						</div>
+					{/each}
+				</div>
+			</section>
+		{/if}
+
+		<!-- WIP section — things that are still going -->
+		{#if wipItems.length > 0}
+			<section class="wip-section">
+				<span class="section-eyebrow">In progress</span>
+				<p class="wip-context">Things I'm still poking at.</p>
+
+				<div class="wip-list">
+					{#each wipItems as item, i}
+						{@const meta = domainMeta[item.domain]}
+						<div
+							class="wip-entry"
+							style="animation-delay: {0.2 + i * 0.08}s; --accent: {meta.color}"
+						>
+							<div class="wip-left">
+								<span class="wip-indicator"></span>
+								<div class="wip-text">
+									<h3 class="wip-name">{item.name}</h3>
+									<p class="wip-desc">{item.description}</p>
+								</div>
+							</div>
+							<div class="wip-right">
+								<span class="wip-domain" style="color: {meta.color}">{meta.label}</span>
+								<div class="wip-links">
+									{#if item.github}
+										<a href={item.github} target="_blank" rel="noopener" class="entry-link">
+											<Github size={11} />
+										</a>
+									{/if}
+								</div>
+							</div>
+						</div>
+					{/each}
+				</div>
+			</section>
+		{/if}
+
+		<!-- ══════════════════════════════════════════
+		     EXPANDING — honest "more coming" signal
+		     ══════════════════════════════════════════ -->
+		<div class="bench-note">
+			<span class="bench-dash">—</span>
+			<p>
+				The lab is actively growing. More experiments are underway — particularly in
+				systems programming, Rust, and whatever I happen to get curious about next.
+			</p>
 		</div>
 
-		<div class="grid grid-cols-2 gap-y-6">
-			<span>
-				<button class="cta" onclick={() => navigateTo('hero', '/', true)}>
-					<span class="arrow">←</span>
-					Back to my Hero page
-				</button>
-			</span>
+		<!-- ══════════════════════════════════════════
+		     NAVIGATION
+		     ══════════════════════════════════════════ -->
+		<div class="lab-nav">
+			<button class="nav-btn" onclick={() => navigateTo('projects', '/projects', true)}>
+				<span class="nav-arrow">←</span>
+				Projects
+			</button>
 
-			<!-- right button -->
-			<span class="flex-end flex flex-row justify-end">
-				<button class="cta" onclick={() => navigateTo('secret', '/secret', true)}>
-					First Clue?
-					<span class="arrow">→</span>
-				</button>
-			</span>
-
-			<!-- Tip -->
-			<span class="text-md cols-span-2">
-				Tip: {tip}
-			</span>
+			<button
+				class="nav-btn nav-secret"
+				onclick={() => navigateTo('secret', '/secret', true)}
+				title="First Clue?"
+			>
+				First Clue?
+				<span class="nav-arrow">→</span>
+			</button>
 		</div>
+
 	</div>
 </LabLayout>
 
 <style>
+	/* ─────────────────────────────────────────────────────
+	   BASE
+	───────────────────────────────────────────────────── */
 	.lab-root {
 		width: 100%;
-		min-height: 100%;
-		padding: 2rem 1.75rem 3rem;
+		max-width: 860px;
+		margin: 0 auto;
+		padding: 2.5rem 2rem 4rem;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.micro-label {
+		display: block;
+		font-size: 0.58rem;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: rgba(255, 255, 255, 0.25);
+		margin-bottom: 0.5rem;
+	}
+
+	.section-eyebrow {
+		display: block;
+		font-size: 0.55rem;
+		text-transform: uppercase;
+		letter-spacing: 0.16em;
+		color: rgba(255, 255, 255, 0.2);
+		margin-bottom: 1.5rem;
+	}
+
+	.cursive-accent {
+		font-family: 'Kalam', cursive;
+		font-style: normal;
+		font-weight: 400;
+		color: rgba(210, 160, 255, 0.9);
+	}
+
+	/* ─────────────────────────────────────────────────────
+	   HEADER
+	───────────────────────────────────────────────────── */
+	.lab-header {
+		display: grid;
+		grid-template-columns: 1fr 220px;
+		gap: 3rem;
+		align-items: start;
+		padding-bottom: 2.5rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+		animation: slide-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+	}
+
+	.lab-title {
+		font-size: clamp(2rem, 5vw, 3.2rem);
+		font-weight: 200;
+		letter-spacing: -0.03em;
+		line-height: 1.1;
+		margin: 0 0 1rem;
+		color: white;
+	}
+
+	.lab-title .cursive-accent {
+		font-size: clamp(2.2rem, 5.5vw, 3.5rem);
+	}
+
+	.lab-sub {
+		font-size: 0.85rem;
+		line-height: 1.75;
+		color: rgba(255, 255, 255, 0.5);
+		margin: 0;
+		max-width: 46ch;
+	}
+
+	.header-aside {
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
+		padding-top: 0.3rem;
 	}
 
-	/* header */
-	.page-header {
+	.lab-manifesto {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		padding-left: 0.75rem;
+		border-left: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.manifesto-line {
+		font-size: 0.68rem;
+		line-height: 1.55;
+		color: rgba(255, 255, 255, 0.28);
+		margin: 0;
+		font-style: italic;
+	}
+
+	.experiment-count {
+		display: flex;
+		flex-direction: column;
+		gap: 0.1rem;
+	}
+
+	.count-num {
+		font-size: 1.8rem;
+		font-weight: 200;
+		letter-spacing: -0.03em;
+		color: rgba(255, 255, 255, 0.8);
+		line-height: 1;
+	}
+
+	.count-label {
+		font-size: 0.58rem;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: rgba(255, 255, 255, 0.2);
+	}
+
+	/* ─────────────────────────────────────────────────────
+	   EXPERIMENTS LIST
+	───────────────────────────────────────────────────── */
+	.experiments-section {
+		padding: 2.5rem 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+		animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+	}
+
+	.experiments-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.experiment-entry {
+		display: grid;
+		grid-template-columns: 1fr 100px;
+		gap: 2rem;
+		align-items: start;
+		padding: 1.75rem 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+		opacity: 0;
+		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+		transition: background 0.2s;
+	}
+
+	.experiment-entry:last-child {
+		border-bottom: none;
+	}
+
+	.experiment-entry:hover {
+		background: rgba(255, 255, 255, 0.01);
+	}
+
+	/* The question — the spark */
+	.entry-question {
+		font-size: 0.78rem;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.35);
+		margin: 0 0 0.75rem;
+		font-style: italic;
+		max-width: 56ch;
+	}
+
+	.entry-title-row {
+		display: flex;
+		align-items: baseline;
+		gap: 0.75rem;
+		margin-bottom: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	.entry-name {
+		font-size: 1.1rem;
+		font-weight: 300;
+		letter-spacing: -0.01em;
+		color: rgba(255, 255, 255, 0.9);
+		margin: 0;
+		line-height: 1.2;
+	}
+
+	.entry-origin {
+		font-size: 0.6rem;
+		letter-spacing: 0.06em;
+		color: rgba(255, 255, 255, 0.2);
+		font-style: italic;
+		flex-shrink: 0;
+	}
+
+	.entry-desc {
+		font-size: 0.78rem;
+		line-height: 1.7;
+		color: rgba(255, 255, 255, 0.5);
+		margin: 0 0 1rem;
+		max-width: 56ch;
+	}
+
+	.entry-meta {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.entry-tags {
+		display: flex;
+		gap: 0.3rem;
+		flex-wrap: wrap;
+	}
+
+	.entry-tag {
+		font-size: 0.58rem;
+		padding: 0.15rem 0.5rem;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 999px;
+		color: rgba(255, 255, 255, 0.3);
+		letter-spacing: 0.04em;
+	}
+
+	.entry-links {
+		display: flex;
+		gap: 0.4rem;
+		flex-shrink: 0;
+	}
+
+	.entry-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		font-size: 0.62rem;
+		padding: 0.3rem 0.65rem;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 999px;
+		color: rgba(255, 255, 255, 0.4);
+		background: rgba(255, 255, 255, 0.02);
+		text-decoration: none;
+		letter-spacing: 0.04em;
+		transition:
+			color 0.2s,
+			border-color 0.2s,
+			background 0.2s;
+	}
+
+	.entry-link:hover {
+		color: rgba(255, 255, 255, 0.8);
+		border-color: rgba(255, 255, 255, 0.22);
+		background: rgba(255, 255, 255, 0.06);
+	}
+
+	/* Right annotation column */
+	.entry-annotation {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.4rem;
+		padding-top: 0.15rem;
+	}
+
+	.annotation-domain {
+		font-size: 0.58rem;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		opacity: 0.8;
+	}
+
+	.annotation-year {
+		font-size: 0.58rem;
+		letter-spacing: 0.08em;
+		color: rgba(255, 255, 255, 0.2);
+	}
+
+	/* ─────────────────────────────────────────────────────
+	   WIP SECTION
+	───────────────────────────────────────────────────── */
+	.wip-section {
+		padding: 2.5rem 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+		animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+	}
+
+	.wip-context {
+		font-size: 0.72rem;
+		color: rgba(255, 255, 255, 0.25);
+		margin: 0 0 1.5rem;
+		font-style: italic;
+	}
+
+	.wip-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.wip-entry {
 		display: flex;
 		align-items: flex-start;
 		justify-content: space-between;
 		gap: 1rem;
-		padding-bottom: 1rem;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+		padding: 1rem 1.1rem;
+		border: 1px solid rgba(255, 255, 255, 0.05);
+		border-radius: 3px;
+		background: rgba(255, 255, 255, 0.015);
+		opacity: 0;
+		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+		transition: border-color 0.2s, background 0.2s;
 	}
 
-	.header-left {
+	.wip-entry:hover {
+		border-color: rgba(255, 255, 255, 0.1);
+		background: rgba(255, 255, 255, 0.03);
+	}
+
+	.wip-left {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.75rem;
+		flex: 1;
+	}
+
+	.wip-indicator {
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: rgba(251, 146, 60, 0.6);
+		margin-top: 0.35rem;
+		flex-shrink: 0;
+		animation: pulse-wip 2s ease-in-out infinite;
+	}
+
+	.wip-text {
 		display: flex;
 		flex-direction: column;
-		gap: 0.3rem;
+		gap: 0.25rem;
 	}
 
-	.page-title {
-		font-size: 1rem;
+	.wip-name {
+		font-size: 0.85rem;
 		font-weight: 300;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.9);
+		color: rgba(255, 255, 255, 0.75);
 		margin: 0;
 	}
 
-	.page-sub {
-		font-size: 0.68rem;
-		color: rgba(255, 255, 255, 0.3);
+	.wip-desc {
+		font-size: 0.7rem;
+		color: rgba(255, 255, 255, 0.35);
 		margin: 0;
-		line-height: 1.5;
-		max-width: 32ch;
+		line-height: 1.55;
 	}
 
-	.count {
-		font-size: 0.6rem;
-		color: rgba(255, 255, 255, 0.2);
-		letter-spacing: 0.08em;
+	.wip-right {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.5rem;
 		flex-shrink: 0;
-		padding-top: 0.2rem;
 	}
 
-	/* legend */
-	.legend {
-		display: flex;
-		gap: 1rem;
-		flex-wrap: wrap;
-		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
-	}
-
-	.legend-item {
-		display: flex;
-		align-items: center;
-		gap: 0.3rem;
-		font-size: 0.6rem;
-		letter-spacing: 0.08em;
+	.wip-domain {
+		font-size: 0.56rem;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
 		opacity: 0.7;
 	}
 
-	/* grid */
-	.lab-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 0.75rem;
-	}
-
-	/* card */
-	.lab-card {
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		border-radius: 10px;
-		overflow: hidden;
-		background: rgba(0, 0, 0, 0.25);
-		opacity: 0;
-		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-		transition:
-			border-color 0.2s,
-			background 0.2s,
-			translate 0.2s;
+	.wip-links {
 		display: flex;
-		flex-direction: column;
+		gap: 0.35rem;
 	}
 
-	.lab-card:hover {
-		border-color: var(--accent, rgba(255, 255, 255, 0.15));
-		background: rgba(0, 0, 0, 0.35);
-		translate: 0 -2px;
+	/* ─────────────────────────────────────────────────────
+	   BENCH NOTE
+	───────────────────────────────────────────────────── */
+	.bench-note {
+		display: flex;
+		gap: 0.75rem;
+		align-items: flex-start;
+		padding: 2rem 0;
+		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 	}
 
-	.cta {
-		margin-top: 0.75rem;
+	.bench-dash {
+		font-size: 0.9rem;
+		color: rgba(210, 160, 255, 0.4);
+		flex-shrink: 0;
+		margin-top: 0.05rem;
+		line-height: 1.65;
+	}
+
+	.bench-note p {
+		font-size: 0.72rem;
+		line-height: 1.7;
+		color: rgba(255, 255, 255, 0.25);
+		margin: 0;
+		font-style: italic;
+		max-width: 52ch;
+	}
+
+	/* ─────────────────────────────────────────────────────
+	   NAVIGATION
+	───────────────────────────────────────────────────── */
+	.lab-nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: 1.5rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.07);
+		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+	}
+
+	.nav-btn {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
 		padding: 0.5rem 1.1rem;
-		border: 1px solid rgba(255, 255, 255, 0.2);
+		border: 1px solid rgba(255, 255, 255, 0.12);
 		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.06);
-		color: rgba(255, 255, 255, 0.8);
-		font-size: 0.75rem;
+		background: rgba(255, 255, 255, 0.03);
+		color: rgba(255, 255, 255, 0.5);
+		font-size: 0.7rem;
 		letter-spacing: 0.06em;
 		cursor: pointer;
 		transition:
 			background 0.2s,
 			border-color 0.2s,
 			color 0.2s;
-		animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
 	}
 
-	.cta:hover {
-		background: rgba(255, 255, 255, 0.12);
-		border-color: rgba(255, 255, 255, 0.35);
+	.nav-btn:hover {
+		background: rgba(255, 255, 255, 0.08);
+		border-color: rgba(255, 255, 255, 0.25);
 		color: white;
 	}
 
-	.arrow {
+	/* Secret nav gets a subtle hint */
+	.nav-secret {
+		border-style: dashed;
+		color: rgba(255, 255, 255, 0.35);
+	}
+
+	.nav-secret:hover {
+		border-style: solid;
+		border-color: rgba(210, 160, 255, 0.3);
+		color: rgba(210, 160, 255, 0.8);
+		background: rgba(210, 160, 255, 0.04);
+	}
+
+	.nav-arrow {
+		display: inline-block;
 		transition: translate 0.2s;
 	}
 
-	.cta:hover .arrow {
+	.nav-btn:hover .nav-arrow {
 		translate: 3px 0;
 	}
-	/* colored top accent bar */
-	.card-accent {
-		height: 2px;
-		background: var(--accent, rgba(255, 255, 255, 0.1));
-		opacity: 0.6;
-	}
 
-	.card-inner {
-		padding: 0.9rem;
-		display: flex;
-		flex-direction: column;
-		gap: 0.7rem;
-		flex: 1;
-	}
-
-	.card-header {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.card-icon {
-		width: 24px;
-		height: 24px;
-		border-radius: 6px;
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		background: rgba(0, 0, 0, 0.2);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-shrink: 0;
-	}
-
-	.card-meta {
-		display: flex;
-		align-items: center;
-		gap: 0.4rem;
-	}
-
-	.card-category {
-		font-size: 0.58rem;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-	}
-
-	.wip-badge {
-		font-size: 0.5rem;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		padding: 0.1rem 0.35rem;
-		border-radius: 999px;
-		border: 1px solid rgba(251, 146, 60, 0.3);
-		color: rgba(251, 146, 60, 0.8);
-		background: rgba(251, 146, 60, 0.05);
-	}
-
-	.card-body {
-		display: flex;
-		flex-direction: column;
-		gap: 0.3rem;
-		flex: 1;
-	}
-
-	.card-name {
-		font-size: 0.9rem;
-		font-weight: 300;
-		color: rgba(255, 255, 255, 0.95);
-		margin: 0;
-		letter-spacing: -0.01em;
-	}
-
-	.card-desc {
-		font-size: 0.65rem;
-		line-height: 1.6;
-		color: rgba(255, 255, 255, 0.7);
-		margin: 0;
-	}
-
-	.card-footer {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.5rem;
-	}
-
-	.tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.25rem;
-	}
-
-	.tag {
-		font-size: 0.55rem;
-		padding: 0.12rem 0.4rem;
-		border: 1px solid rgba(255, 255, 255, 0.2);
-		border-radius: 999px;
-		color: rgba(255, 255, 255, 0.6);
-		letter-spacing: 0.04em;
-	}
-
-	.card-links {
-		display: flex;
-		gap: 0.4rem;
-		flex-shrink: 0;
-	}
-
-	.card-link {
-		color: rgba(255, 255, 255, 0.6);
-		transition: color 0.2s;
-		display: flex;
-		align-items: center;
-		padding: 0.3rem;
-		border: 1px solid rgba(255, 255, 255, 0.25);
-		border-radius: 6px;
-		transition:
-			color 0.2s,
-			border-color 0.2s;
-	}
-
-	.card-link:hover {
-		color: rgba(255, 255, 255, 0.7);
-		border-color: rgba(255, 255, 255, 0.4);
-	}
-
-	/* more soon */
-	.more-soon {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		padding-top: 0.5rem;
-		font-size: 0.62rem;
-		color: rgba(255, 255, 255, 0.3);
-		letter-spacing: 0.08em;
-		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
-	}
-
-	.dots {
-		display: flex;
-		gap: 0.3rem;
-	}
-
-	.dots span {
-		width: 3px;
-		height: 3px;
-		border-radius: 50%;
-		background: rgba(255, 255, 255, 0.4);
-		animation: pulse 1.5s ease-in-out infinite;
-	}
-
-	.dots span:nth-child(2) {
-		animation-delay: 0.2s;
-	}
-	.dots span:nth-child(3) {
-		animation-delay: 0.4s;
-	}
-
-	.origin {
-		font-size: 0.55rem;
-		color: rgba(255, 255, 255, 0.45);
-		letter-spacing: 0.06em;
-		font-style: italic;
-	}
-
+	/* ─────────────────────────────────────────────────────
+	   ANIMATIONS
+	───────────────────────────────────────────────────── */
 	@keyframes slide-up {
 		from {
 			opacity: 0;
-			translate: 0 8px;
+			translate: 0 12px;
 		}
 		to {
 			opacity: 1;
@@ -440,13 +674,63 @@
 		}
 	}
 
-	@keyframes pulse {
-		0%,
-		100% {
-			opacity: 0.15;
+	@keyframes pulse-wip {
+		0%, 100% { opacity: 0.6; }
+		50% { opacity: 1; }
+	}
+
+	/* ─────────────────────────────────────────────────────
+	   RESPONSIVE
+	───────────────────────────────────────────────────── */
+	@media (max-width: 720px) {
+		.lab-root {
+			padding: 1.75rem 1.25rem 3rem;
 		}
-		50% {
-			opacity: 0.5;
+
+		.lab-header {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+
+		.header-aside {
+			flex-direction: row;
+			align-items: flex-start;
+			gap: 2rem;
+		}
+
+		.experiment-entry {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+
+		.entry-annotation {
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 0.75rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.header-aside {
+			flex-direction: column;
+		}
+
+		.entry-meta {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.6rem;
+		}
+
+		.wip-entry {
+			flex-direction: column;
+			gap: 0.75rem;
+		}
+
+		.wip-right {
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
 		}
 	}
 </style>

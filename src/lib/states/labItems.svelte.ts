@@ -1,16 +1,27 @@
-import { Palette, Terminal, Package, Wrench } from '@lucide/svelte';
+import { Palette, Terminal, Package, Wrench, Cpu, Globe } from '@lucide/svelte';
 
-export type LabCategory = 'generative' | 'cli' | 'opensource' | 'experiment';
+export type LabDomain =
+	| 'systems'
+	| 'generative'
+	| 'cli'
+	| 'web'
+	| 'opensource'
+	| 'experiment'
+	| 'tooling';
 
 export interface LabItem {
+	slug: string; // unique identifier
 	name: string;
-	description: string;
-	category: LabCategory;
+	question?: string; // "what was I curious about?" — the spark
+	description: string; // what it is / what I did
+	domain: LabDomain;
 	tags: string[];
 	github?: string;
 	live?: string;
-    origin?: string;
+	origin?: string; // e.g. "The Rust Book" — where the idea came from
 	wip?: boolean;
+	featured?: boolean; // marks a current or especially notable experiment
+	year?: string;
 }
 
 export interface TipItem {
@@ -18,53 +29,37 @@ export interface TipItem {
 	probability: number;
 }
 
-export const categoryMeta: Record<LabCategory, { label: string; icon: any; color: string }> = {
+export const domainMeta: Record<LabDomain, { label: string; icon: any; color: string }> = {
+	systems: { label: 'Systems', icon: Cpu, color: '#34d399' },
 	generative: { label: 'Generative', icon: Palette, color: '#e879f9' },
-	cli: { label: 'CLI Tool', icon: Terminal, color: '#34d399' },
+	cli: { label: 'CLI', icon: Terminal, color: '#34d399' },
+	web: { label: 'Web', icon: Globe, color: '#60a5fa' },
 	opensource: { label: 'Open Source', icon: Package, color: '#60a5fa' },
-	experiment: { label: 'Experiment', icon: Wrench, color: '#fb923c' }
+	experiment: { label: 'Experiment', icon: Wrench, color: '#fb923c' },
+	tooling: { label: 'Tooling', icon: Wrench, color: '#fb923c' }
 };
 
 export const items: LabItem[] = [
 	{
-		name: 'Experiment 001',
-		description:
-			'A generative art piece exploring noise fields and particle systems. Replace this with your actual experiment.',
-		category: 'generative',
-		tags: ['canvas', 'noise', 'animation'],
-		live: 'https://',
-		github: 'https://github.com/',
-		wip: true
-	},
-	{
+		slug: 'minigrep',
 		name: 'minigrep',
+		question: 'What does it actually take to build a basic search tool from scratch?',
 		description:
-			'A command line search tool built from the Rust Book — searches for a string pattern across file contents. My first step into systems programming.',
-		category: 'cli',
-		tags: ['rust', 'cli', 'systems'],
+			'A command-line search tool that finds a string pattern across file contents — built while working through the Rust Book. My first real step into systems programming.',
+		domain: 'systems',
+		tags: ['rust', 'cli', 'systems programming'],
 		github: 'https://github.com/LukoOG/minigrep',
+		origin: 'The Rust Book',
 		wip: false,
-        origin: "The Official Rust Book"
-	},
-	{
-		name: 'OSS Contribution',
-		description: 'A contribution to an open source project. Describe what you fixed or added.',
-		category: 'opensource',
-		tags: ['typescript', 'open-source'],
-		github: 'https://github.com/'
-	},
-	{
-		name: 'Throwaway 001',
-		description:
-			'A small throwaway project built over a weekend to try out a new technology or idea.',
-		category: 'experiment',
-		tags: ['rust', 'wasm'],
-		github: 'https://github.com/',
-		wip: true
+		year: '2024'
 	}
 ];
 
-export const tips: TipItem[] = [{
-	tip: "Return to the 3d scene by pressing escape or clicking the close button at the top right",
-	probability: 10,
-}]
+// More experiments incoming — the lab is actively growing.
+
+export const tips: TipItem[] = [
+	{
+		tip: 'Return to the 3D scene by pressing Escape or clicking the close button at the top right.',
+		probability: 10
+	}
+];
