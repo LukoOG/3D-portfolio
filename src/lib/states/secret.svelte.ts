@@ -19,7 +19,7 @@ export const allVisited = (): boolean => {
 	return PAGE_TOKENS.every((t) => progress.visited.has(t));
 };
 
-function persist() {
+export function persist() {
 	localStorage.setItem(
 		'_p',
 		JSON.stringify({

@@ -241,6 +241,15 @@
 						{/if}
 					</div>
 				</div>
+			{:else}
+				<button
+					class="nav-btn nav-secret"
+					onclick={() => navigateTo('secret', '/secret', true)}
+					title="First Clue?"
+				>
+					First Clue?
+					<span class="nav-arrow">→</span>
+				</button>
 			{/if}
 		</div>
 	</div>
