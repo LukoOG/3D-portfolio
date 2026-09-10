@@ -5,6 +5,8 @@
 	import { ExternalLink } from '@lucide/svelte';
 	import Github from '$lib/components/icon/github.svelte';
 	import { items, domainMeta } from '$lib/states';
+	import { allVisited, progress } from '$lib';
+	import { TOKEN_MAP } from '../secret/lib/tokens';
 
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.target instanceof HTMLInputElement) return;
@@ -14,6 +16,18 @@
 
 	const activeItems = $derived(items.filter((i) => !i.wip));
 	const wipItems = $derived(items.filter((i) => i.wip));
+
+	const totalLength = Object.values(TOKEN_MAP).length;
+
+	const promptState = $derived.by(() => {
+		if (progress.keyFound) return 'key_found';
+		if (allVisited()) return 'all_seen';
+		return 'unseen';
+	});
+
+	const enteredCount = $derived(
+		Object.values(TOKEN_MAP).filter((t) => progress.visited.has(t)).length
+	);
 </script>
 
 <svelte:head>
@@ -29,7 +43,6 @@
 
 <LabLayout>
 	<div class="lab-root">
-
 		<!-- ══════════════════════════════════════════
 		     HEADER — The lab's identity
 		     ══════════════════════════════════════════ -->
@@ -41,8 +54,8 @@
 					<em class="cursive-accent">weird.</em>
 				</h1>
 				<p class="lab-sub">
-					Questions that became code. Experiments, rabbit holes, and things I built because
-					I wanted to understand how they work.
+					Questions that became code. Experiments, rabbit holes, and things I built because I wanted
+					to understand how they work.
 				</p>
 			</div>
 
@@ -179,8 +192,8 @@
 		<div class="bench-note">
 			<span class="bench-dash">—</span>
 			<p>
-				The lab is actively growing. More experiments are underway — particularly in
-				systems programming, Rust, and whatever I happen to get curious about next.
+				The lab is actively growing. More experiments are underway — particularly in systems
+				programming, Rust, and whatever I happen to get curious about next.
 			</p>
 		</div>
 
@@ -193,16 +206,43 @@
 				Projects
 			</button>
 
-			<button
-				class="nav-btn nav-secret"
-				onclick={() => navigateTo('secret', '/secret', true)}
-				title="First Clue?"
-			>
-				First Clue?
-				<span class="nav-arrow">→</span>
-			</button>
-		</div>
+			{#if promptState !== 'key_found'}
+				<div class="secret-prompt" class:ready={promptState === 'all_seen'}>
+					<div class="prompt-inner">
+						{#if promptState === 'unseen'}
+							<!-- nudge -->
+							<div class="prompt-row">
+								<span class="prompt-icon">◎</span>
+								<div class="prompt-text">
+									<p class="prompt-main">
+										Curious? There's more to this portfolio than meets the eye.
+									</p>
+									<p class="prompt-sub">
+										Explore everything first —
+										<span class="prompt-count">{enteredCount}/{totalLength}</span>
+										pages entered
+									</p>
+								</div>
+							</div>
 
+							<!-- subtle progress bar -->
+							<div class="prompt-bar">
+								<div class="prompt-bar-fill" style="width: {(enteredCount / totalLength) * 100}%" />
+							</div>
+						{:else if promptState === 'all_seen'}
+							<!-- unlock hint -->
+							<div class="prompt-row">
+								<span class="prompt-icon unlocked">✦</span>
+								<div class="prompt-text">
+									<p class="prompt-main">You've seen it all.</p>
+									<p class="prompt-sub">The key to what's next is in the README.</p>
+								</div>
+							</div>
+						{/if}
+					</div>
+				</div>
+			{/if}
+		</div>
 	</div>
 </LabLayout>
 
@@ -509,7 +549,9 @@
 		background: rgba(255, 255, 255, 0.015);
 		opacity: 0;
 		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-		transition: border-color 0.2s, background 0.2s;
+		transition:
+			border-color 0.2s,
+			background 0.2s;
 	}
 
 	.wip-entry:hover {
@@ -660,6 +702,106 @@
 		translate: 3px 0;
 	}
 
+	.secret-prompt {
+		margin-top: 1rem;
+		padding: 1rem 1.25rem;
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		border-radius: 10px;
+		background: rgba(255, 255, 255, 0.02);
+		transition:
+			border-color 0.4s,
+			background 0.4s;
+		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+	}
+
+	.secret-prompt.ready {
+		border-color: rgba(234, 179, 8, 0.2);
+		background: rgba(234, 179, 8, 0.04);
+	}
+
+	.prompt-inner {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.prompt-row {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.75rem;
+	}
+
+	.prompt-icon {
+		font-size: 0.9rem;
+		color: rgba(255, 255, 255, 0.2);
+		flex-shrink: 0;
+		margin-top: 0.1rem;
+		transition: color 0.4s;
+	}
+
+	.prompt-icon.unlocked {
+		color: rgba(234, 179, 8, 0.7);
+		animation: star-pulse 2s ease-in-out infinite;
+	}
+
+	.prompt-text {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+	}
+
+	.prompt-main {
+		font-size: 0.72rem;
+		color: rgba(255, 255, 255, 0.6);
+		margin: 0;
+	}
+
+	.secret-prompt.ready .prompt-main {
+		color: rgba(255, 255, 255, 0.85);
+	}
+
+	.prompt-sub {
+		font-size: 0.62rem;
+		color: rgba(255, 255, 255, 0.25);
+		margin: 0;
+		letter-spacing: 0.02em;
+	}
+
+	.secret-prompt.ready .prompt-sub {
+		color: rgba(234, 179, 8, 0.5);
+	}
+
+	.prompt-count {
+		font-variant-numeric: tabular-nums;
+		color: rgba(255, 255, 255, 0.5);
+	}
+
+	/* progress bar */
+	.prompt-bar {
+		height: 1px;
+		background: rgba(255, 255, 255, 0.06);
+		border-radius: 999px;
+		overflow: hidden;
+	}
+
+	.prompt-bar-fill {
+		height: 100%;
+		background: rgba(255, 255, 255, 0.2);
+		border-radius: 999px;
+		transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	@keyframes star-pulse {
+		0%,
+		100% {
+			opacity: 0.7;
+		}
+		50% {
+			opacity: 1;
+			text-shadow: 0 0 8px rgba(234, 179, 8, 0.6);
+		}
+	}
+
 	/* ─────────────────────────────────────────────────────
 	   ANIMATIONS
 	───────────────────────────────────────────────────── */
@@ -675,8 +817,13 @@
 	}
 
 	@keyframes pulse-wip {
-		0%, 100% { opacity: 0.6; }
-		50% { opacity: 1; }
+		0%,
+		100% {
+			opacity: 0.6;
+		}
+		50% {
+			opacity: 1;
+		}
 	}
 
 	/* ─────────────────────────────────────────────────────

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { afterNavigate } from '$app/navigation';
+	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.png';
@@ -9,6 +11,8 @@
 	import FaceOverlay from '$lib/components/html/FaceOverlay.svelte';
 	import Header from '$lib/components/layout/Header.svelte';
 	import Hint from '$lib/components/html/Hint.svelte';
+	import { TOKEN_MAP } from './secret/lib/tokens';
+	import { cubeState, markVisited } from '$lib';
 
 	let { children } = $props();
 	let firstVisit = $state(false);
@@ -18,7 +22,7 @@
 
 	onMount(() => {
 		const currentTimestamp = Date.now();
-		const value = JSON.stringify(currentTimestamp)
+		const value = JSON.stringify(currentTimestamp);
 		if (browser) {
 			try {
 				let lastVisitTimeStamp = JSON.parse(localStorage.getItem(key)!);
@@ -34,6 +38,15 @@
 				console.error(e);
 			}
 		}
+	});
+
+	$effect(() => {
+		const currentPathName = page.url.pathname;
+		const key = currentPathName as keyof typeof TOKEN_MAP;
+
+		if (!(key in TOKEN_MAP)) return;
+
+		markVisited(TOKEN_MAP[key]);
 	});
 </script>
 

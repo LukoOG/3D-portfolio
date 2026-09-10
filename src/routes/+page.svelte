@@ -3,7 +3,6 @@
 	import HeroLayout from '$lib/components/html/pageLayouts/HeroLayout.svelte';
 	import { navigateTo } from '$lib/index';
 	import { testimonials } from '$lib/states/testimonials.svelte';
-	import { icons } from '@lucide/svelte';
 
 	let index = $state(0);
 
@@ -12,8 +11,7 @@
 			index += 1;
 			index %= testimonials.length;
 		}, 3500);
-		//Index isn't reactive without this line for some reason
-		console.log(index)
+		index //I have to place the variable in the effect body for it to be reactive
 		return () => clearInterval(timer);
 	});
 

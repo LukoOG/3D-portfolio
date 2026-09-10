@@ -3,7 +3,7 @@
 	import AboutLayout from '$lib/components/html/pageLayouts/AboutLayout.svelte';
 	import profilePic from '$lib/assets/profile/me.png?enhanced';
 	import { timeline } from '$lib/states/timeline.svelte';
-	import { navigateTo } from '$lib';
+	import { navigateTo, progress } from '$lib';
 	import Github from '$lib/components/icon/github.svelte';
 	import X from '$lib/components/icon/X.svelte';
 	import LinkedIn from '$lib/components/icon/linkedin.svelte';
@@ -44,7 +44,6 @@
 
 <AboutLayout>
 	<div class="about-root">
-
 		<!-- ═══════════════════════════════════════════════
 		     LEVEL 1 — HERO: Who is this person?
 		     ═══════════════════════════════════════════════ -->
@@ -69,8 +68,8 @@
 				<p class="hero-intro">
 					I care about the details most people skip: naming things well, writing code the next
 					person can reason about, shipping something that actually works. I'm currently going deep
-					on systems programming and distributed systems — because there's always another layer worth
-					understanding.
+					on systems programming and distributed systems — because there's always another layer
+					worth understanding.
 				</p>
 
 				<div class="social-row">
@@ -85,11 +84,7 @@
 
 			<div class="hero-right">
 				<div class="photo-frame">
-					<enhanced:img
-						src={profilePic}
-						alt="Emmanuel Adesipe"
-						class="photo"
-					/>
+					<enhanced:img src={profilePic} alt="Emmanuel Adesipe" class="photo" />
 					<div class="photo-bg-shape"></div>
 				</div>
 
@@ -116,7 +111,6 @@
 		     LEVEL 2 — SUBSTANCE: What does he build?
 		     ═══════════════════════════════════════════════ -->
 		<section class="substance-section">
-
 			<!-- Left: Philosophy + Approach -->
 			<div class="substance-left">
 				<div class="section-block philosophy-block">
@@ -176,7 +170,11 @@
 					</h2>
 					<div class="timeline">
 						{#each timeline as item, i}
-							<div class="timeline-item" class:is-current={item.type === 'current'} style="animation-delay: {0.2 + i * 0.12}s">
+							<div
+								class="timeline-item"
+								class:is-current={item.type === 'current'}
+								style="animation-delay: {0.2 + i * 0.12}s"
+							>
 								<div class="tl-year-col">
 									<span class="tl-year">{item.year}</span>
 									<div class="tl-connector" class:current={item.type === 'current'}></div>
@@ -238,7 +236,10 @@
 					</div>
 					<div class="interest-text">
 						<h4 class="interest-title">Gaming</h4>
-						<p class="interest-desc">Strategy games and competitive multiplayer — the same instinct as debugging, but louder.</p>
+						<p class="interest-desc">
+							Strategy games and competitive multiplayer — the same instinct as debugging, but
+							louder.
+						</p>
 					</div>
 				</div>
 
@@ -248,7 +249,9 @@
 					</div>
 					<div class="interest-text">
 						<h4 class="interest-title">Reading</h4>
-						<p class="interest-desc">Tech books, sci-fi, system design — anything that changes how I think about problems.</p>
+						<p class="interest-desc">
+							Tech books, sci-fi, system design — anything that changes how I think about problems.
+						</p>
 					</div>
 				</div>
 
@@ -258,7 +261,10 @@
 					</div>
 					<div class="interest-text">
 						<h4 class="interest-title">Music</h4>
-						<p class="interest-desc">Lo-fi for deep work, new artists for everything else. Good music makes the diff land cleaner.</p>
+						<p class="interest-desc">
+							Lo-fi for deep work, new artists for everything else. Good music makes the diff land
+							cleaner.
+						</p>
 					</div>
 				</div>
 
@@ -268,7 +274,9 @@
 					</div>
 					<div class="interest-text">
 						<h4 class="interest-title">Travel</h4>
-						<p class="interest-desc">Lagos, Nigeria — and curious about everywhere else. New places reset my perspective.</p>
+						<p class="interest-desc">
+							Lagos, Nigeria — and curious about everywhere else. New places reset my perspective.
+						</p>
 					</div>
 				</div>
 			</div>
@@ -346,7 +354,6 @@
 				<span class="nav-arrow">→</span>
 			</button>
 		</div>
-
 	</div>
 </AboutLayout>
 
@@ -648,7 +655,9 @@
 		background: rgba(255, 255, 255, 0.02);
 		border-radius: 2px;
 		position: relative;
-		transition: border-color 0.2s, background 0.2s;
+		transition:
+			border-color 0.2s,
+			background 0.2s;
 	}
 
 	.approach-item:hover {
@@ -948,7 +957,9 @@
 		color: rgba(255, 255, 255, 0.45);
 		background: rgba(255, 255, 255, 0.03);
 		letter-spacing: 0.03em;
-		transition: border-color 0.2s, color 0.2s;
+		transition:
+			border-color 0.2s,
+			color 0.2s;
 	}
 
 	.tool-tag:hover {
