@@ -4,4 +4,4 @@ export { cubeState, navigateTo, exitFace, enterFace, getTargetQuaternion } from 
 export * from './states/index'
 export { faceConfig } from './utils/faceConfig'
 export { faceRotations, type FaceName } from './utils/face'
-export { markVisited, allVisited, progress, persist } from './states/secret.svelte'
+export { markVisited, allVisited, progress, persist, hydrate } from './states/secret.svelte'

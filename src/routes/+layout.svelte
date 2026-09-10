@@ -12,7 +12,7 @@
 	import Header from '$lib/components/layout/Header.svelte';
 	import Hint from '$lib/components/html/Hint.svelte';
 	import { TOKEN_MAP } from './secret/lib/tokens';
-	import { cubeState, enterFace, markVisited, persist, progress } from '$lib';
+	import { cubeState, enterFace, hydrate, markVisited, persist, progress } from '$lib';
 	import { getKey } from './secret/lib/key.svelte';
 
 	let { children } = $props();
@@ -30,6 +30,7 @@
 	});
 
 	onMount(() => {
+		hydrate(); //populate progress state on mount
 		const currentTimestamp = Date.now();
 		const value = JSON.stringify(currentTimestamp);
 		if (browser) {
