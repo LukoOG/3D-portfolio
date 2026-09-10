@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { cubeState, exitFace } from '$lib';
+	import { cubeState, exitFace, progress } from '$lib';
 	import { getActiveFaceColor } from '$lib/states/cubeState.svelte';
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
-	import { visitedPortfolio } from '../../../routes/secret/lib/secret.svelte';
 
 	type HideElement = 'none' | 'block'
 
@@ -26,7 +25,7 @@
 	}
 
 	function showGlow(): HideElement {
-		if(page.route.id == "/secret" && !visitedPortfolio) return "block"
+		if(page.route.id == "/secret" && !progress.cipherSolved) return "block"
 		return "none"
 	}
 

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { visitedPortfolio } from './lib/secret.svelte';
+	import { progress } from '$lib';
 
 	let { children }: { children: Snippet } = $props();
 </script>
 
-{#if visitedPortfolio}
+{#if progress.cipherSolved}
 	{@render children?.()}
 {:else}
 	<div class="flex h-[90%] flex-col items-center justify-center">

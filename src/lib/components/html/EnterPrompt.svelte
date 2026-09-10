@@ -20,7 +20,6 @@
 	});
 
 	function handleCipherKey(e: KeyboardEvent) {
-		console.log(e.key)
 		if (e.key !== 'Enter') return;
 		e.preventDefault();
 

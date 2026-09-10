@@ -17,6 +17,7 @@
 
 	let { children } = $props();
 	let firstVisit = $state(false);
+	let isMobile = $state(false);
 
 	const TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 	const key = 'lastVisit';
@@ -46,6 +47,8 @@
 				console.error(e);
 			}
 		}
+
+		isMobile = window.matchMedia('(max-width: 768px)').matches;
 	});
 
 	$effect(() => {
@@ -79,7 +82,7 @@
 <main>
 	<Hint visible={firstVisit} />
 	<Header />
-	<Nav />
+	<Nav {isMobile} />
 	<FaceOverlay>
 		{@render children?.()}
 	</FaceOverlay>

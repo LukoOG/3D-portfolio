@@ -5,6 +5,8 @@
 	import type { FaceName } from '$lib/utils/face';
 	import { getKey } from '../../../routes/secret/lib/key.svelte';
 
+	let { isMobile }: { isMobile: boolean } = $props();
+
 	// Keyboard shortcuts
 	function handleKeydown(e: KeyboardEvent) {
 		// ignore if user is typing in an input
@@ -25,10 +27,12 @@
 	<ul>
 		{#each Object.entries(faceConfig) as [name, face]}
 			{@const faceName = name as FaceName}
+			{@const isDisabled = !isMobile && name == 'secret' && !progress.cipherSolved}
 			{@const showHighlight = cubeState.activeFace === name && cubeState.mode !== 'idle'}
 			<li>
 				<button
 					class:active={showHighlight}
+					disabled={isDisabled}
 					onclick={(e) => {
 						navigateTo(faceName, face.route);
 						e.currentTarget.blur();
