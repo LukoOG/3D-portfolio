@@ -51,7 +51,7 @@ export const projects: Project[] = [
 		overview:
 			'Swix is a full-featured social platform modelled after Twitter. Users can sign up, post, follow other users, like and reply to posts, and see a personalised feed in real time. The project was built to demonstrate end-to-end fullstack capability: authentication, relational data modelling, real-time subscriptions, and a polished SvelteKit frontend.',
 		approach:
-			'The backend is a Django REST API backed by PostgreSQL, with Supabase handling real-time subscriptions and auth. The frontend is SvelteKit 5 using Svelte\'s runes reactivity model. The feed is driven by a PostgreSQL query that aggregates posts from followed users, sorted by recency. Real-time updates use Supabase\'s websocket channels so new posts appear without a page reload.',
+			"The backend is a Django REST API backed by PostgreSQL, with Supabase handling real-time subscriptions and auth. The frontend is SvelteKit 5 using Svelte's runes reactivity model. The feed is driven by a PostgreSQL query that aggregates posts from followed users, sorted by recency. Real-time updates use Supabase's websocket channels so new posts appear without a page reload.",
 		contribution:
 			'Designed and built the entire project solo — API design, database schema, auth flow, feed algorithm, frontend components, and deployment.',
 		outcome:
@@ -81,9 +81,9 @@ export const projects: Project[] = [
 		overview:
 			'Sui Profile is a decentralised identity application on the Sui blockchain. Users connect their wallet and mint a profile object — stored on-chain as a Sui Move object they genuinely own. The profile is then displayed through a Next.js frontend. The project explores what self-sovereign identity looks like in a blockchain context.',
 		approach:
-			'The smart contract is written in Move, Sui\'s native language. The profile is represented as a non-transferable on-chain object owned by the user\'s wallet address. The frontend uses Sui\'s TypeScript SDK to read on-chain state and submit transactions. State management is minimal — the source of truth is the blockchain.',
+			"The smart contract is written in Move, Sui's native language. The profile is represented as a non-transferable on-chain object owned by the user's wallet address. The frontend uses Sui's TypeScript SDK to read on-chain state and submit transactions. State management is minimal — the source of truth is the blockchain.",
 		contribution:
-			'Wrote the Move smart contract, designed the on-chain data model, and built the entire frontend integration with Sui\'s wallet adapter.',
+			"Wrote the Move smart contract, designed the on-chain data model, and built the entire frontend integration with Sui's wallet adapter.",
 		outcome:
 			'A deployed dApp that demonstrates smart contract development in Move and on-chain state management. Gave me practical experience with blockchain app architecture beyond typical EVM chains.',
 		links: [
@@ -145,6 +145,36 @@ export const projects: Project[] = [
 			{
 				label: 'GitHub',
 				href: 'https://github.com/LukoOG/cartolinks-application-assignment',
+				kind: 'github'
+			}
+		]
+	},
+	{
+		slug: 'sui-voting-dapp',
+		name: 'Sui Voting Dapp',
+		tagline: 'A configurable on-chain voting platform built on Sui.',
+		description:
+			'An on-chain voting platform where poll creators can configure voter eligibility, vote limits, and vote weight.',
+		stack: ['Next.js', 'Sui', 'Move'],
+		categories: [Category.Web3, Category.Featured, Category.Frontend],
+		image: 'sui-voting-1.png',
+		images: ['sui-voting-1.png', 'sui-voting-2.png'],
+		year: '2024',
+		status: 'in-progress',
+		role: 'Blockchain Developer',
+		overview:
+			'Sui Voting Dapp is a decentralized voting platform built entirely on the Sui blockchain. Sui wallet users can create polls and configure how each poll works, including who can vote, whether users can vote once or multiple times, and how much weight each vote carries. Voters can participate with or without a Sui wallet depending on the poll configuration.',
+		approach:
+			'Built with Next.js and Move, with no backend or off-chain database. Poll state, voting rules, and votes are managed entirely by Move smart contracts deployed to the Sui testnet. The frontend uses the official Sui dApp tooling to connect wallets and provides forms and interaction flows for creating polls and submitting transactions against the smart contract APIs.',
+		contribution:
+			'Built the entire project independently, including the Move smart contracts, Sui wallet integration, frontend, transaction flows, and contract interaction logic. Designed the frontend around the smart contract APIs and implemented the configurable voting rules exposed by the on-chain system.',
+		outcome:
+			'A usable on-chain voting application with its smart contracts deployed to Sui testnet. Poll creation and configurable voting are functional, while live poll data, poll session expiry, and more robust testing of non-wallet voting remain in development.',
+		links: [
+			{ label: 'Live', href: 'https://sui-voting-frontend.vercel.app/', kind: 'live' },
+			{
+				label: 'GitHub',
+				href: 'https://github.com/LukoOG/sui-voting-dapp',
 				kind: 'github'
 			}
 		]

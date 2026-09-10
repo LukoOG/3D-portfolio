@@ -199,11 +199,11 @@
 					<div class="currently-list">
 						<div class="currently-item">
 							<span class="currently-key">Building</span>
-							<span class="currently-val">Swix — a Twitter clone</span>
+							<span class="currently-val">North — My startup as a cofounder and founding engineer</span>
 						</div>
 						<div class="currently-item">
 							<span class="currently-key">Learning</span>
-							<span class="currently-val">Rust + systems programming</span>
+							<span class="currently-val">Rust + Go + systems design</span>
 						</div>
 						<div class="currently-item">
 							<span class="currently-key">Reading</span>
@@ -237,8 +237,7 @@
 					<div class="interest-text">
 						<h4 class="interest-title">Gaming</h4>
 						<p class="interest-desc">
-							Strategy games and competitive multiplayer — the same instinct as debugging, but
-							louder.
+							I'm a fan of competitive pokemon and offline mobile games hehe — helps cool down after a hot debugging session.
 						</p>
 					</div>
 				</div>
@@ -250,7 +249,7 @@
 					<div class="interest-text">
 						<h4 class="interest-title">Reading</h4>
 						<p class="interest-desc">
-							Tech books, sci-fi, system design — anything that changes how I think about problems.
+							The rust book, Calculus III, system design — anything that changes how I think about problems.
 						</p>
 					</div>
 				</div>
@@ -262,8 +261,7 @@
 					<div class="interest-text">
 						<h4 class="interest-title">Music</h4>
 						<p class="interest-desc">
-							Lo-fi for deep work, new artists for everything else. Good music makes the diff land
-							cleaner.
+							I listen to a lot of things, but I'm a big fan of rock, anime songs, and anything that catches my attention.
 						</p>
 					</div>
 				</div>
@@ -275,7 +273,7 @@
 					<div class="interest-text">
 						<h4 class="interest-title">Travel</h4>
 						<p class="interest-desc">
-							Lagos, Nigeria — and curious about everywhere else. New places reset my perspective.
+							Lagos, Nigeria — and curious about everywhere else. Waiting to "guide" so I can explore the world.
 						</p>
 					</div>
 				</div>
@@ -285,15 +283,15 @@
 			<div class="facts-strip">
 				<div class="fact">
 					<span class="fact-mark">—</span>
-					<p>My best work happens after 10 PM. The night is just quieter.</p>
+					<p>I work best when I can hyperfocus on just 1 thing.</p>
 				</div>
 				<div class="fact">
 					<span class="fact-mark">—</span>
-					<p>I keep a personal wiki of everything I learn. Notes are how I think.</p>
+					<p>As a disciple, I have my quiet times in the mornings. Best period of time to spend with God.</p>
 				</div>
 				<div class="fact">
 					<span class="fact-mark">—</span>
-					<p>Coffee first, then code. I've tried brewing methods from five different countries.</p>
+					<p>Architecture, research and plan first, then code. Not having a structure in mind can break my coding "psyche?" Is that the word? 😭</p>
 				</div>
 			</div>
 		</section>
@@ -322,7 +320,7 @@
 					<span class="tool-group-label">Frontend</span>
 					<div class="tool-tags">
 						<span class="tool-tag">SvelteKit</span>
-						<span class="tool-tag">React</span>
+						<span class="tool-tag">Next.js</span>
 						<span class="tool-tag">TypeScript</span>
 						<span class="tool-tag">Three.js</span>
 						<span class="tool-tag">Tailwind</span>

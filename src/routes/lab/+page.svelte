@@ -235,7 +235,7 @@
 								<span class="prompt-icon unlocked">✦</span>
 								<div class="prompt-text">
 									<p class="prompt-main">You've seen it all.</p>
-									<p class="prompt-sub">The key to what's next is in the README.</p>
+									<p class="prompt-sub">The key to what's next is on my <a target="_blank" rel="noreferrer" href="https://github.com/LukoOG/3D-portfolio" class="style-none italic font-semibold">Github</a> README.</p>
 								</div>
 							</div>
 						{/if}

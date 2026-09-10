@@ -52,14 +52,16 @@ export const items: LabItem[] = [
 		origin: 'The Rust Book',
 		wip: false,
 		year: '2024'
-	}
-];
-
-// More experiments incoming — the lab is actively growing.
-
-export const tips: TipItem[] = [
+	},
 	{
-		tip: 'Return to the 3D scene by pressing Escape or clicking the close button at the top right.',
-		probability: 10
+		slug: 'whatsclone',
+		name: 'whatsclone',
+		question: 'Right after learning sveltekit 4, I asked myself if I could build a fullstack application',
+		description: 'A fullstack web application that uses websockets to handle real time messaging modelled directly after Whatsapp\'s interface',
+		domain: 'experiment',
+		tags: ['fullstack', 'web-sockets', 'real-time communication'],
+		github: 'https://github.com/LukoOG/Whatsclone',
+		featured: true,
+		year: '2023'
 	}
 ];

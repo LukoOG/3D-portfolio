@@ -78,7 +78,7 @@
 			<!-- availability indicator -->
 			<div class="availability">
 				<span class="dot"></span>
-				<span>Available for new opportunities</span>
+				<span>I'm available for new opportunities 🤲 (gbewa)</span>
 			</div>
 		</div>
 
@@ -181,7 +181,7 @@
 			<span class="footer-sep">·</span>
 			<span>WAT (UTC+1)</span>
 		</div>
-		<span class="footer-right">Typically responds within 24hrs</span>
+		<span class="footer-right">This dev typically responds within 24hrs</span>
 	</div>
 </ContactLayout>
 
