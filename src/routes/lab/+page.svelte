@@ -22,6 +22,7 @@
 	const promptState = $derived.by(() => {
 		if (progress.keyFound) return 'key_found';
 		if (allVisited()) return 'all_seen';
+		if (progress.cipherSolved) return 'unlocked';
 		return 'unseen';
 	});
 
@@ -227,7 +228,10 @@
 
 							<!-- subtle progress bar -->
 							<div class="prompt-bar">
-								<div class="prompt-bar-fill" style="width: {(enteredCount / totalLength) * 100}%"></div>
+								<div
+									class="prompt-bar-fill"
+									style="width: {(enteredCount / totalLength) * 100}%"
+								></div>
 							</div>
 						{:else if promptState === 'all_seen'}
 							<!-- unlock hint -->
@@ -235,19 +239,36 @@
 								<span class="prompt-icon unlocked">✦</span>
 								<div class="prompt-text">
 									<p class="prompt-main">You've seen it all.</p>
-									<p class="prompt-sub">The key to what's next is on my <a target="_blank" rel="noreferrer" href="https://github.com/LukoOG/3D-portfolio" class="style-none italic font-semibold">Github</a> README.</p>
+									<p class="prompt-sub">
+										The key to what's next is on my <a
+											target="_blank"
+											rel="noreferrer"
+											href="https://github.com/LukoOG/3D-portfolio"
+											class="style-none font-semibold italic">Github</a
+										> README.
+									</p>
 								</div>
 							</div>
 						{/if}
 					</div>
 				</div>
-			{:else}
+			{:else if !progress.cipherSolved}
 				<button
 					class="nav-btn nav-secret"
 					onclick={() => navigateTo('secret', '/secret', true)}
 					title="First Clue?"
 				>
 					First Clue?
+					<span class="nav-arrow">→</span>
+				</button>
+			{:else}
+				<button
+					class="nav-btn nav-secret nav-secret-unlocked"
+					onclick={() => navigateTo('secret', '/secret', true)}
+					title="Maze Solver — Unlocked"
+				>
+					<span class="nav-secret-mark">✦</span>
+					Maze solver
 					<span class="nav-arrow">→</span>
 				</button>
 			{/if}
@@ -709,6 +730,44 @@
 
 	.nav-btn:hover .nav-arrow {
 		translate: 3px 0;
+	}
+
+	.nav-secret {
+		border-style: dashed;
+		color: rgba(255, 255, 255, 0.35);
+	}
+
+	.nav-secret:hover {
+		border-style: solid;
+		border-color: rgba(210, 160, 255, 0.3);
+		color: rgba(210, 160, 255, 0.8);
+		background: rgba(210, 160, 255, 0.04);
+	}
+
+	/* Secret nav — unlocked */
+	.nav-secret-unlocked {
+		border-style: solid;
+		border-color: rgba(210, 160, 255, 0.28);
+		background: rgba(210, 160, 255, 0.055);
+		color: rgba(235, 215, 255, 0.78);
+		box-shadow: 0 0 18px rgba(210, 160, 255, 0.06);
+	}
+
+	.nav-secret-unlocked:hover {
+		border-color: rgba(210, 160, 255, 0.5);
+		background: rgba(210, 160, 255, 0.09);
+		color: rgba(245, 235, 255, 0.95);
+		box-shadow: 0 0 22px rgba(210, 160, 255, 0.1);
+	}
+
+	.nav-secret-mark {
+		color: rgba(210, 160, 255, 0.85);
+		font-size: 0.65rem;
+		transition: transform 0.3s ease;
+	}
+
+	.nav-secret-unlocked:hover .nav-secret-mark {
+		transform: rotate(90deg);
 	}
 
 	.secret-prompt {
