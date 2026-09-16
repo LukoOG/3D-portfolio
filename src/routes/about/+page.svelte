@@ -61,8 +61,8 @@
 				<p class="hero-intro">
 					I started coding because I wanted to understand how things worked — not just use them.
 					That curiosity became a habit, and the habit became a craft. I build backend systems and
-					the interfaces that sit on top of them, with a preference for clean contracts over clever
-					tricks.
+					the interfaces that sit on top of them, with a preference for clean contracts and best practices over clever
+					solutions or "it works" sentiment.
 				</p>
 
 				<p class="hero-intro">
