@@ -17,8 +17,8 @@
 					navigation menu buttons on PC or Mobile.
 				</p>
 				<p class="clue">
-					Interested in unlocking the secret page? Visit all pages to get a clue!😉
-				</p>
+						There's a hidden face on this cube. Exploring it takes more than clicking a button.
+					</p>
 			</div>
 		</div>
 	</div>

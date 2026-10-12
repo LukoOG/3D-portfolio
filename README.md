@@ -47,22 +47,6 @@ Instead of a traditional scrolling portfolio, this site places you inside a 3D s
 - SvelteKit server actions — contact form handling
 - [Vercel](https://vercel.com) — deployment
 
-## Getting Started
-
-```bash
-# clone the repo
-git clone https://github.com/yourusername/3d-portfolio.git
-cd 3d-portfolio
-
-# install dependencies
-pnpm install
-
-# start dev server
-pnpm run dev
-```
-
-Open [http://localhost:5173](http://localhost:5173) in your browser.
-
 ## Project Structure
 ```text
 src/
@@ -93,9 +77,11 @@ src/
 | `3` | About |
 | `4` | Contact |
 | `5` | Lab |
-| `?6` | Secret |
+| `?6`¹ | Secret |
 | `Enter` | Enter active face |
 | `Escape` | Exit back to scene |
+
+> ¹ Not a typo — but you'll need to visit the portfolio before that makes sense.
 
 ## License
 

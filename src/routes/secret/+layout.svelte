@@ -9,10 +9,10 @@
 	{@render children?.()}
 {:else if !progress.cipherSolved && progress.keyFound}
 	<div class="flex h-[90%] flex-col items-center justify-center gap-4 text-center">
-		<p class="text-xs tracking-[0.2em] text-white/40 uppercase">You found the key.</p>
-		<h1 class="text-3xl text-white">But the key isn't the answer.</h1>
+		<p class="text-xs tracking-[0.2em] text-white/40 uppercase">You found the way in.</p>
+		<h1 class="text-3xl text-white">But the door still needs a word.</h1>
 		<p class="max-w-md text-sm leading-relaxed text-white/50">
-			The lock is open. The word you need is somewhere you've already been.
+			One sentence on this portfolio tells you who I am — and ends with the answer.
 		</p>
 	</div>
 {:else}

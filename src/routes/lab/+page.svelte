@@ -240,12 +240,12 @@
 								<div class="prompt-text">
 									<p class="prompt-main">You've seen it all.</p>
 									<p class="prompt-sub">
-										The key to what's next is on my <a
+										The next step is hiding in plain sight — check the <a
 											target="_blank"
 											rel="noreferrer"
 											href="https://github.com/LukoOG/3D-portfolio"
-											class="style-none font-semibold italic">Github</a
-										> README.
+											class="style-none font-semibold italic">README</a
+										>.
 									</p>
 								</div>
 							</div>

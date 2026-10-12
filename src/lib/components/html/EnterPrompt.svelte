@@ -58,7 +58,7 @@
 		</div>
 	{:else}
 		<div class="cipher-prompt" class:shake={shaking}>
-			<p class="cipher-hint">find the word that sets me apart</p>
+			<p class="cipher-hint">what is the destination of that curiosity?</p>
 
 			<div class="cipher-input-row">
 				<span class="cursor-prefix">_</span>
