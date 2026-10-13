@@ -78,5 +78,17 @@ export const items: LabItem[] = [
 		github: 'https://github.com/LukoOG/Whatsclone',
 		featured: true,
 		year: '2023'
+	},
+	{
+		slug: 'dsa-solutions',
+		name: 'dsa-solutions',
+		question: 'Does the same algorithm behave the same way in every language?',
+		description:
+			'The same DSA problems solved in Python, TypeScript, Rust and Go — with running notes on where the fastest approach changes from one language to the next.',
+		domain: 'experiment',
+		tags: ['python', 'typescript', 'rust', 'go', 'algorithms'],
+		github: 'https://github.com/LukoOG/DSA-Solutions',
+		wip: true,
+		year: '2026'
 	}
 ];
