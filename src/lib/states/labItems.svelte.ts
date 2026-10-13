@@ -18,6 +18,7 @@ export interface LabItem {
 	tags: string[];
 	github?: string;
 	live?: string;
+	demo?: string; // terminal recording under /static, e.g. '/lab/snapr-demo.mp4'
 	origin?: string; // e.g. "The Rust Book" — where the idea came from
 	wip?: boolean;
 	featured?: boolean; // marks a current or especially notable experiment
@@ -41,6 +42,20 @@ export const domainMeta: Record<LabDomain, { label: string; icon: any; color: st
 
 export const items: LabItem[] = [
 	{
+		slug: 'snapr',
+		name: 'snapr',
+		question: 'How does a tool like Git store every version of a folder without the disk filling up?',
+		description:
+			'A directory snapshot tool with content-addressed storage — files are chunked, hashed, compressed, and never stored twice. It started as a fun way into systems programming, then I kept going until it became a real project.',
+		domain: 'systems',
+		tags: ['rust', 'cli', 'content-addressed storage', 'deduplication'],
+		github: 'https://github.com/LukoOG/Snapr',
+		live: 'https://lukoog.github.io/snapr-website/',
+		demo: '/lab/snapr-demo.mp4',
+		featured: true,
+		year: '2026'
+	},
+	{
 		slug: 'minigrep',
 		name: 'minigrep',
 		question: 'What does it actually take to build a basic search tool from scratch?',
@@ -51,7 +66,7 @@ export const items: LabItem[] = [
 		github: 'https://github.com/LukoOG/minigrep',
 		origin: 'The Rust Book',
 		wip: false,
-		year: '2024'
+		year: '2026'
 	},
 	{
 		slug: 'whatsclone',

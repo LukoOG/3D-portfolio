@@ -2,7 +2,8 @@
 <script lang="ts">
 	import { navigateTo } from '$lib';
 	import LabLayout from '$lib/components/html/pageLayouts/LabLayout.svelte';
-	import { ExternalLink } from '@lucide/svelte';
+	import { slide } from 'svelte/transition';
+	import { ExternalLink, Play, X } from '@lucide/svelte';
 	import Github from '$lib/components/icon/github.svelte';
 	import { items, domainMeta } from '$lib/states';
 	import { allVisited, progress } from '$lib';
@@ -13,6 +14,9 @@
 		if (e.key === 'ArrowLeft') navigateTo('projects', '/projects', true);
 		else if (e.key === 'ArrowRight') navigateTo('secret', '/secret', true);
 	};
+
+	// slug of the entry whose demo recording is expanded, if any
+	let openDemo = $state<string | null>(null);
 
 	const activeItems = $derived(items.filter((i) => !i.wip));
 	const wipItems = $derived(items.filter((i) => i.wip));
@@ -134,8 +138,40 @@
 												<span>Live</span>
 											</a>
 										{/if}
+										{#if item.demo}
+											{@const open = openDemo === item.slug}
+											<button
+												type="button"
+												class="entry-link"
+												class:active={open}
+												aria-expanded={open}
+												aria-controls="demo-{item.slug}"
+												onclick={() => (openDemo = open ? null : item.slug)}
+											>
+												{#if open}
+													<X size={12} />
+													<span>Hide demo</span>
+												{:else}
+													<Play size={12} />
+													<span>Watch demo</span>
+												{/if}
+											</button>
+										{/if}
 									</div>
 								</div>
+
+								{#if item.demo && openDemo === item.slug}
+									<div id="demo-{item.slug}" class="entry-demo" transition:slide={{ duration: 300 }}>
+										<video
+											src={item.demo}
+											autoplay
+											loop
+											muted
+											playsinline
+											aria-label="{item.name} terminal demo"
+										></video>
+									</div>
+								{/if}
 							</div>
 
 							<!-- Right: domain annotation -->
@@ -472,6 +508,22 @@
 		max-width: 56ch;
 	}
 
+	.entry-demo {
+		max-width: 560px;
+		padding-top: 1.1rem;
+	}
+
+	.entry-demo video {
+		display: block;
+		width: 100%;
+		height: auto;
+		/* matches the tape's 760x640 frame so the panel opens at full height before the video loads */
+		aspect-ratio: 19 / 16;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 8px;
+		background: #1e1e2e;
+	}
+
 	.entry-meta {
 		display: flex;
 		align-items: center;
@@ -518,10 +570,16 @@
 			background 0.2s;
 	}
 
-	.entry-link:hover {
+	.entry-link:hover,
+	.entry-link.active {
 		color: rgba(255, 255, 255, 0.8);
 		border-color: rgba(255, 255, 255, 0.22);
 		background: rgba(255, 255, 255, 0.06);
+	}
+
+	button.entry-link {
+		font-family: inherit;
+		cursor: pointer;
 	}
 
 	/* Right annotation column */

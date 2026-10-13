@@ -5,7 +5,8 @@ export enum Category {
 	Backend = 'backend',
 	Hackathon = 'hackathon',
 	Featured = 'featured',
-	Experiment = 'experiment'
+	Experiment = 'experiment',
+	Systems = 'systems'
 }
 
 export interface ProjectLink {
@@ -66,17 +67,44 @@ export const projects: Project[] = [
 		]
 	},
 	{
+		slug: 'snapr',
+		name: 'Snapr',
+		tagline: 'A content-addressed snapshot tool for directories, written in Rust.',
+		description:
+			'A local snapshot tool that saves the full state of a workspace, shows what changed, restores any earlier snapshot, and verifies everything it stored.',
+		stack: ['Rust', 'SHA-256', 'Zstandard', 'Rayon', 'clap'],
+		categories: [Category.Systems, Category.Featured],
+		// placeholder — drop snapr.png (and the extra screenshots) into $lib/assets/project-images
+		image: 'snapr.png',
+		images: ['snapr.png', 'snapr-2.png'],
+		year: '2026',
+		status: 'in-progress',
+		featured: true,
+		role: 'Solo developer — design, implementation, docs',
+		overview:
+			'Snapr saves the full state of a directory as a numbered snapshot, shows what changed between snapshots, restores any earlier one, and checks that everything it stored is still intact. It started as a small exercise to get into systems programming and grew into a real tool. It is local and single-user by design — not a Git replacement: there are no remotes, merges, or named branches.',
+		approach:
+			'Storage is content-addressed. Files are split into fixed 4 MiB chunks, each chunk is named by its SHA-256 hash and compressed with Zstandard, and a chunk that is already stored is never stored again — so saving a workspace that barely changed costs almost no extra space. A snapshot is just a manifest mapping each path to an ordered list of chunk hashes. A workspace index caches file size and modification time so unchanged files are not re-read, while status and diff always compare by content hash. Hashing, storing, and verification run in parallel across cores with Rayon. The CLI is a thin clap layer over a library crate whose command handlers return typed results instead of printing.',
+		contribution:
+			'Designed and built the whole thing: the on-disk format, the object store, the chunking and hashing pipeline, restore planning with a dry-run preview, the integrity verifier, the terminal output, and the integration test suite. Also wrote the architecture, storage-format, and stability docs, and the product site.',
+		outcome:
+			'A working v1 (0.1.0) with init, save, status, diff, restore, history, and verify. Building it taught me how deduplicating storage actually works, and where the hard parts are — keeping a metadata cache honest, and what it takes to make writes safe. Garbage collection, atomic writes, and content-defined chunking are the known gaps on the roadmap.',
+		links: [
+			{ label: 'Website', href: 'https://lukoog.github.io/snapr-website/', kind: 'live' },
+			{ label: 'GitHub', href: 'https://github.com/LukoOG/Snapr', kind: 'github' }
+		]
+	},
+	{
 		slug: 'sui-profile',
 		name: 'Sui Profile',
 		tagline: 'Decentralised identity on-chain — own your profile as a Sui blockchain object.',
 		description:
 			'A decentralised application built on the Sui blockchain. It allows users to own and display profile cards, providing a means of decentralised identification.',
 		stack: ['Next.js', 'Move', 'Sui', 'TypeScript'],
-		categories: [Category.Web3, Category.Frontend, Category.Featured],
+		categories: [Category.Web3, Category.Frontend],
 		image: 'sui-profile.png',
 		year: '2024',
 		status: 'complete',
-		featured: true,
 		role: 'Solo developer — smart contract + frontend',
 		overview:
 			'Sui Profile is a decentralised identity application on the Sui blockchain. Users connect their wallet and mint a profile object — stored on-chain as a Sui Move object they genuinely own. The profile is then displayed through a Next.js frontend. The project explores what self-sovereign identity looks like in a blockchain context.',

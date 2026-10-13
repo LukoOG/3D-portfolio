@@ -30,3 +30,4 @@ src/routes/secret/lib
 src/routes/secret/components
 src/lib/utils/faceConfig.ts
 .env*.local
+tapes

@@ -10,6 +10,7 @@
 		Category.Fullstack,
 		Category.Frontend,
 		Category.Backend,
+		Category.Systems,
 		Category.Web3,
 		Category.Hackathon,
 		Category.Experiment
