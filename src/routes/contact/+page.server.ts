@@ -40,11 +40,11 @@ export const actions: Actions = {
 			});
 
 			const mailOptions = {
-				from: email,
+				from: `"Portfolio Contact" <${GMAIL_USER}>`,
 				to: GMAIL_USER,
-				replyTo: email,
-				subject: subject,
-				text: message
+				replyTo: `"${name}" <${email}>`,
+				subject: subject ? `[Portfolio] ${subject}` : '[Portfolio] New message',
+				text: `From: ${name} <${email}>\n\n${message}`,
 			};
 
 			await transporter.sendMail(mailOptions);
