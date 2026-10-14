@@ -1,11 +1,46 @@
 <script lang="ts">
-	import { faceConfig, progress } from '$lib';
+	import { faceConfig, progress, allVisited, lockNudge } from '$lib';
+	import { Lock } from '@lucide/svelte';
+	import { TOKEN_MAP } from '../../../routes/secret/lib/tokens';
 	import { cubeState, navigateTo } from '$lib/states/cubeState.svelte';
 	import type { FaceConfig } from '$lib/utils/faceConfig';
 	import type { FaceName } from '$lib/utils/face';
 	import { getKey } from '../../../routes/secret/lib/key.svelte';
 
 	let { isMobile }: { isMobile: boolean } = $props();
+
+	// ─── Locked secret face: explain instead of silently doing nothing ────────
+	let locked = $derived(!isMobile && !progress.cipherSolved);
+	const totalLength = Object.values(TOKEN_MAP).length
+	$inspect(progress.visited)
+	let seen = $derived(
+		Object.values(TOKEN_MAP).filter((t) => progress.visited.has(t)).length
+	)
+
+
+	// same stages as the lab page's prompt, and never names the key
+	let lockHint = $derived(
+		progress.keyFound
+			? 'Almost — the door still needs a word.'
+			: allVisited()
+				? 'Locked. The way in is hiding in plain sight.'
+				: `Locked. Explore every page first (${seen}/${totalLength}).`
+	);
+
+	let pinned = $state(false);
+	let pinTimer: ReturnType<typeof setTimeout>;
+
+	function showLockHint() {
+		pinned = false;
+		clearTimeout(pinTimer);
+		requestAnimationFrame(() => (pinned = true)); // restart the shake on repeat clicks
+		pinTimer = setTimeout(() => (pinned = false), 2800);
+	}
+
+	// any blocked attempt elsewhere (keys, arrows) surfaces the same hint
+	$effect(() => {
+		if (lockNudge.count > 0) showLockHint();
+	});
 
 	// Keyboard shortcuts
 	function handleKeydown(e: KeyboardEvent) {
@@ -18,6 +53,7 @@
 			return face.shortcut == e.key;
 		}) as [FaceName, FaceConfig] | undefined;
 		if (face) navigateTo(face[0], face[1].route);
+		else if (e.key === '6' && locked) showLockHint();
 	}
 </script>
 
@@ -27,25 +63,33 @@
 	<ul>
 		{#each Object.entries(faceConfig) as [name, face]}
 			{@const faceName = name as FaceName}
-			{@const isDisabled = !isMobile && name == 'secret' && !progress.cipherSolved}
+			{@const isLocked = name == 'secret' && locked}
 			{@const showHighlight = cubeState.activeFace === name && cubeState.mode !== 'idle'}
 			<li>
-				<div class="nav-button-wrapper">
+				<div class="nav-button-wrapper" class:pinned={isLocked && pinned}>
 					<button
 						class:active={showHighlight}
-						disabled={isDisabled}
+						class:locked={isLocked}
+						aria-disabled={isLocked || undefined}
+						aria-describedby={isLocked ? 'lock-hint' : undefined}
 						onclick={(e) => {
-							navigateTo(faceName, face.route);
 							e.currentTarget.blur();
+							if (isLocked) showLockHint();
+							else navigateTo(faceName, face.route);
 						}}
 						aria-label={face.label}
 						aria-current={cubeState.activeFace === name ? 'page' : undefined}
 					>
 						<face.icon />
 						<span class="label">{face.label}</span>
+						{#if isLocked}
+							<span class="lock-badge" aria-hidden="true"><Lock size={9} strokeWidth={2.5} /></span>
+						{/if}
 					</button>
 					{#if isMobile && name === 'secret'}
-						<span class="mobile-tooltip"> Not available on mobile </span>
+						<span class="nav-tooltip"> Not available on mobile </span>
+					{:else if isLocked}
+						<span class="nav-tooltip lock" id="lock-hint" role="status">{lockHint}</span>
 					{/if}
 				</div>
 			</li>
@@ -58,11 +102,10 @@
 		position: relative;
 	}
 
-	.mobile-tooltip {
+	.nav-tooltip {
 		position: absolute;
-		bottom: calc(100% + 0.5rem);
-		left: calc(80% - 3rem);
-		translate: -50% 0;
+		bottom: calc(100% + 0.6rem);
+		right: -0.4rem;
 
 		width: max-content;
 		padding: 0.4rem 0.6rem;
@@ -85,9 +128,74 @@
 			visibility 0.15s ease;
 	}
 
-	.nav-button-wrapper:hover .mobile-tooltip {
+	.nav-button-wrapper:hover .nav-tooltip,
+	.nav-button-wrapper:focus-within .nav-tooltip,
+	.nav-button-wrapper.pinned .nav-tooltip {
 		opacity: 1;
 		visibility: visible;
+	}
+
+	/* the locked hint reads as a clue, not an error */
+	.nav-tooltip.lock {
+		padding: 0.5rem 0.75rem;
+		font-size: 0.65rem;
+		letter-spacing: 0.02em;
+		color: rgba(255, 255, 255, 0.9);
+		border-color: rgba(0, 255, 225, 0.3);
+		box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.8);
+		translate: 0 4px;
+		transition:
+			opacity 0.15s ease,
+			visibility 0.15s ease,
+			translate 0.2s ease;
+	}
+
+	.nav-button-wrapper:hover .nav-tooltip.lock,
+	.nav-button-wrapper.pinned .nav-tooltip.lock {
+		translate: 0 0;
+	}
+
+	.nav-tooltip.lock::after {
+		content: '';
+		position: absolute;
+		top: 100%;
+		right: 1.35rem;
+		border: 5px solid transparent;
+		border-top-color: rgba(0, 255, 225, 0.3);
+	}
+
+	button.locked {
+		position: relative;
+		color: rgba(255, 255, 255, 0.28);
+		cursor: help;
+	}
+
+	button.locked:hover {
+		color: rgba(255, 255, 255, 0.6);
+	}
+
+	.pinned button.locked {
+		animation: locked-shake 0.4s ease;
+	}
+
+	.lock-badge {
+		position: absolute;
+		top: 0.3rem;
+		right: 0.45rem;
+		display: grid;
+		place-items: center;
+		color: rgba(0, 255, 225, 0.7);
+	}
+
+	@keyframes locked-shake {
+		20%,
+		60% {
+			translate: -3px 0;
+		}
+		40%,
+		80% {
+			translate: 3px 0;
+		}
 	}
 
 	.cube-nav {

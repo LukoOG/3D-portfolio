@@ -52,7 +52,7 @@
 	</div>
 {:else if cubeState.mode == 'arrived' && cubeState.activeFace == 'secret'}
 	{#if progress.cipherSolved}
-		<div class="prompt">
+		<div class="prompt on-light">
 			<span class="key">Enter</span>
 			<span class="label">or click the face</span>
 		</div>
@@ -114,44 +114,24 @@
 		color: rgba(255, 255, 255, 0.4);
 	}
 
-	@keyframes fadein {
-		from {
-			opacity: 0;
-			translate: -50% 6px;
-		}
-		to {
-			opacity: 1;
-			translate: -50% 0;
-		}
+	/* The secret face renders light grey, so translucent white disappears on it.
+	   Give anything shown there a dark glass backing instead. */
+	.prompt.on-light {
+		padding: 0.45rem 0.75rem;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 999px;
+		background: rgba(12, 12, 14, 0.82);
+		backdrop-filter: blur(8px);
+		box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
 	}
 
-	.prompt {
-		position: fixed;
-		bottom: 50%;
-		left: 50%;
-		translate: -50% 0;
-		z-index: 50;
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		animation: fadein 0.4s ease;
-		pointer-events: none;
+	.prompt.on-light .key {
+		color: white;
+		border-color: rgba(255, 255, 255, 0.4);
 	}
 
-	.key {
-		font-size: 0.75rem;
-		font-family: monospace;
-		padding: 0.2rem 0.5rem;
-		border: 1px solid rgba(255, 255, 255, 0.3);
-		border-radius: 4px;
-		color: rgba(255, 255, 255, 0.8);
-		background: rgba(255, 255, 255, 0.05);
-		backdrop-filter: blur(4px);
-	}
-
-	.label {
-		font-size: 0.75rem;
-		color: rgba(255, 255, 255, 0.4);
+	.prompt.on-light .label {
+		color: rgba(255, 255, 255, 0.75);
 	}
 
 	/* cipher */
@@ -164,7 +144,16 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.6rem;
+		gap: 0.7rem;
+		width: max-content;
+		max-width: calc(100vw - 2rem);
+		box-sizing: border-box;
+		padding: 1rem 1.25rem 1.1rem;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 12px;
+		background: rgba(12, 12, 14, 0.85);
+		backdrop-filter: blur(10px);
+		box-shadow: 0 18px 48px -12px rgba(0, 0, 0, 0.8);
 		animation: fadein 0.4s ease;
 		pointer-events: all;
 	}
@@ -176,7 +165,7 @@
 	.cipher-hint {
 		font-size: 0.8rem;
 		font-family: monospace;
-		color: rgba(255, 255, 255, 0.55);
+		color: rgba(255, 255, 255, 0.85);
 		margin: 0;
 		letter-spacing: 0.08em;
 	}
@@ -186,10 +175,14 @@
 		align-items: center;
 		gap: 0.4rem;
 		padding: 0.3rem 0.75rem;
-		border: 1px solid rgba(255, 255, 255, 0.25);
-		border-radius: 4px;
-		background: rgba(255, 255, 255, 0.04);
-		backdrop-filter: blur(8px);
+		border: 1px solid rgba(255, 255, 255, 0.3);
+		border-radius: 6px;
+		background: rgba(255, 255, 255, 0.06);
+		transition: border-color 0.2s;
+	}
+
+	.cipher-input-row:focus-within {
+		border-color: rgba(0, 255, 225, 0.6);
 	}
 
 	.cursor-prefix {
@@ -206,7 +199,7 @@
 		font-family: monospace;
 		font-size: 0.75rem;
 		color: rgba(255, 255, 255, 0.95);
-		width: 14ch;
+		width: 21ch;
 		letter-spacing: 0.1em;
 		caret-color: transparent; /* hide default caret, underscore acts as cursor */
 	}
@@ -225,7 +218,7 @@
 	.cipher-wrong {
 		font-size: 0.6rem;
 		font-family: monospace;
-		color: rgba(248, 113, 113, 0.7);
+		color: #fca5a5;
 		margin: 0;
 		letter-spacing: 0.08em;
 		animation: fadein 0.2s ease;
