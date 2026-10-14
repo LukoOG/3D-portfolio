@@ -294,22 +294,18 @@
 						disabled={isRunning || phase === 'done'}
 						title="Advance one cell at a time (→)"
 					>
-						<SkipForward size={14} /> Step <kbd>→</kbd>
+						<SkipForward size={14} /> Step
 					</button>
-				</div>
-			</div>
-
-			<div class="group">
-				<span class="label">Speed</span>
-				<div class="segmented" role="radiogroup" aria-label="Playback speed">
-					{#each SPEED_OPTIONS as opt}
-						<button
-							role="radio"
-							aria-checked={speed === opt.id}
-							class:active={speed === opt.id}
-							onclick={() => (speed = opt.id)}>{opt.label}</button
-						>
-					{/each}
+					<div class="segmented" role="radiogroup" aria-label="Playback speed">
+						{#each SPEED_OPTIONS as opt}
+							<button
+								role="radio"
+								aria-checked={speed === opt.id}
+								class:active={speed === opt.id}
+								onclick={() => (speed = opt.id)}>{opt.label}</button
+							>
+						{/each}
+					</div>
 				</div>
 			</div>
 
@@ -384,11 +380,21 @@
 				/>
 
 				<div class="legend">
-					<span class="legend-item"><span class="dot" style="background:{PALETTE.start}"></span>Start</span>
-					<span class="legend-item"><span class="dot" style="background:{PALETTE.end}"></span>Goal</span>
-					<span class="legend-item"><span class="dot" style="background:{slimeSwatch}"></span>Explored</span>
-					<span class="legend-item"><span class="dot" style="background:{PALETTE.path}"></span>Path</span>
-					<span class="legend-item"><span class="dot" style="background:{PALETTE.open}"></span>Floor</span>
+					<span class="legend-item"
+						><span class="dot" style="background:{PALETTE.start}"></span>Start</span
+					>
+					<span class="legend-item"
+						><span class="dot" style="background:{PALETTE.end}"></span>Goal</span
+					>
+					<span class="legend-item"
+						><span class="dot" style="background:{slimeSwatch}"></span>Explored</span
+					>
+					<span class="legend-item"
+						><span class="dot" style="background:{PALETTE.path}"></span>Path</span
+					>
+					<span class="legend-item"
+						><span class="dot" style="background:{PALETTE.open}"></span>Floor</span
+					>
 					<span class="legend-item"
 						><span class="dot wall" style="background:{PALETTE.board}"></span>Wall</span
 					>
@@ -526,6 +532,7 @@
 
 	.row {
 		display: flex;
+		align-items: center;
 		gap: 0.4rem;
 		flex-wrap: wrap;
 	}

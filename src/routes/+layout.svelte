@@ -12,7 +12,7 @@
 	import Header from '$lib/components/layout/Header.svelte';
 	import Hint from '$lib/components/html/Hint.svelte';
 	import { TOKEN_MAP } from './secret/lib/tokens';
-	import { cubeState, enterFace, hydrate, markVisited, persist, progress } from '$lib';
+	import { cubeState, enterFace, hydrate, markVisited, nudgeLocked, persist, progress } from '$lib';
 	import { getKey } from './secret/lib/key.svelte';
 
 	let { children } = $props();
@@ -26,6 +26,7 @@
 		if (navigation.to?.url.pathname == '/secret' && !progress.keyFound) {
 			navigation.cancel();
 			cubeState.mode = 'idle';
+			nudgeLocked();
 		}
 	});
 
