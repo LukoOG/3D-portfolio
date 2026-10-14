@@ -6,13 +6,17 @@
 	import { ExternalLink, Play, X } from '@lucide/svelte';
 	import Github from '$lib/components/icon/github.svelte';
 	import { items, domainMeta } from '$lib/states';
-	import { allVisited, progress } from '$lib';
+	import { allVisited, progress, nudgeLocked, lockNudge } from '$lib';
 	import { TOKEN_MAP } from '../secret/lib/tokens';
 
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.target instanceof HTMLInputElement) return;
 		if (e.key === 'ArrowLeft') navigateTo('projects', '/projects', true);
-		else if (e.key === 'ArrowRight') navigateTo('secret', '/secret', true);
+		else if (e.key === 'ArrowRight') {
+			// still locked: point at the nav hint instead of dropping out of the page
+			if (!progress.keyFound) nudgeLocked();
+			else navigateTo('secret', '/secret', true);
+		}
 	};
 
 	// slug of the entry whose demo recording is expanded, if any
@@ -22,6 +26,14 @@
 	const wipItems = $derived(items.filter((i) => i.wip));
 
 	const totalLength = Object.values(TOKEN_MAP).length;
+
+	// flash the secret prompt when someone tries to arrow into the locked face
+	let flash = $state(false);
+	$effect(() => {
+		if (lockNudge.count === 0) return;
+		flash = false;
+		requestAnimationFrame(() => (flash = true));
+	});
 
 	const promptState = $derived.by(() => {
 		if (progress.keyFound) return 'key_found';
@@ -33,6 +45,7 @@
 	const enteredCount = $derived(
 		Object.values(TOKEN_MAP).filter((t) => progress.visited.has(t)).length
 	);
+
 </script>
 
 <svelte:head>
@@ -244,7 +257,7 @@
 			</button>
 
 			{#if promptState !== 'key_found'}
-				<div class="secret-prompt" class:ready={promptState === 'all_seen'}>
+				<div class="secret-prompt" class:ready={promptState === 'all_seen'} class:flash>
 					<div class="prompt-inner">
 						{#if promptState === 'unseen'}
 							<!-- nudge -->
@@ -276,11 +289,12 @@
 								<div class="prompt-text">
 									<p class="prompt-main">You've seen it all.</p>
 									<p class="prompt-sub">
-										The next step is hiding in plain sight — check the <a
+										The next step is hiding in plain sight — check my 
+										<a
 											target="_blank"
 											rel="noreferrer"
 											href="https://github.com/LukoOG/3D-portfolio"
-											class="style-none font-semibold italic">README</a
+											class="style-none font-semibold italic text-[1.15em]">README</a
 										>.
 									</p>
 								</div>
@@ -838,6 +852,31 @@
 			border-color 0.4s,
 			background 0.4s;
 		animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+	}
+
+	.secret-prompt.flash {
+		animation: lock-flash 0.9s ease;
+	}
+
+	@keyframes lock-flash {
+		0%,
+		100% {
+			border-color: rgba(255, 255, 255, 0.06);
+			translate: 0 0;
+		}
+		15%,
+		45% {
+			translate: -4px 0;
+		}
+		30%,
+		60% {
+			translate: 4px 0;
+		}
+		20%,
+		70% {
+			border-color: rgba(210, 160, 255, 0.6);
+			background: rgba(210, 160, 255, 0.06);
+		}
 	}
 
 	.secret-prompt.ready {
