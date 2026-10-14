@@ -95,7 +95,7 @@
 					</div>
 					<div class="hero-stat-divider"></div>
 					<div class="hero-stat">
-						<span class="hero-stat-num">5+</span>
+						<span class="hero-stat-num">10+</span>
 						<span class="hero-stat-label">projects shipped</span>
 					</div>
 					<div class="hero-stat-divider"></div>
