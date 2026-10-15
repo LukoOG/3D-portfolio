@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { faceConfig, progress, allVisited, lockNudge } from '$lib';
+	import { flushSync } from 'svelte';
+	import { faceConfig, progress, allVisited, lockNudge, persist } from '$lib';
 	import { Lock } from '@lucide/svelte';
+	import KeyTerminal from '$lib/components/html/KeyTerminal.svelte';
 	import { TOKEN_MAP } from '../../../routes/secret/lib/tokens';
 	import { cubeState, navigateTo } from '$lib/states/cubeState.svelte';
 	import type { FaceConfig } from '$lib/utils/faceConfig';
@@ -26,6 +28,25 @@
 				? 'Locked. The way in is hiding in plain sight.'
 				: `Locked. Explore every page first (${seen}/${totalLength}).`
 	);
+
+	// ─── Mobile: phones can't press the key, so the "?" opens a terminal to type it ──
+	let terminalMode = $derived(isMobile && !progress.keyFound);
+	let terminalOpen = $state(false);
+
+	function openTerminal() {
+		terminalOpen = true;
+		// focus inside the tap itself — iOS only raises the keyboard for a user-initiated focus
+		flushSync();
+		document.getElementById('key-terminal-input')?.focus();
+	}
+
+	function unlockFromTerminal() {
+		// same effect as pressing the key on desktop
+		progress.keyFound = true;
+		persist();
+		terminalOpen = false;
+		navigateTo('secret', '/secret');
+	}
 
 	let pinned = $state(false);
 	let pinTimer: ReturnType<typeof setTimeout>;
@@ -75,6 +96,7 @@
 						onclick={(e) => {
 							e.currentTarget.blur();
 							if (isLocked) showLockHint();
+							else if (name === 'secret' && terminalMode) openTerminal();
 							else navigateTo(faceName, face.route);
 						}}
 						aria-label={face.label}
@@ -86,9 +108,7 @@
 							<span class="lock-badge" aria-hidden="true"><Lock size={9} strokeWidth={2.5} /></span>
 						{/if}
 					</button>
-					{#if isMobile && name === 'secret'}
-						<span class="nav-tooltip"> Not available on mobile </span>
-					{:else if isLocked}
+					{#if isLocked}
 						<span class="nav-tooltip lock" id="lock-hint" role="status">{lockHint}</span>
 					{/if}
 				</div>
@@ -96,6 +116,15 @@
 		{/each}
 	</ul>
 </nav>
+
+{#if terminalOpen}
+	<KeyTerminal
+		hint={lockHint}
+		accepts={[getKey(), 'ˆ', '＾']}
+		onUnlock={unlockFromTerminal}
+		onClose={() => (terminalOpen = false)}
+	/>
+{/if}
 
 <style>
 	.nav-button-wrapper {
