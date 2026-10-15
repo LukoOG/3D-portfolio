@@ -14,7 +14,7 @@
 	// ─── Locked secret face: explain instead of silently doing nothing ────────
 	let locked = $derived(!isMobile && !progress.cipherSolved);
 	const totalLength = Object.values(TOKEN_MAP).length
-	$inspect(progress.visited)
+
 	let seen = $derived(
 		Object.values(TOKEN_MAP).filter((t) => progress.visited.has(t)).length
 	)
